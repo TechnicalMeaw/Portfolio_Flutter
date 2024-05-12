@@ -156,7 +156,7 @@ class OverviewTab extends StatelessWidget {
                                   image: DecorationImage(
                                     image: const NetworkImage("https://img.freepik.com/free-vector/blank-blue-halftone-background_53876-114466.jpg"),
                                     fit: BoxFit.cover,
-                                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.8), BlendMode.dstATop),
+                                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.9), BlendMode.dstATop),
                                   )
                               ),
                               child: ClipRRect(
@@ -355,18 +355,96 @@ class OverviewTab extends StatelessWidget {
                     child: ClipRect(
                       child: BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                      child: const Column(
+                      child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Summary", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.black),),
-                        SizedBox(height: 10,),
-                        Text(
+                        const Text("Summary", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.black),),
+                        const SizedBox(height: 10,),
+                        const Text(
                           "I'm a seasoned Flutter and Android developer with 2+ years of experience. From enhancing apps to building from scratch, I've served 500k+ users. Proficient in Django, FastAPI, Firebase, and AWS, let's create exceptional software together!",
                           softWrap: true,
                           style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.black),
                           overflow: TextOverflow.visible,
                         ),
 
+                        const SizedBox(height: 32,),
+                        Obx(
+                              ()=> AnimatedOpacity(
+                              duration: const Duration(milliseconds: 800),
+                              opacity: viewModel.isHireMeVisible.value ? 1: 0,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () async {
+                                      // final Uri url = Uri.parse('mailto:santanumukherjeebh@gmail.com?subject=Exciting Opportunity: Join Our Team!&body=Hi Santanu,\n\nImpressed by your portfolio, we\'re keen on having you join our team. Ready to chat about it?\n\nBest regards,\n[Your Name]');
+                                      final Uri url = Uri.parse('https://1drv.ms/b/s!AofcIzI1lmhnhLlwwjJGyPUD6OicEg?e=vUoFsM');
+                                      if (!await launchUrl(url)) {
+                                        throw Exception('Could not launch $url');
+                                      }
+                                    },
+                                    onHover: (isHovered){
+                                      viewModel.isDownloadCvBtnHovered.value = isHovered;
+                                    },
+                                    child: AnimatedContainer(
+                                      duration: const Duration(milliseconds: 200),
+                                      // margin: EdgeInsets.only(
+                                      // left:  viewModel.isDownloadCvBtnHovered.value? 2.5 : 3,
+                                      // right: viewModel.isDownloadCvBtnHovered.value? 2.5 : 3,
+                                      // top: viewModel.isDownloadCvBtnHovered.value? 0: 1,
+                                      // bottom: viewModel.isDownloadCvBtnHovered.value? 0: 1,
+                                      // ),
+                                      padding: EdgeInsets.symmetric(horizontal: !viewModel.isDownloadCvBtnHovered.value? 24 : 24,
+                                          // vertical: viewModel.isDownloadCvBtnHovered.value? 12 : 12
+                                          vertical: 12
+                                      ),
+                                      decoration: BoxDecoration(color:!viewModel.isDownloadCvBtnHovered.value? ColorConstants.white.withOpacity(0.8) : ColorConstants.black.withOpacity(0.9),
+                                        borderRadius: BorderRadius.circular(24),
+                                        border: Border.all(width: 1, color: !viewModel.isDownloadCvBtnHovered.value? ColorConstants.black : ColorConstants.white),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: ColorConstants.glassBlue.withOpacity(0.4),
+                                            spreadRadius: 1,
+                                            blurRadius: 5,
+                                            offset: const Offset(0, 0), // changes position of shadow
+                                          ),],),
+                                      child: Text("Download CV", style: TextStyle(fontSize: 14,
+                                          fontWeight: !viewModel.isDownloadCvBtnHovered.value? FontWeight.w500: FontWeight.w500,
+                                          color: !viewModel.isDownloadCvBtnHovered.value? ColorConstants.black : ColorConstants.white),
+                                      ),),
+                                  ),
+                                  const SizedBox(width: 24,),
+
+                                  // AnimatedContainer(
+                                  //   duration: const Duration(milliseconds: 200),
+                                  // padding: EdgeInsets.symmetric(horizontal: viewModel.isDownloadCvBtnHovered.value? 22 : 20, vertical: viewModel.isDownloadCvBtnHovered.value? 14 : 12),
+                                  // decoration: BoxDecoration(
+                                  // color: viewModel.isDownloadCvBtnHovered.value? ColorConstants.black.withOpacity(0.8) : ColorConstants.black.withOpacity(0.6),
+                                  // borderRadius: BorderRadius.circular(24),
+                                  // border: Border.all(width: 1, color: ColorConstants.glassWhite),
+                                  // ),
+                                  // child:
+                                  InkWell(
+                                    onTap: (){
+                                      viewModel.animateToProjectsTab();
+                                    },
+                                    onHover: (isHovered){
+                                      viewModel.isViewProjectsBtnHovered.value = isHovered;
+                                    },
+                                    child: Obx(
+                                          ()=> Text("View Projects",
+                                        style: TextStyle(fontSize: 14, fontWeight: viewModel.isViewProjectsBtnHovered.value ? FontWeight.w700 : FontWeight.w500, color:viewModel.isViewProjectsBtnHovered.value ? ColorConstants.black : ColorConstants.darkGray,
+                                            decoration: TextDecoration.underline,
+                                            decorationColor: !viewModel.isViewProjectsBtnHovered.value ? ColorConstants.glassBlack : ColorConstants.darkGray),),
+                                    ),
+                                  )
+                                  // ,)
+
+                                ],
+                              )),
+                        ),
                       ],
                     ),))
                   ),
@@ -496,88 +574,7 @@ class OverviewTab extends StatelessWidget {
                 // ),
 
 
-                const SizedBox(height: 32,),
-                Obx(
-                  ()=> AnimatedOpacity(
-                      duration: const Duration(milliseconds: 800),
-                      opacity: viewModel.isHireMeVisible.value ? 1: 0,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            onTap: () async {
-                              final Uri url = Uri.parse('mailto:santanumukherjeebh@gmail.com?subject=Exciting Opportunity: Join Our Team!&body=Hi Santanu,\n\nImpressed by your portfolio, we\'re keen on having you join our team. Ready to chat about it?\n\nBest regards,\n[Your Name]');
-                              if (!await launchUrl(url)) {
-                              throw Exception('Could not launch $url');
-                              }
-                            },
-                            onHover: (isHovered){
-                              viewModel.isDownloadCvBtnHovered.value = isHovered;
-                            },
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 200),
-                              // margin: EdgeInsets.only(
-                                // left:  viewModel.isDownloadCvBtnHovered.value? 2.5 : 3,
-                                // right: viewModel.isDownloadCvBtnHovered.value? 2.5 : 3,
-                                // top: viewModel.isDownloadCvBtnHovered.value? 0: 1,
-                                // bottom: viewModel.isDownloadCvBtnHovered.value? 0: 1,
-                              // ),
-                              padding: EdgeInsets.symmetric(horizontal: viewModel.isDownloadCvBtnHovered.value? 24 : 24,
-                                  // vertical: viewModel.isDownloadCvBtnHovered.value? 12 : 12
-                                  vertical: 12
-                              ),
-                              decoration: BoxDecoration(color: viewModel.isDownloadCvBtnHovered.value? ColorConstants.white.withOpacity(0.8) : ColorConstants.black.withOpacity(0.9),
-                                borderRadius: BorderRadius.circular(24),
-                                border: Border.all(width: 1, color: viewModel.isDownloadCvBtnHovered.value? ColorConstants.black : ColorConstants.white),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: ColorConstants.glassBlue.withOpacity(0.4),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 0), // changes position of shadow
-                                  ),],),
-                              child: Text("Download CV", style: TextStyle(fontSize: 14,
-                                  fontWeight: viewModel.isDownloadCvBtnHovered.value? FontWeight.w500: FontWeight.w500,
-                                  color: viewModel.isDownloadCvBtnHovered.value? ColorConstants.black : ColorConstants.white),
-                              ),),
-                          ),
-                          const SizedBox(width: 28,),
 
-                          // AnimatedContainer(
-                          //   duration: const Duration(milliseconds: 200),
-                          // padding: EdgeInsets.symmetric(horizontal: viewModel.isDownloadCvBtnHovered.value? 22 : 20, vertical: viewModel.isDownloadCvBtnHovered.value? 14 : 12),
-                          // decoration: BoxDecoration(
-                          // color: viewModel.isDownloadCvBtnHovered.value? ColorConstants.black.withOpacity(0.8) : ColorConstants.black.withOpacity(0.6),
-                          // borderRadius: BorderRadius.circular(24),
-                          // border: Border.all(width: 1, color: ColorConstants.glassWhite),
-                          // ),
-                          // child:
-                          MouseRegion(
-                            onHover: (pointer){
-                              viewModel.isViewProjectsBtnHovered.value = true;
-                            },
-                            onExit: (pointer){
-                              viewModel.isViewProjectsBtnHovered.value = false;
-                            },
-                            child: InkWell(
-                              onTap: (){
-                                viewModel.animateToExperienceTab();
-                              },
-                              child: Obx(
-                                  ()=> Text("View Projects",
-                                    style: TextStyle(fontSize: 14, fontWeight: viewModel.isViewProjectsBtnHovered.value ? FontWeight.w700 : FontWeight.w500, color:viewModel.isViewProjectsBtnHovered.value ? ColorConstants.black : ColorConstants.white,
-                                        decoration: TextDecoration.underline,
-                                        decorationColor: viewModel.isViewProjectsBtnHovered.value ? ColorConstants.glassBlack : ColorConstants.glassWhite),),
-                              ),
-                            ),
-                          )
-                          // ,)
-
-                        ],
-                      )),
-                ),
 
 
 
@@ -883,7 +880,7 @@ class OverviewTab extends StatelessWidget {
                                   image: DecorationImage(
                                     image: const NetworkImage("https://img.freepik.com/premium-photo/beautiful-colorful-background-vector-gradation-set-wallpaper-printable-template_515653-42.jpg"),
                                     fit: BoxFit.cover,
-                                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.6), BlendMode.dstATop),
+                                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.8), BlendMode.dstATop),
                                   )
                               ),
                               child: ClipRect(
@@ -935,7 +932,7 @@ class OverviewTab extends StatelessWidget {
                                         const SizedBox(height: 2,),
                                         const Text("2018 - 2022", style: TextStyle(fontSize: 10, color: ColorConstants.textBlue, fontWeight: FontWeight.w400)),
                                         const SizedBox(height: 6,),
-                                        const Text("CGPA: 9.04", style: TextStyle(fontSize: 14, color: ColorConstants.black, fontWeight: FontWeight.w500)),
+                                        const Text("CGPA: 9.04", style: TextStyle(fontSize: 12, color: ColorConstants.black, fontWeight: FontWeight.w500)),
                                         // Row(
                                         //   children: [
                                         //     Expanded(
@@ -981,6 +978,7 @@ class OverviewTab extends StatelessWidget {
               margin: const EdgeInsets.all(16),
               padding: const EdgeInsets.symmetric(horizontal: 24),
               decoration: BoxDecoration(
+                color: ColorConstants.cyanBlue.withOpacity(0.6),
                 borderRadius: BorderRadius.circular(16),
                 image: DecorationImage(
                   image: const NetworkImage("https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg"),
@@ -1079,7 +1077,7 @@ class OverviewTab extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 16),
                   padding: const EdgeInsets.all(32),
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                      color: ColorConstants.glassWhite.withOpacity(0.4),
+                      color: ColorConstants.glassWhite.withOpacity(0.8),
                       // image: DecorationImage(
                       //   image: const NetworkImage("https://images.squarespace-cdn.com/content/v1/5ffb7c47a24aef1e5b942c13/1618436873379-0JSK85ANOQC8Y2QN1O98/gs-gradientsite2.png"),
                       //   fit: BoxFit.cover,
@@ -1116,7 +1114,7 @@ class OverviewTab extends StatelessWidget {
                                    onHover: (isHovered){
                                      viewModel.link1Hovered.value = isHovered;
                                    },
-                                   child: Obx(()=> Icon(Icons.open_in_new_rounded, size: 10, color: viewModel.link1Hovered.value? ColorConstants.white.withOpacity(0.8) : ColorConstants.textBlue,)))
+                                   child: Obx(()=> Icon(Icons.open_in_new_rounded, size: 10, color: viewModel.link1Hovered.value? ColorConstants.orange : ColorConstants.textBlue,)))
                              ],
                            ),
                            Wrap(
@@ -1137,7 +1135,7 @@ class OverviewTab extends StatelessWidget {
                                    onHover: (isHovered){
                                      viewModel.link2Hovered.value = isHovered;
                                    },
-                                   child: Obx(()=> Icon(Icons.open_in_new_rounded, size: 10, color: viewModel.link2Hovered.value? ColorConstants.white.withOpacity(0.8) : ColorConstants.textBlue,)))
+                                   child: Obx(()=> Icon(Icons.open_in_new_rounded, size: 10, color: viewModel.link2Hovered.value? ColorConstants.orange : ColorConstants.textBlue,)))
                              ],
                            ),
                            Wrap(
@@ -1158,7 +1156,7 @@ class OverviewTab extends StatelessWidget {
                                    onHover: (isHovered){
                                      viewModel.link3Hovered.value = isHovered;
                                    },
-                                   child: Obx(()=> Icon(Icons.open_in_new_rounded, size: 10, color: viewModel.link3Hovered.value? ColorConstants.white.withOpacity(0.8) : ColorConstants.textBlue,)))
+                                   child: Obx(()=> Icon(Icons.open_in_new_rounded, size: 10, color: viewModel.link3Hovered.value? ColorConstants.orange : ColorConstants.textBlue,)))
                              ],
                            ),
                            Wrap(
@@ -1179,7 +1177,7 @@ class OverviewTab extends StatelessWidget {
                                    onHover: (isHovered){
                                      viewModel.link4Hovered.value = isHovered;
                                    },
-                                   child: Obx(()=> Icon(Icons.open_in_new_rounded, size: 10, color: viewModel.link4Hovered.value? ColorConstants.white.withOpacity(0.8) : ColorConstants.textBlue,)))
+                                   child: Obx(()=> Icon(Icons.open_in_new_rounded, size: 10, color: viewModel.link4Hovered.value? ColorConstants.orange : ColorConstants.textBlue,)))
                              ],
                            ),
                          ],

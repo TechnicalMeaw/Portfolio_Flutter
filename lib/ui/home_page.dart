@@ -8,8 +8,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:portfolio/resources/asset_constants.dart';
 import 'package:portfolio/resources/color_constants.dart';
-import 'package:portfolio/ui/tabs/experience.dart';
-import 'package:portfolio/ui/tabs/overview.dart';
+
 import 'package:portfolio/view_model/base_controller.dart';
 import 'package:portfolio/view_model/home/home_page_view_model.dart';
 
@@ -274,56 +273,51 @@ Widget _mainTabWidget(
   return Tooltip(
     message: toolTipText,
     margin: const EdgeInsets.only(bottom: 15),
-    child: MouseRegion(
-      child: Obx(
-        () => InkWell(
-          onTap: () {
-            isHovered.value = false;
-            if (onClick != null) {
-              onClick();
-            }
-          },
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 150),
-            curve: Curves.easeIn,
-            height: isHovered.value ? 55 : 45,
-            width: isHovered.value ? 55 : 45,
-            padding: EdgeInsets.all(2),
-            margin: isHovered.value
-                ? const EdgeInsets.symmetric(horizontal: 4.5)
-                : EdgeInsets.zero,
-            decoration: BoxDecoration(
-                color: isHovered.value
-                    // ? ColorConstants.white.withAlpha(80)
-                    // : ColorConstants.white.withAlpha(80),
-                    ? ColorConstants.glassBlack.withAlpha(50)
-                    : ColorConstants.glassWhite.withAlpha(50),
-                borderRadius: BorderRadius.circular(8)),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 6.0, left: 6.0, right: 6.0, bottom: 1.0),
-                  child: Image.asset(
-                    logo,
-                    fit: BoxFit.cover,
-                  ),
+    child: Obx(
+      () => InkWell(
+        onTap: () {
+          // isHovered.value = false;
+          if (onClick != null) {
+            onClick();
+          }
+        },
+        onHover: (hovered){
+          isHovered.value = hovered;
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 150),
+          curve: Curves.easeIn,
+          height: isHovered.value ? 55 : 45,
+          width: isHovered.value ? 55 : 45,
+          padding: EdgeInsets.all(2),
+          margin: isHovered.value
+              ? const EdgeInsets.symmetric(horizontal: 4.5)
+              : EdgeInsets.zero,
+          decoration: BoxDecoration(
+              color: isHovered.value
+                  // ? ColorConstants.white.withAlpha(80)
+                  // : ColorConstants.white.withAlpha(80),
+                  ? ColorConstants.glassBlack.withAlpha(50)
+                  : ColorConstants.glassWhite.withAlpha(50),
+              borderRadius: BorderRadius.circular(8)),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 6.0, left: 6.0, right: 6.0, bottom: 1.0),
+                child: Image.asset(
+                  logo,
+                  fit: BoxFit.cover,
                 ),
-                isInMemoryStack.value ? Container(height: 3,
-                    width: currentTab.value == index? 11 : 5.5,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(2.5),
-                    color: ColorConstants.glassWhite,),
-                  ): const SizedBox(height: 3,)
-              ],
-            ),
+              ),
+              isInMemoryStack.value ? Container(height: 3,
+                  width: currentTab.value == index? 11 : 5.5,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(2.5),
+                  color: ColorConstants.glassWhite,),
+                ): const SizedBox(height: 3,)
+            ],
           ),
         ),
       ),
-      onHover: (pinter) {
-        isHovered.value = true;
-      },
-      onExit: (exitEvent) {
-        isHovered.value = false;
-      },
     ),
   );
 }

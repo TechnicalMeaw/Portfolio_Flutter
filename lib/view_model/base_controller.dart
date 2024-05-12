@@ -2,11 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/ui/tabs/experience.dart';
 import 'package:portfolio/ui/tabs/overview.dart';
+import 'package:portfolio/view_model/tabs/education_tab_view_model.dart';
+import 'package:portfolio/view_model/tabs/experience_tab_view_model.dart';
 import 'package:portfolio/view_model/tabs/overview_tab_view_model.dart';
+import 'package:portfolio/view_model/tabs/projects_tab_view_model.dart';
 
 abstract class BaseGetXController extends GetxController with GetSingleTickerProviderStateMixin{
 
   static late TabController tabController;
+
+  static late OverviewTabViewModel overviewTabViewModel;
+  static late ExperienceTabViewModel experienceTabViewModel;
+  static late ProjectsTabViewModel projectsTabViewModel;
+  static late EducationTabViewModel educationTabViewModel;
+
   late final List<Widget> allTabs;
 
   static final List<RxBool> _allTabsStackStatus = [false.obs, false.obs, false.obs, false.obs];
@@ -14,6 +23,7 @@ abstract class BaseGetXController extends GetxController with GetSingleTickerPro
   static RxInt currentTab = 100.obs;
 
   void animateToOverviewTab(){
+    overviewTabViewModel.animateToOverviewTab();
     _allTabsStackStatus[0].value = true;
     if(currentTab.value <4 ) {
       _backgroundTabsStackStatus[currentTab.value].value = true;
@@ -26,6 +36,7 @@ abstract class BaseGetXController extends GetxController with GetSingleTickerPro
   }
 
   void animateToExperienceTab(){
+    experienceTabViewModel.animateToExperienceTab();
     _allTabsStackStatus[1].value = true;
 
     if(currentTab.value <4 ) {
@@ -37,6 +48,7 @@ abstract class BaseGetXController extends GetxController with GetSingleTickerPro
   }
 
   void animateToProjectsTab(){
+    projectsTabViewModel.animateToProjectsTab();
     _allTabsStackStatus[2].value = true;
     _backgroundTabsStackStatus[2].value = false;
     if(currentTab.value <4 ) {
@@ -47,6 +59,7 @@ abstract class BaseGetXController extends GetxController with GetSingleTickerPro
   }
 
   void animateToEducationTab(){
+    educationTabViewModel.animateToEducationTab();
     _allTabsStackStatus[3].value = true;
     _backgroundTabsStackStatus[3].value = false;
     if(currentTab.value <4 ) {
@@ -86,6 +99,10 @@ abstract class BaseGetXController extends GetxController with GetSingleTickerPro
   @override
   void onClose() {
     tabController.dispose();
+    overviewTabViewModel.dispose();
+    experienceTabViewModel.dispose();
+    projectsTabViewModel.dispose();
+    educationTabViewModel.dispose();
     super.onClose();
   }
 }

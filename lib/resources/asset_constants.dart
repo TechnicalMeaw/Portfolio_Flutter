@@ -6,6 +6,7 @@ class AssetConstants{
 
   static const imgBackgroundImage = "$_rootImagesPath/background.jpg";
   static const imgProfileImage = "$_rootImagesPath/img_profile.png";
+  static const imgPlantonicThumb = "$_rootImagesPath/plantonic_thumb.jpg";
 
 
   static const icOverview = "$_rootIconsPath/ic_overview.png";

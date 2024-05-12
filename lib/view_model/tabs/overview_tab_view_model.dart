@@ -100,7 +100,7 @@ class OverviewTabViewModel extends BaseGetXController {
       resetAnimations();
       startOverviewPageAnimations();
     }
-    super.animateToOverviewTab();
+    // super.animateToOverviewTab();
   }
 
   void startOverviewPageAnimations(){
@@ -132,43 +132,43 @@ class OverviewTabViewModel extends BaseGetXController {
           t6 = Future.delayed(const Duration(milliseconds: 900), () {
             isHireMeVisible.value = true;
           });
-          t7 = Future.delayed(const Duration(milliseconds: 1300), () {
+          t7 = Future.delayed(const Duration(milliseconds: 1200), () {
             isKPI1Visible.value = true;
-            startIncreasingAnimation(kpi1Value, 2, 100, 400, increaseValue: 1);
+            startIncreasingAnimation(kpi1Value, 2, 100, 500, increaseValue: 1);
           });
           t8 = Future.delayed(const Duration(milliseconds: 1600), () {
             isKPI2Visible.value = true;
-            startIncreasingAnimation(kpi2Value, 7, 100, 190, increaseValue: 1);
+            startIncreasingAnimation(kpi2Value, 7, 100, 220, increaseValue: 1);
           });
-          t9 = Future.delayed(const Duration(milliseconds: 1900), () {
+          t9 = Future.delayed(const Duration(milliseconds: 1850), () {
             isKPI3Visible.value = true;
-            startIncreasingAnimation(kpi3Value, 6, 100, 220, increaseValue: 1);
+            startIncreasingAnimation(kpi3Value, 6, 100, 360, increaseValue: 1);
           });
-          t10 = Future.delayed(const Duration(milliseconds: 2200), () {
+          t10 = Future.delayed(const Duration(milliseconds: 2300), () {
             isKPI4Visible.value = true;
-            startIncreasingAnimation(kpi4Value, 6, 100, 200, increaseValue: 1);
+            startIncreasingAnimation(kpi4Value, 6, 100, 300, increaseValue: 1);
           });
           t11 = Future.delayed(const Duration(milliseconds: 2500), () {
             isKPI5Visible.value = true;
-            startIncreasingAnimation(kpi5Value, 56, 200, 32, increaseValue: 4);
+            startIncreasingAnimation(kpi5Value, 56, 200, 120, increaseValue: 4);
           });
         });
 
     t12 = Future.delayed(const Duration(milliseconds: 3200), () {
       isSkillsVisible.value = true;
-      startIncreasingAnimation(androidSkillRating, 92, 100, 35);
-      startIncreasingAnimation(flutterSkillRating, 83, 200, 30);
-      startIncreasingAnimation(djangoSkillRating, 71, 300, 45);
-      startIncreasingAnimation(fastApiSkillRating, 76, 400, 25);
-      startIncreasingAnimation(problemSolvingSkillRating, 92, 500, 40);
-      startIncreasingAnimation(firebaseSkillRating, 84, 600, 30);
-      startIncreasingAnimation(pythonSkillRating, 90, 700, 25);
-      startIncreasingAnimation(dsaSkillRating, 86, 800, 35);
-      startIncreasingAnimation(awsSkillRating, 62, 900, 45);
-      startIncreasingAnimation(kotlinSkillRating, 86, 1000, 60);
-      startIncreasingAnimation(dartSkillRating, 76, 1100, 35);
-      startIncreasingAnimation(javaSkillRating, 80, 1300, 25);
-      startIncreasingAnimation(gitSkillRating, 74, 1400, 45);
+      startIncreasingAnimation(androidSkillRating, 92, 100, 35~/2);
+      startIncreasingAnimation(flutterSkillRating, 83, 200, 30~/2);
+      startIncreasingAnimation(djangoSkillRating, 71, 300, 45~/2);
+      startIncreasingAnimation(fastApiSkillRating, 76, 400, 25~/2);
+      startIncreasingAnimation(problemSolvingSkillRating, 92, 500, 40~/6);
+      startIncreasingAnimation(firebaseSkillRating, 84, 600, 30~/6);
+      startIncreasingAnimation(pythonSkillRating, 90, 700, 25~/8);
+      startIncreasingAnimation(dsaSkillRating, 86, 750, 35~/8);
+      startIncreasingAnimation(awsSkillRating, 62, 800, 45~/10);
+      startIncreasingAnimation(kotlinSkillRating, 86, 950, 60~/10);
+      startIncreasingAnimation(dartSkillRating, 76, 1000, 35~/14);
+      startIncreasingAnimation(javaSkillRating, 80, 1150, 25~/16);
+      startIncreasingAnimation(gitSkillRating, 74, 1200, 45~/18);
 
 
     });
@@ -180,7 +180,7 @@ class OverviewTabViewModel extends BaseGetXController {
 
   }
 
-  void startIncreasingAnimation(RxInt skillRatingInt, int maxSkillRating, int delay, int increaseDelay, {int increaseValue = 2}){
+  void startIncreasingAnimation(RxInt skillRatingInt, int maxSkillRating, int delay, int increaseDelay, {int increaseValue = 1}){
     late Timer timer;
     Future.delayed(
       Duration(milliseconds: delay),

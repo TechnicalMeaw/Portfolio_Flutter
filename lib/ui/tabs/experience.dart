@@ -4,7 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/state_manager.dart';
 import 'package:portfolio/model/experience_company_data_model.dart';
 import 'package:portfolio/model/pie_chart_data_model.dart';
 import 'package:portfolio/resources/color_constants.dart';
@@ -125,122 +128,48 @@ class ExperienceTab extends StatelessWidget {
   Widget get _leftColumn => Column(
     children: [
 
-      Container(
-          padding: const EdgeInsets.all(32),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-              color: ColorConstants.cyanBlue.withOpacity(0.5),
-              image: DecorationImage(
-                image: const NetworkImage("https://static.vecteezy.com/system/resources/previews/006/861/154/non_2x/light-blue-background-gradient-illustration-eps10-vector.jpg"),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.8), BlendMode.dstATop),
-              )
-          ),
-          child: ClipRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+      Obx(
+      ()=> AnimatedOpacity(
+          duration: const Duration(milliseconds: 800),
+          opacity: viewModel.isProExperienceVisible.value == true ? 1 : 0,
+          child: Container(
+              padding: const EdgeInsets.all(32),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+                  color: ColorConstants.cyanBlue.withOpacity(0.5),
+                  image: DecorationImage(
+                    image: const NetworkImage("https://static.vecteezy.com/system/resources/previews/006/861/154/non_2x/light-blue-background-gradient-illustration-eps10-vector.jpg"),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.8), BlendMode.dstATop),
+                  )
+              ),
+              child: ClipRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Professional Experience", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.black),),
-                        // Text("Know More", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.black, decoration: TextDecoration.underline),),
-                      ],
-                    ),
-                    const SizedBox(height: 10,),
-
-                    ...List.generate(viewModel.experienceCompanyList.length, (index) =>
-                    Column(
-                      children: [
-                        if(index != 0)
-                          const SizedBox(height: 16,),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: ColorConstants.lightCyanBlue.withOpacity(0.4),
-                              gradient: LinearGradient(
-                                  colors: [
-                                    ColorConstants.lightCyanBlue.withAlpha(30),
-                                    ColorConstants.cyanBlue.withAlpha(50),
-                                  ],
-                                  begin: const FractionalOffset(0.0, 0.0),
-                                  end: const FractionalOffset(1.0, 0.0),
-                                  stops: const [0.0, 1.0],
-                                  tileMode: TileMode.clamp),
-                              borderRadius: BorderRadius.circular(16)),
-                          padding: const EdgeInsets.all(16),
-                          child: _companyWidget(
-                            companyData: viewModel.experienceCompanyList[index],
-                            // jobTitle: "Software Engineer",
-                            // companyName: "Mantra Labs",
-                            // jobDuration: "June 2022 - Present",
-                            // keyResponsibilities: [
-                            //   "Flutter developer with expertise in state management using Bloc, GetX.",
-                            //   "Consistently delivered pixel-perfect UI designs with functionalities.",
-                            //   "Optimized MySQL data flow with Django Restful APIs, cutting response time by 30%, boosting user experience."
-                            // ],
-                            index: index,
-                            // length: 2
-                          ),
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text("Professional Experience", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.black),),
+                            // Text("Know More", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.black, decoration: TextDecoration.underline),),
+                          ],
                         ),
+                        const SizedBox(height: 10,),
 
-                      ],
-                    )
-              )
-              //       const SizedBox(height: 24,),
-              //       _companyWidget(
-              //         jobTitle: "Android Developer",
-              //         companyName: "Coprotect Ventures",
-              //         jobDuration: "Aug 2021 - Oct 2021",
-              //         keyResponsibilities: ["End-to-end development of a social media application.", "Remote collaboration with a team of 5 members."],
-              //         index: 0,
-              //         // length: 2
-              //       ),
-                  ],
-                ),))
-      ),
-      const SizedBox(height: 32,),
-      Container(
-          padding: const EdgeInsets.all(32),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-              color: ColorConstants.queenViolet.withOpacity(0.5),
-              image: DecorationImage(
-                image: const NetworkImage("https://img.freepik.com/free-photo/pink-yellow-plain-background_53876-98329.jpg"),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.8), BlendMode.dstATop),
-              )
-          ),
-          child: ClipRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text("Freelancing Experience", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.black),),
-                        // Text("Know More", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.black, decoration: TextDecoration.underline),),
-                      ],
-                    ),
-                    const SizedBox(height: 10,),
-
-                    ...List.generate(viewModel.freelanceExperienceList.length, (index) =>
+                        ...List.generate(viewModel.experienceCompanyList.length, (index) =>
                         Column(
                           children: [
                             if(index != 0)
                               const SizedBox(height: 16,),
                             Container(
                               decoration: BoxDecoration(
-                                  color: ColorConstants.glassWhite.withOpacity(0.4),
+                                  color: ColorConstants.lightCyanBlue.withOpacity(0.4),
                                   gradient: LinearGradient(
                                       colors: [
-                                        ColorConstants.glassWhite.withAlpha(30),
-                                        // ColorConstants.queenViolet.withAlpha(5),
-                                        ColorConstants.lightQueenViolet.withAlpha(30),
-                                        // ColorConstants.orange.withAlpha(10),
+                                        ColorConstants.lightCyanBlue.withAlpha(30),
+                                        ColorConstants.cyanBlue.withAlpha(50),
                                       ],
                                       begin: const FractionalOffset(0.0, 0.0),
                                       end: const FractionalOffset(1.0, 0.0),
@@ -249,7 +178,7 @@ class ExperienceTab extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(16)),
                               padding: const EdgeInsets.all(16),
                               child: _companyWidget(
-                                companyData: viewModel.freelanceExperienceList[index],
+                                companyData: viewModel.experienceCompanyList[index],
                                 // jobTitle: "Software Engineer",
                                 // companyName: "Mantra Labs",
                                 // jobDuration: "June 2022 - Present",
@@ -259,25 +188,117 @@ class ExperienceTab extends StatelessWidget {
                                 //   "Optimized MySQL data flow with Django Restful APIs, cutting response time by 30%, boosting user experience."
                                 // ],
                                 index: index,
-                                isFreelancing: true
                                 // length: 2
                               ),
                             ),
 
                           ],
                         )
-                    )
-                    //       const SizedBox(height: 24,),
-                    //       _companyWidget(
-                    //         jobTitle: "Android Developer",
-                    //         companyName: "Coprotect Ventures",
-                    //         jobDuration: "Aug 2021 - Oct 2021",
-                    //         keyResponsibilities: ["End-to-end development of a social media application.", "Remote collaboration with a team of 5 members."],
-                    //         index: 0,
-                    //         // length: 2
-                    //       ),
-                  ],
-                ),))
+                  )
+                  //       const SizedBox(height: 24,),
+                  //       _companyWidget(
+                  //         jobTitle: "Android Developer",
+                  //         companyName: "Coprotect Ventures",
+                  //         jobDuration: "Aug 2021 - Oct 2021",
+                  //         keyResponsibilities: ["End-to-end development of a social media application.", "Remote collaboration with a team of 5 members."],
+                  //         index: 0,
+                  //         // length: 2
+                  //       ),
+                      ],
+                    ),))
+          ),
+        ),
+      ),
+      const SizedBox(height: 32,),
+      Obx(
+      ()=> AnimatedOpacity(
+        opacity: viewModel.isFreelanceExperienceVisible.value ? 1: 0,
+        duration: const Duration(milliseconds: 800),
+        child: Container(
+              padding: const EdgeInsets.all(32),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+                  // color: ColorConstants.highlightQueenViolet.withOpacity(0.6),
+                  gradient: LinearGradient(
+                    colors: [
+                      ColorConstants.highlightQueenViolet.withOpacity(0.74),
+                      ColorConstants.deepQueenViolet.withOpacity(0.95)
+                    ]
+                  ),
+                  image: DecorationImage(
+                    image: const NetworkImage("https://static.vecteezy.com/system/resources/previews/006/861/154/non_2x/light-blue-background-gradient-illustration-eps10-vector.jpg"),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.45), BlendMode.dstATop),
+                  )
+              ),
+              child: ClipRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text("Freelancing Experience", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white),),
+                            // Text("Know More", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.black, decoration: TextDecoration.underline),),
+                          ],
+                        ),
+                        const SizedBox(height: 10,),
+
+                        ...List.generate(viewModel.freelanceExperienceList.length, (index) =>
+                            Column(
+                              children: [
+                                if(index != 0)
+                                  const SizedBox(height: 16,),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: ColorConstants.glassWhite.withOpacity(0.4),
+                                      gradient: LinearGradient(
+                                          colors: [
+                                            // ColorConstants.glassWhite.withAlpha(60),
+                                            ColorConstants.queenViolet.withAlpha(20),
+                                            ColorConstants.deepQueenViolet.withAlpha(80),
+                                            // ColorConstants.orange.withAlpha(10),
+                                          ],
+                                          begin: const FractionalOffset(0.0, 0.0),
+                                          end: const FractionalOffset(1.0, 0.0),
+                                          stops: const [0.0, 1.0],
+                                          tileMode: TileMode.clamp),
+                                      borderRadius: BorderRadius.circular(16)),
+                                  padding: const EdgeInsets.all(16),
+                                  child: _companyWidget(
+                                    companyData: viewModel.freelanceExperienceList[index],
+                                    // jobTitle: "Software Engineer",
+                                    // companyName: "Mantra Labs",
+                                    // jobDuration: "June 2022 - Present",
+                                    // keyResponsibilities: [
+                                    //   "Flutter developer with expertise in state management using Bloc, GetX.",
+                                    //   "Consistently delivered pixel-perfect UI designs with functionalities.",
+                                    //   "Optimized MySQL data flow with Django Restful APIs, cutting response time by 30%, boosting user experience."
+                                    // ],
+                                    index: index,
+                                    isFreelancing: true
+                                    // length: 2
+                                  ),
+                                ),
+
+                              ],
+                            )
+                        )
+                        //       const SizedBox(height: 24,),
+                        //       _companyWidget(
+                        //         jobTitle: "Android Developer",
+                        //         companyName: "Coprotect Ventures",
+                        //         jobDuration: "Aug 2021 - Oct 2021",
+                        //         keyResponsibilities: ["End-to-end development of a social media application.", "Remote collaboration with a team of 5 members."],
+                        //         index: 0,
+                        //         // length: 2
+                        //       ),
+                      ],
+                    ),))
+          ),
+      ),
       ),
     ],
   );
@@ -309,11 +330,11 @@ class ExperienceTab extends StatelessWidget {
                 height: 12,
                 width: 12,
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(6),
-                    border: Border.all(width: 1.5, color: isFreelancing? ColorConstants.darkQueenViolet: ColorConstants.textBlue)),
+                    border: Border.all(width: 1.5, color: isFreelancing? ColorConstants.white: ColorConstants.textBlue)),
               ),
               Expanded(
                 child: Container(
-                  width: 1.5, color: isFreelancing? ColorConstants.darkQueenViolet: ColorConstants.textBlue,),
+                  width: 1.5, color: isFreelancing? ColorConstants.white: ColorConstants.textBlue,),
               ),
               const SizedBox(height: 8),
             ],
@@ -327,12 +348,12 @@ class ExperienceTab extends StatelessWidget {
                 // if(index != 0)
                 //   const SizedBox(height: 24,),
                 Text(companyData.jobTitle, style: TextStyle(fontSize: 16,
-                    fontWeight: FontWeight.w500, color: isFreelancing ? ColorConstants.darkQueenViolet : ColorConstants.deepTextBlue,
+                    fontWeight: FontWeight.w500, color: isFreelancing ? ColorConstants.white : ColorConstants.deepTextBlue,
                   shadows: <Shadow>[
                     Shadow(
                       offset: const Offset(0.0, 0.0),
                       blurRadius: 0.1,
-                      color: isFreelancing ? ColorConstants.lightYellow : ColorConstants.deepBlue,
+                      color: isFreelancing ? ColorConstants.darkQueenViolet : ColorConstants.deepBlue,
                     ),
                     const Shadow(
                       offset: Offset(0.0, 0.0),
@@ -357,7 +378,7 @@ class ExperienceTab extends StatelessWidget {
                   ],
                 )),
                 const SizedBox(height: 2,),
-                Text(companyData.jobDuration, style: TextStyle(fontSize: 10, color: isFreelancing ? ColorConstants.deepQueenViolet : ColorConstants.textBlue, fontWeight: FontWeight.w400,
+                Text(companyData.jobDuration, style: TextStyle(fontSize: 10, color: isFreelancing ? ColorConstants.glassWhite : ColorConstants.textBlue, fontWeight: FontWeight.w400,
                   shadows: <Shadow>[
                     Shadow(
                       offset: const Offset(0.0, 0.0),
@@ -384,8 +405,8 @@ class ExperienceTab extends StatelessWidget {
                                 height: 5,
                                 width: 5,
                                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(4),
-                                  border: Border.all(width: 1.5, color: ColorConstants.glassBlack),
-                                color: ColorConstants.black
+                                  border: Border.all(width: 1.5, color: isFreelancing ? ColorConstants.glassWhite : ColorConstants.glassBlack),
+                                color: isFreelancing ? ColorConstants.white : ColorConstants.black
                                 ),
                               ),
                               const SizedBox(width: 10,),
@@ -400,7 +421,7 @@ class ExperienceTab extends StatelessWidget {
                                   Text.rich(TextSpan(
                                       children: List.generate(companyData.keyResponsibilities[keyIndex].responsibilityTexts.length, (textIndex) =>
                                       TextSpan(text: companyData.keyResponsibilities[keyIndex].responsibilityTexts[textIndex].text,
-                                          style: TextStyle(fontSize: 14, color: isFreelancing ? ColorConstants.darkQueenViolet : ColorConstants.deepTextBlue,
+                                          style: TextStyle(fontSize: 14, color: isFreelancing ? ColorConstants.white : ColorConstants.deepTextBlue,
                                               fontWeight: companyData.keyResponsibilities[keyIndex].responsibilityTexts[textIndex].textType == TextType.bold ? FontWeight.w500
                                                   // : FontWeight.lerp(FontWeight.w400, FontWeight.w500, 0.5),
                                                   : FontWeight.w400,
@@ -408,12 +429,12 @@ class ExperienceTab extends StatelessWidget {
                                               Shadow(
                                                 offset: const Offset(0.0, 0.0),
                                                 blurRadius: 0.1,
-                                                color: isFreelancing ? ColorConstants.lightYellow : ColorConstants.deepBlue,
+                                                color: isFreelancing ? ColorConstants.lightQueenViolet : ColorConstants.deepBlue,
                                               ),
-                                              const Shadow(
+                                              Shadow(
                                                 offset: Offset(0.0, 0.0),
                                                 blurRadius: 0.5,
-                                                color: ColorConstants.cyanBlue,
+                                                color: isFreelancing ? ColorConstants.glassBlack : ColorConstants.cyanBlue,
                                               ),
                                             ],
                                           )))),
@@ -440,57 +461,63 @@ class ExperienceTab extends StatelessWidget {
 
   Widget get _rightColumn => Column(
     children: [
-      Container(
-          padding: const EdgeInsets.all(32),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-              color: ColorConstants.glassWhite.withOpacity(0.8),
-              image: DecorationImage(
-                image: const NetworkImage("https://img.freepik.com/premium-photo/beautiful-colorful-background-vector-gradation-set-wallpaper-printable-template_515653-42.jpg"),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.6), BlendMode.dstATop),
-              )
-          ),
-          child: ClipRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+      Obx(
+      ()=> AnimatedOpacity(
+        duration: const Duration(milliseconds: 800),
+        opacity: viewModel.isTechStackVisible.value ? 1 : 0,
+        child: Container(
+              padding: const EdgeInsets.all(32),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+                  color: ColorConstants.glassWhite.withOpacity(0.8),
+                  image: DecorationImage(
+                    image: const NetworkImage("https://img.freepik.com/premium-photo/beautiful-colorful-background-vector-gradation-set-wallpaper-printable-template_515653-42.jpg"),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.6), BlendMode.dstATop),
+                  )
+              ),
+              child: ClipRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Technology Stack", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.black),),
-                        // Text("Know More", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.black, decoration: TextDecoration.underline),),
-                      ],
-                    ),
-                    const SizedBox(height: 16,),
-                    Container(
-                      decoration: BoxDecoration(
-                          // color: ColorConstants.glassWhite.withOpacity(0.4),
-                          // gradient: LinearGradient(
-                          //     colors: [
-                          //       ColorConstants.lightCyanBlue.withAlpha(30),
-                          //       ColorConstants.cyanBlue.withAlpha(50),
-                          //     ],
-                          //     begin: const FractionalOffset(0.0, 0.0),
-                          //     end: const FractionalOffset(1.0, 0.0),
-                          //     stops: const [0.0, 1.0],
-                          //     tileMode: TileMode.clamp),
-                          borderRadius: BorderRadius.circular(16)),
-                      // padding: const EdgeInsets.symmetric(vertical: 16),
-                      child: LayoutBuilder(
-                        builder: (context, constraints) {
-                          return
-                            constraints.maxWidth > 680 ?
-                            _pieChart1Web
-                                : _pieChart1(constraints);
-                        }
-                      ),
-                    )
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text("Technology Stack", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.black),),
+                            // Text("Know More", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.black, decoration: TextDecoration.underline),),
+                          ],
+                        ),
+                        const SizedBox(height: 16,),
+                        Container(
+                          decoration: BoxDecoration(
+                              // color: ColorConstants.glassWhite.withOpacity(0.4),
+                              // gradient: LinearGradient(
+                              //     colors: [
+                              //       ColorConstants.lightCyanBlue.withAlpha(30),
+                              //       ColorConstants.cyanBlue.withAlpha(50),
+                              //     ],
+                              //     begin: const FractionalOffset(0.0, 0.0),
+                              //     end: const FractionalOffset(1.0, 0.0),
+                              //     stops: const [0.0, 1.0],
+                              //     tileMode: TileMode.clamp),
+                              borderRadius: BorderRadius.circular(16)),
+                          // padding: const EdgeInsets.symmetric(vertical: 16),
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              return
+                                constraints.maxWidth > 680 ?
+                                _pieChart1Web
+                                    : _pieChart1(constraints);
+                            }
+                          ),
+                        )
 
-                  ],
-                ),))
+                      ],
+                    ),))
+          ),
+      ),
       ),
 
       const SizedBox(height: 32,),
@@ -597,38 +624,40 @@ class ExperienceTab extends StatelessWidget {
                 children: [
                   Container(height: constraints.maxWidth/3, width: 1, color: ColorConstants.darkGray,),
                   const SizedBox(width: 32,),
-                  Wrap(
-                      spacing: 10,
-                      runSpacing: 30,
-                      direction: Axis.vertical,
-                      alignment: WrapAlignment.center,
-                      runAlignment: WrapAlignment.spaceAround,
-                      // mainAxisSize: MainAxisSize.max,
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      // crossAxisAlignment: CrossAxisAlignment.start,
-                      children: List.generate(viewModel.technologyStackList.length, (index) =>
-                          Row(children: [
-                            Container(
-                              height: 8,
-                              width: 8,
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(4),
-                                color: viewModel.technologyStackList[index].color,
-                                // border: Border.all(color: ColorConstants.darkGray, width: 0.5)
-                                boxShadow: const <BoxShadow>[
-                                  BoxShadow(
-                                    offset: Offset(0.0, 0.0),
-                                    blurRadius: 1,
-                                    color: ColorConstants.glassBlack,
-                                  ),
+                  Expanded(
+                    child: Wrap(
+                        spacing: 10,
+                        runSpacing: 30,
+                        direction: Axis.vertical,
+                        alignment: WrapAlignment.center,
+                        runAlignment: WrapAlignment.spaceAround,
+                        // mainAxisSize: MainAxisSize.max,
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        children: List.generate(viewModel.technologyStackList.length, (index) =>
+                            Row(children: [
+                              Container(
+                                height: 8,
+                                width: 8,
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(4),
+                                  color: viewModel.technologyStackList[index].color,
+                                  // border: Border.all(color: ColorConstants.darkGray, width: 0.5)
+                                  boxShadow: const <BoxShadow>[
+                                    BoxShadow(
+                                      offset: Offset(0.0, 0.0),
+                                      blurRadius: 1,
+                                      color: ColorConstants.glassBlack,
+                                    ),
 
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 16,),
-                            Text(viewModel.technologyStackList[index].title, style:
-                            const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),)
-                          ],),
-                      )
+                              const SizedBox(width: 16,),
+                              Text(viewModel.technologyStackList[index].title, style:
+                              const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),)
+                            ],),
+                        )
+                    ),
                   ),
                   const SizedBox(width: 16,),
                 ],
@@ -716,171 +745,183 @@ class ExperienceTab extends StatelessWidget {
 
 
   Widget _pieChart2(BoxConstraints constraints) {
-    return Container(
-        padding: constraints.maxWidth > 434 ? const EdgeInsets.only(left: 32, right: 32, top: 32, bottom: 52) : const EdgeInsets.all(32),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-            color: ColorConstants.glassWhite.withOpacity(0.8),
-            image: DecorationImage(
-              image: const NetworkImage("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjkwNC1udW5ueS0wMTIteC1qb2I1OTguanBn.jpg"),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.6), BlendMode.dstATop),
-            )
-        ),
-        child:
-        ClipRect(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("Programming Languages", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.black),),
-                  const SizedBox(height: 64,),
-                  Container(
-                    width: constraints.maxWidth,
-                    // height: constraints.maxWidth,
-                    padding: const EdgeInsets.all(16),
-                    child: Center(
-                      child:
-                      PieChart(
-                          size: Size(constraints.maxWidth/1.9 > 150 ? 150 : constraints.maxWidth/1.9, constraints.maxWidth/1.9 > 150 ? 150 : constraints.maxWidth/1.9),
-                          textDistance: 10,
-                          textGap: 20,
-                          isLabelVisible: false,
-                          stroke: 1,
-                          textCenterAdjustmentOffset: const Offset(-14, -10),
-                          dataList: viewModel.programmingLanguageList
+    return Obx(
+        () => AnimatedOpacity(
+          duration: const Duration(milliseconds: 800),
+          opacity: viewModel.isLangVisible.value ? 1 : 0,
+          child: Container(
+            padding: constraints.maxWidth > 434 ? const EdgeInsets.only(left: 32, right: 32, top: 32, bottom: 52) : const EdgeInsets.all(32),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+                color: ColorConstants.glassWhite.withOpacity(0.8),
+                image: DecorationImage(
+                  image: const NetworkImage("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjkwNC1udW5ueS0wMTIteC1qb2I1OTguanBn.jpg"),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.6), BlendMode.dstATop),
+                )
+            ),
+            child:
+            ClipRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("Programming Languages", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.black),),
+                      const SizedBox(height: 64,),
+                      Container(
+                        width: constraints.maxWidth,
+                        // height: constraints.maxWidth,
+                        padding: const EdgeInsets.all(16),
+                        child: Center(
+                          child:
+                          PieChart(
+                              size: Size(constraints.maxWidth/1.9 > 150 ? 150 : constraints.maxWidth/1.9, constraints.maxWidth/1.9 > 150 ? 150 : constraints.maxWidth/1.9),
+                              textDistance: 10,
+                              textGap: 20,
+                              isLabelVisible: false,
+                              stroke: 1,
+                              textCenterAdjustmentOffset: const Offset(-14, -10),
+                              dataList: viewModel.programmingLanguageList
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 64,),
-                  Center(
-                    child: Container(width: constraints.maxWidth/1.7,
-                      height: 1,
-                      color: ColorConstants.darkGray,
-                    ),
-                  ),
-                  const SizedBox(height: 8,),
+                      const SizedBox(height: 64,),
+                      Center(
+                        child: Container(width: constraints.maxWidth/1.7,
+                          height: 1,
+                          color: ColorConstants.darkGray,
+                        ),
+                      ),
+                      const SizedBox(height: 8,),
 
-                  Center(
-                    child: Wrap(
-                      direction: Axis.horizontal,
-                      alignment: WrapAlignment.spaceEvenly,
-                      spacing: 16,
-                      runSpacing: 2,
-                      children: List.generate(viewModel.programmingLanguageList.length, (index) =>
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                height: 8,
-                                width: 8,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(4),
-                                  color: viewModel.programmingLanguageList[index].color,
-                                  // border: Border.all(color: ColorConstants.darkGray, width: 0.5)
-                                  boxShadow: const <BoxShadow>[
-                                    BoxShadow(
-                                      offset: Offset(0.0, 0.0),
-                                      blurRadius: 1,
-                                      color: ColorConstants.glassBlack,
+                      Center(
+                        child: Wrap(
+                          direction: Axis.horizontal,
+                          alignment: WrapAlignment.spaceEvenly,
+                          spacing: 16,
+                          runSpacing: 2,
+                          children: List.generate(viewModel.programmingLanguageList.length, (index) =>
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    height: 8,
+                                    width: 8,
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(4),
+                                      color: viewModel.programmingLanguageList[index].color,
+                                      // border: Border.all(color: ColorConstants.darkGray, width: 0.5)
+                                      boxShadow: const <BoxShadow>[
+                                        BoxShadow(
+                                          offset: Offset(0.0, 0.0),
+                                          blurRadius: 1,
+                                          color: ColorConstants.glassBlack,
+                                        ),
+
+                                      ],
                                     ),
-
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(width: 12,),
-                              Text(viewModel.programmingLanguageList[index].title, style:
-                              const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),)
-                            ],),
-                      ),
-                    ),
-                  )
-                ],
-              ),))
+                                  ),
+                                  const SizedBox(width: 12,),
+                                  Text(viewModel.programmingLanguageList[index].title, style:
+                                  const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),)
+                                ],),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),))
+                ),
+        ),
     );
   }
 
 
   Widget _pieChart3(BoxConstraints constraints) {
-    return Container(
-        padding: const EdgeInsets.all(32),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-            color: ColorConstants.glassWhite.withOpacity(0.8),
-            image: DecorationImage(
-              image: const NetworkImage("https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg"),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.5), BlendMode.dstATop),
-            )
-        ),
-        child:
-        ClipRect(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("Domain Knowledge", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.black),),
-                  const SizedBox(height: 64,),
-                  Container(
-                    width: constraints.maxWidth,
-                    // height: constraints.maxWidth,
-                    padding: const EdgeInsets.all(16),
-                    child: Center(
-                      child:
-                      PieChart(
-                          size: Size(constraints.maxWidth/1.9 > 150 ? 150 : constraints.maxWidth/1.9, constraints.maxWidth/1.9 > 150 ? 150 : constraints.maxWidth/1.9),
-                          textDistance: 10,
-                          textGap: 20,
-                          isLabelVisible: false,
-                          stroke: 1,
-                          textCenterAdjustmentOffset: const Offset(-14, -10),
-                          dataList: viewModel.domainKnowledgeList
+    return Obx(
+        ()=> AnimatedOpacity(
+          duration: const Duration(milliseconds: 800),
+          opacity: viewModel.isDomainVisible.value ? 1 : 0,
+          child: Container(
+            padding: const EdgeInsets.all(32),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+                color: ColorConstants.glassWhite.withOpacity(0.8),
+                image: DecorationImage(
+                  image: const NetworkImage("https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg"),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.5), BlendMode.dstATop),
+                )
+            ),
+            child:
+            ClipRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("Domain Knowledge", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.black),),
+                      const SizedBox(height: 64,),
+                      Container(
+                        width: constraints.maxWidth,
+                        // height: constraints.maxWidth,
+                        padding: const EdgeInsets.all(16),
+                        child: Center(
+                          child:
+                          PieChart(
+                              size: Size(constraints.maxWidth/1.9 > 150 ? 150 : constraints.maxWidth/1.9, constraints.maxWidth/1.9 > 150 ? 150 : constraints.maxWidth/1.9),
+                              textDistance: 10,
+                              textGap: 20,
+                              isLabelVisible: false,
+                              stroke: 1,
+                              textCenterAdjustmentOffset: const Offset(-14, -10),
+                              dataList: viewModel.domainKnowledgeList
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 64,),
-                  Center(
-                    child: Container(width: constraints.maxWidth/1.7,
-                      height: 1,
-                      color: ColorConstants.darkGray,
-                    ),
-                  ),
-                  const SizedBox(height: 8,),
+                      const SizedBox(height: 64,),
+                      Center(
+                        child: Container(width: constraints.maxWidth/1.7,
+                          height: 1,
+                          color: ColorConstants.darkGray,
+                        ),
+                      ),
+                      const SizedBox(height: 8,),
 
-                  Center(
-                    child: Wrap(
-                      direction: Axis.horizontal,
-                      alignment: WrapAlignment.spaceEvenly,
-                      spacing: 16,
-                      runSpacing: 2,
-                      children: List.generate(viewModel.domainKnowledgeList.length, (index) =>
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                height: 8,
-                                width: 8,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(4),
-                                  color: viewModel.domainKnowledgeList[index].color,
-                                  // border: Border.all(color: ColorConstants.darkGray, width: 0.5)
-                                  boxShadow: const <BoxShadow>[
-                                    BoxShadow(
-                                      offset: Offset(0.0, 0.0),
-                                      blurRadius: 1,
-                                      color: ColorConstants.glassBlack,
+                      Center(
+                        child: Wrap(
+                          direction: Axis.horizontal,
+                          alignment: WrapAlignment.spaceEvenly,
+                          spacing: 16,
+                          runSpacing: 2,
+                          children: List.generate(viewModel.domainKnowledgeList.length, (index) =>
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    height: 8,
+                                    width: 8,
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(4),
+                                      color: viewModel.domainKnowledgeList[index].color,
+                                      // border: Border.all(color: ColorConstants.darkGray, width: 0.5)
+                                      boxShadow: const <BoxShadow>[
+                                        BoxShadow(
+                                          offset: Offset(0.0, 0.0),
+                                          blurRadius: 1,
+                                          color: ColorConstants.glassBlack,
+                                        ),
+
+                                      ],
                                     ),
-
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(width: 12,),
-                              Text(viewModel.domainKnowledgeList[index].title, style:
-                              const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),)
-                            ],),
-                      ),
-                    ),
-                  )
-                ],
-              ),))
+                                  ),
+                                  const SizedBox(width: 12,),
+                                  Text(viewModel.domainKnowledgeList[index].title, style:
+                                  const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),)
+                                ],),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),))
+                ),
+        ),
     );
   }
 }

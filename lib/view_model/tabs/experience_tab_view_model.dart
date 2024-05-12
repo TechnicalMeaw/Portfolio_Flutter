@@ -8,6 +8,13 @@ class ExperienceTabViewModel extends BaseGetXController {
 
   RxBool crossBtnHovered = false.obs;
   RxBool minimizeBtnHovered = false.obs;
+  RxBool isAnimationCompleted = true.obs;
+
+  RxBool isProExperienceVisible = false.obs;
+  RxBool isFreelanceExperienceVisible = false.obs;
+  RxBool isTechStackVisible = false.obs;
+  RxBool isLangVisible = false.obs;
+  RxBool isDomainVisible = false.obs;
 
   List<ExperienceCompanyDataModel> experienceCompanyList = [];
   List<ExperienceCompanyDataModel> freelanceExperienceList = [];
@@ -27,6 +34,47 @@ class ExperienceTabViewModel extends BaseGetXController {
     super.onInit();
   }
 
+
+  @override
+  void animateToExperienceTab() {
+    print("ExperienceTab First Opened----------------${!super.isTabInMemoryStack(1).value}");
+    if (!super.isTabInMemoryStack(1).value){
+      isAnimationCompleted.value = false;
+      resetAnimations();
+      startExperiencePageAnimations();
+    }
+    // super.animateToExperienceTab();
+  }
+
+  void resetAnimations(){
+    isProExperienceVisible.value = false;
+    isFreelanceExperienceVisible.value = false;
+    isTechStackVisible.value = false;
+    isLangVisible.value = false;
+    isDomainVisible.value = false;
+  }
+
+  void startExperiencePageAnimations() {
+    Future.delayed(const Duration(milliseconds: 200), (){
+      isProExperienceVisible.value = true;
+    });
+    Future.delayed(const Duration(milliseconds: 800), (){
+      isFreelanceExperienceVisible.value = true;
+    });
+    Future.delayed(const Duration(milliseconds: 700), (){
+      isTechStackVisible.value = true;
+    });
+    Future.delayed(const Duration(milliseconds: 1300), (){
+      isLangVisible.value = true;
+    });
+    Future.delayed(const Duration(milliseconds: 1800), (){
+      isDomainVisible.value = true;
+    });
+
+    Future.delayed(const Duration(milliseconds: 2400), (){
+      isAnimationCompleted.value = true;
+    });
+  }
 
 
   void addCompanyDetails() {
@@ -254,7 +302,7 @@ class ExperienceTabViewModel extends BaseGetXController {
         ExperienceCompanyDataModel(
           jobTitle: "Full Stack Mobile Developer",
           companyName: "",
-          jobDuration: "Aug 2021 - Oct 2021",
+          jobDuration: "Nov 2022 - Mar 2023",
           keyResponsibilities: [
             Responsibilities(
               // title: "Flutter",
@@ -340,6 +388,7 @@ class ExperienceTabViewModel extends BaseGetXController {
           ],
         )
     );
+
   }
 
   void addTechnologyStackData(){
@@ -384,4 +433,6 @@ class ExperienceTabViewModel extends BaseGetXController {
 
     ];
   }
+
+
 }

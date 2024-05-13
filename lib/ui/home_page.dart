@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:portfolio/resources/asset_constants.dart';
@@ -11,6 +12,7 @@ import 'package:portfolio/resources/color_constants.dart';
 
 import 'package:portfolio/view_model/base_controller.dart';
 import 'package:portfolio/view_model/home/home_page_view_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -64,115 +66,193 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+  Widget _topStatusBarWidget({required RxString currentTime}) {
+    return Align(
+        alignment: Alignment.topCenter,
+        child:
+        ClipRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+              child:
+              Container(
+                height: 25,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        colors: [
+                          ColorConstants.deepBlue.withOpacity(0.5),
+                          ColorConstants.textBlue,
+                        ],
+                        begin: FractionalOffset(0.0, 0.0),
+                        end: FractionalOffset(1.0, 0.0),
+                        stops: [0.0, 1.0],
+                        tileMode: TileMode.clamp),
+                    borderRadius: BorderRadius.circular(2),
+                    color: ColorConstants.darkBlack),
+                child: LayoutBuilder(
+                  builder: (context, constrains) => Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      constrains.maxWidth > 500
+                          ? Obx(
+                            ()=> Row(children: [
+                            InkWell(
+                              onHover: (isHovered){
+                                _viewModel.isOptionsGithubHovered.value = isHovered;
+                              },
+                              onTap: () async {
+                                final Uri url = Uri.parse('https://github.com/TechnicalMeaw');
+                                if (!await launchUrl(url)) {
+                                throw Exception('Could not launch $url');
+                                }
+                              },
+                              child: Text(
+                                "GitHub",
+                                style: TextStyle(color: _viewModel.isOptionsGithubHovered.value ? ColorConstants.cyanBlue : ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              "|",
+                              style: TextStyle(color: ColorConstants.glassBlack, fontWeight: FontWeight.w100, fontSize: 12),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            InkWell(
+                              onHover: (isHovered) {
+                                _viewModel.isOptionsLinkedInHovered.value = isHovered;
+                              },
+                              onTap: () async {
+                                final Uri url = Uri.parse('https://www.linkedin.com/in/mukherjee-santanu/');
+                                if (!await launchUrl(url)) {
+                                  throw Exception('Could not launch $url');
+                                }
+                              },
+                              child: Text(
+                                "LinkedIn",
+                                style: TextStyle(color: _viewModel.isOptionsLinkedInHovered.value ? ColorConstants.cyanBlue : ColorConstants.white,  fontWeight: FontWeight.w400, fontSize: 12),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              "|",
+                              style: TextStyle(color: ColorConstants.glassBlack,  fontWeight: FontWeight.w100, fontSize: 12),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            InkWell(
+                              onHover: (isHovered) {
+                                _viewModel.isOptionsEmailHovered.value = isHovered;
+                              },
+                              onTap: () async {
+                                final Uri url = Uri.parse('mailto:santanumukherjeebh@gmail.com');
+                                if (!await launchUrl(url)) {
+                                  throw Exception('Could not launch $url');
+                                }
+                              },
+                              child: Text(
+                                "Email",
+                                style: TextStyle(color: _viewModel.isOptionsEmailHovered.value ? ColorConstants.cyanBlue : ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              "|",
+                              style: TextStyle(color: ColorConstants.glassBlack,  fontWeight: FontWeight.w100, fontSize: 12),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            InkWell(
+                              onHover: (isHovered) {
+                                _viewModel.isOptionsPhoneHovered.value = isHovered;
+                              },
+                              onTap: () async {
+                                // viewModel.isPhoneNumberCopied.value = true;
+                                const snackBar = SnackBar(
+                                  content: Text('Phone number copied.', style: TextStyle(color: ColorConstants.white, fontWeight: FontWeight.w400),),
+                                  backgroundColor: ColorConstants.glassBlue,
+                                  elevation: 10,
+                                  behavior: SnackBarBehavior.floating,
+                                  margin: EdgeInsets.all(5),
+                                );
+                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                                final Uri url = Uri.parse('tel://+918240251373');
+                                if (!await launchUrl(url)) {
+                                  throw Exception('Could not launch $url');
+                                }
+                              },
+                              child: Text(
+                                "Phone",
+                                style: TextStyle(color: _viewModel.isOptionsPhoneHovered.value ? ColorConstants.cyanBlue : ColorConstants.white,  fontWeight: FontWeight.w400, fontSize: 12),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              "|",
+                              style: TextStyle(color: ColorConstants.glassBlack, fontWeight: FontWeight.w100, fontSize: 12),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            InkWell(
+                              onHover: (isHovered) {
+                                _viewModel.isOptionsDownloadCVHovered.value = isHovered;
+                              },
+                              onTap: () async {
+                                final Uri url = Uri.parse('https://1drv.ms/b/s!AofcIzI1lmhnhLlwwjJGyPUD6OicEg?e=vUoFsM');
+                                if (!await launchUrl(url)) {
+                                  throw Exception('Could not launch $url');
+                                }
+                              },
+                              child: Text(
+                                "Download Resume",
+                                style: TextStyle(color: _viewModel.isOptionsDownloadCVHovered.value ? ColorConstants.cyanBlue : ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
+                              ),
+                            ),
+                                                    ],
+                                                  ),
+                          )
+                          :  InkWell(
+                              onHover: (isHovered) {
+                                _viewModel.isOptionsDownloadCVHovered.value = isHovered;
+                              },
+                              onTap: () async {
+                                final Uri url = Uri.parse('https://1drv.ms/b/s!AofcIzI1lmhnhLlwwjJGyPUD6OicEg?e=vUoFsM');
+                                if (!await launchUrl(url)) {
+                                  throw Exception('Could not launch $url');
+                                }
+                              },
+                              child: Text(
+                                "Download Resume",
+                                style: TextStyle(color: _viewModel.isOptionsDownloadCVHovered.value ? ColorConstants.cyanBlue : ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
+                              ),
+                          ),
+                      Obx(
+                            () => Text(currentTime.value,
+                            style: const TextStyle(color: ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12)),
+                      )
+                    ],
+                  ),
+                ),
+              ),))
+    );
+  }
 }
 
-Widget _topStatusBarWidget({required RxString currentTime}) {
-  return Align(
-    alignment: Alignment.topCenter,
-    child:
-    ClipRect(
-      child: BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-  child:
-    Container(
-      height: 25,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [
-                ColorConstants.deepBlue.withOpacity(0.5),
-                ColorConstants.textBlue,
-              ],
-              begin: FractionalOffset(0.0, 0.0),
-              end: FractionalOffset(1.0, 0.0),
-              stops: [0.0, 1.0],
-              tileMode: TileMode.clamp),
-          borderRadius: BorderRadius.circular(2),
-          color: ColorConstants.darkBlack),
-      child: LayoutBuilder(
-        builder: (context, constrains) => Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            constrains.maxWidth > 500
-                ? const Row(
-                    children: [
-                      Text(
-                        "GitHub",
-                        style: TextStyle(color: ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "|",
-                        style: TextStyle(color: ColorConstants.glassBlack, fontWeight: FontWeight.w100, fontSize: 12),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "LinkedIn",
-                        style: TextStyle(color: ColorConstants.white,  fontWeight: FontWeight.w400, fontSize: 12),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "|",
-                        style: TextStyle(color: ColorConstants.glassBlack,  fontWeight: FontWeight.w100, fontSize: 12),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "Email",
-                        style: TextStyle(color: ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "|",
-                        style: TextStyle(color: ColorConstants.glassBlack,  fontWeight: FontWeight.w100, fontSize: 12),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "Phone",
-                        style: TextStyle(color: ColorConstants.white,  fontWeight: FontWeight.w400, fontSize: 12),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "|",
-                        style: TextStyle(color: ColorConstants.glassBlack, fontWeight: FontWeight.w100, fontSize: 12),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "Download Resume",
-                        style: TextStyle(color: ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
-                      ),
-                    ],
-                  )
-                : const Text(
-                    "Contact Me",
-                    style: TextStyle(color: ColorConstants.white),
-                  ),
-            Obx(
-              () => Text(currentTime.value,
-                  style: const TextStyle(color: ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12)),
-            )
-          ],
-        ),
-      ),
-    ),))
-  );
-}
+
 
 Widget _bottomMainTabs(HomePageViewModel viewModel) {
   return Align(

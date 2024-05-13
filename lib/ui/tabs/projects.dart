@@ -169,26 +169,32 @@ class ProjectsTab extends StatelessWidget {
   );
 
 
-  Widget get _project2Widget => Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-    child: Container(
-      padding: const EdgeInsets.all(32),
-      decoration: BoxDecoration(
-          color: ColorConstants.glassWhite,
-          borderRadius: BorderRadius.circular(16),
-          // image: DecorationImage(
-          //   image: const NetworkImage("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjkwNC1udW5ueS0wMTIteC1qb2I1OTguanBn.jpg"),
-          //   fit: BoxFit.cover,
-          //   colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.6), BlendMode.dstATop),
-          // )
-      ),
-      child: Center(
+  Widget get _project2Widget => Obx(
+      ()=> AnimatedOpacity(
+        duration: const Duration(milliseconds: 800),
+        opacity: viewModel.isComingSoonVisible.value ? 1 : 0,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 32),
-          child: Text("Coming Soon"),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Container(
+          padding: const EdgeInsets.all(32),
+          decoration: BoxDecoration(
+              color: ColorConstants.glassWhite,
+              borderRadius: BorderRadius.circular(16),
+              // image: DecorationImage(
+              //   image: const NetworkImage("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjkwNC1udW5ueS0wMTIteC1qb2I1OTguanBn.jpg"),
+              //   fit: BoxFit.cover,
+              //   colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.6), BlendMode.dstATop),
+              // )
+          ),
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 32),
+              child: Text("Coming Soon"),
+            ),
+          )
         ),
-      )
-    ),
+            ),
+      ),
   );
 
   Widget project1Image(BoxConstraints constraints) => Obx(

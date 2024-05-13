@@ -26,6 +26,12 @@ class HomePageViewModel extends BaseGetXController {
   // late final List<Widget> allTabs;
   // final OverviewTabViewModel overviewTabViewModel = Get.put(OverviewTabViewModel());
 
+  RxBool isOptionsGithubHovered = false.obs;
+  RxBool isOptionsLinkedInHovered = false.obs;
+  RxBool isOptionsEmailHovered = false.obs;
+  RxBool isOptionsPhoneHovered = false.obs;
+  RxBool isOptionsDownloadCVHovered = false.obs;
+
 
   @override
   void onInit() {

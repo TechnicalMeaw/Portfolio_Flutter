@@ -154,7 +154,7 @@ class OverviewTabViewModel extends BaseGetXController {
           });
         });
 
-    t12 = Future.delayed(const Duration(milliseconds: 3200), () {
+    t12 = Future.delayed(const Duration(milliseconds: 3000), () {
       isSkillsVisible.value = true;
       startIncreasingAnimation(androidSkillRating, 92, 100, 35~/2);
       startIncreasingAnimation(flutterSkillRating, 83, 200, 30~/2);

@@ -13,6 +13,7 @@ class ProjectsTabViewModel extends BaseGetXController {
   RxBool isProject1Visible = false.obs;
   RxBool isProject1ImageVisible = false.obs;
   RxBool isProject1DescVisible = false.obs;
+  RxBool isComingSoonVisible = false.obs;
 
   RxBool isProject1KnowMoreBtnHovered = false.obs;
 
@@ -32,6 +33,7 @@ class ProjectsTabViewModel extends BaseGetXController {
     isProject1Visible.value = false;
     isProject1ImageVisible.value = false;
     isProject1DescVisible.value = false;
+    isComingSoonVisible.value = false;
   }
 
   void startExperiencePageAnimations() {
@@ -44,8 +46,11 @@ class ProjectsTabViewModel extends BaseGetXController {
     Future.delayed(const Duration(milliseconds: 1100), (){
       isProject1DescVisible.value = true;
     });
+    Future.delayed(const Duration(milliseconds: 2000), (){
+      isComingSoonVisible.value = true;
+    });
 
-    Future.delayed(const Duration(milliseconds: 2400), (){
+    Future.delayed(const Duration(milliseconds: 2800), (){
       isAnimationCompleted.value = true;
     });
   }

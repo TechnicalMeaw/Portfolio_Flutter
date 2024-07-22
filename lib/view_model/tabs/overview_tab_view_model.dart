@@ -132,41 +132,41 @@ class OverviewTabViewModel extends BaseGetXController {
           t6 = Future.delayed(const Duration(milliseconds: 900), () {
             isHireMeVisible.value = true;
           });
-          t7 = Future.delayed(const Duration(milliseconds: 1200), () {
+          t7 = Future.delayed(const Duration(milliseconds: 1000), () {
             isKPI1Visible.value = true;
             startIncreasingAnimation(kpi1Value, 2, 100, 500, increaseValue: 1);
           });
-          t8 = Future.delayed(const Duration(milliseconds: 1600), () {
+          t8 = Future.delayed(const Duration(milliseconds: 2400), () {
             isKPI2Visible.value = true;
             startIncreasingAnimation(kpi2Value, 7, 100, 220, increaseValue: 1);
           });
-          t9 = Future.delayed(const Duration(milliseconds: 1850), () {
+          t9 = Future.delayed(const Duration(milliseconds: 4400), () {
             isKPI3Visible.value = true;
-            startIncreasingAnimation(kpi3Value, 6, 100, 360, increaseValue: 1);
+            startIncreasingAnimation(kpi3Value, 6, 500, 360, increaseValue: 1);
           });
-          t10 = Future.delayed(const Duration(milliseconds: 2300), () {
+          t10 = Future.delayed(const Duration(milliseconds: 7200), () {
             isKPI4Visible.value = true;
-            startIncreasingAnimation(kpi4Value, 6, 100, 300, increaseValue: 1);
+            startIncreasingAnimation(kpi4Value, 6, 1800, 300, increaseValue: 1);
           });
-          t11 = Future.delayed(const Duration(milliseconds: 2500), () {
+          t11 = Future.delayed(const Duration(milliseconds: 10400), () {
             isKPI5Visible.value = true;
-            startIncreasingAnimation(kpi5Value, 56, 200, 120, increaseValue: 4);
+            startIncreasingAnimation(kpi5Value, 56, 2600, 120, increaseValue: 4);
           });
         });
 
     t12 = Future.delayed(const Duration(milliseconds: 3000), () {
       isSkillsVisible.value = true;
-      startIncreasingAnimation(androidSkillRating, 92, 100, 35~/2);
-      startIncreasingAnimation(flutterSkillRating, 83, 200, 30~/2);
+      startIncreasingAnimation(androidSkillRating, 91, 750, 35~/2);
+      startIncreasingAnimation(flutterSkillRating, 87, 200, 30~/2);
       startIncreasingAnimation(djangoSkillRating, 71, 300, 45~/2);
-      startIncreasingAnimation(fastApiSkillRating, 76, 400, 25~/2);
-      startIncreasingAnimation(problemSolvingSkillRating, 92, 500, 40~/6);
+      startIncreasingAnimation(fastApiSkillRating, 78, 400, 25~/2);
+      startIncreasingAnimation(problemSolvingSkillRating, 92, 850, 40~/6);
       startIncreasingAnimation(firebaseSkillRating, 84, 600, 30~/6);
       startIncreasingAnimation(pythonSkillRating, 90, 700, 25~/8);
       startIncreasingAnimation(dsaSkillRating, 86, 750, 35~/8);
-      startIncreasingAnimation(awsSkillRating, 62, 800, 45~/10);
+      startIncreasingAnimation(awsSkillRating, 88, 800, 45~/10);
       startIncreasingAnimation(kotlinSkillRating, 86, 950, 60~/10);
-      startIncreasingAnimation(dartSkillRating, 76, 1000, 35~/14);
+      startIncreasingAnimation(dartSkillRating, 78, 1000, 35~/14);
       startIncreasingAnimation(javaSkillRating, 80, 1150, 25~/16);
       startIncreasingAnimation(gitSkillRating, 74, 1200, 45~/18);
 

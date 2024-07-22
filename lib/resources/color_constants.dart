@@ -10,10 +10,12 @@ class ColorConstants{
   static const darkGray = Color(0xff333333);
   static Color glassWhite = white.withAlpha(150);
   static const blue = Color(0xFF41C4FF);
+  static const blue1 = Color(0xFF21C1FF);
   static const deepBlue = Color(0xFF00E3CC);
   static const glassBlue = Color(0xBF41C4FF);
   static const textBlue = Color(0xFF005273);
   static const deepTextBlue = Color(0xFF002A3A);
+  static const deepTeal = Color(0xFF007188);
   static const glassBlack = Color(0x80050000);
   static const darkBlack = Color(0xCC050000);
   static const lightGlassRed = Color(0xBFD0144C);
@@ -22,6 +24,7 @@ class ColorConstants{
   static const crossRed = Color(0xFFFF004D);
   static const minimizeYellow = Color(0xFFFFC400);
   static const cyanBlue = Color(0xFF00FFEA);
+  static const cyanBlue1 = Color(0xFF00F7FF);
   static const lightCyanBlue = Color(0xFF77FFFF);
   static const lightYellow = Color(0xFFFFEA00);
 
@@ -34,4 +37,6 @@ class ColorConstants{
   static const darkQueenViolet = Color(0xff350048);
   static const orange = Color(0xffff8800);
   static const teal = Color(0xff20d6a0);
+
+  static const tealAccent = Color(0xff00f7ff);
 }

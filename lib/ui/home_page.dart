@@ -60,8 +60,8 @@ class HomePage extends StatelessWidget {
           //   ),
           //           )),
           _topStatusBarWidget(currentTime: _viewModel.currentTime),
-          Align(alignment: Alignment.topCenter, child: _mainWidget(_viewModel)),
-          _bottomMainTabs(_viewModel)
+          Align(alignment: Alignment.topCenter, child: _mainWidget(_viewModel, context)),
+          _bottomMainTabs(_viewModel, context)
         ],
       ),
     );
@@ -254,93 +254,109 @@ class HomePage extends StatelessWidget {
 
 
 
-Widget _bottomMainTabs(HomePageViewModel viewModel) {
+Widget _bottomMainTabs(HomePageViewModel viewModel, BuildContext context) {
   return Align(
-    alignment: Alignment.bottomCenter,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-    ClipRRect(
-      borderRadius: BorderRadius.circular(8),
-    child: BackdropFilter(
-    filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-    child:Container(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-          margin: const EdgeInsets.only(bottom: 5),
-          decoration: BoxDecoration(
-              // color: ColorConstants.lightGlassBlue,
-            gradient: LinearGradient(
-              colors: [
-                ColorConstants.glassBlue.withAlpha(100),
-                ColorConstants.lightGlassBlue.withAlpha(120),
-              ],
-              begin: FractionalOffset(0.0, 0.0),
-      end: FractionalOffset(1.0, 0.0),
-      stops: [0.0, 1.0],
-      tileMode: TileMode.clamp),
-              borderRadius: BorderRadius.circular(8)),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              _mainTabWidget(
-                  logo: AssetConstants.icOverview,
-                  isHovered: viewModel.isOverviewBtnHovered,
-                  toolTipText: "Overview",
-                  isInMemoryStack: viewModel.isTabInMemoryStack(0),
-                  currentTab: BaseGetXController.currentTab,
-                  index: 0,
-                  onClick: () {
-                    viewModel.animateToOverviewTab();
-                  }),
-              const SizedBox(
-                width: 5,
-              ),
-              _mainTabWidget(
-                  logo: AssetConstants.icExperience,
-                  isHovered: viewModel.isExperienceBtnHovered,
-                  toolTipText: "Experience",
-                  isInMemoryStack: viewModel.isTabInMemoryStack(1),
-                  currentTab: BaseGetXController.currentTab,
-                  index: 1,
-                  onClick: () {
-                    viewModel.animateToExperienceTab();
-                  }),
-              const SizedBox(
-                width: 5,
-              ),
-              _mainTabWidget(
-                  logo: AssetConstants.icProjects,
-                  isHovered: viewModel.isProjectsBtnHovered,
-                  toolTipText: "Projects",
-                  isInMemoryStack: viewModel.isTabInMemoryStack(2),
-                  currentTab: BaseGetXController.currentTab,
-                  index: 2,
-                  onClick: () {
-                    viewModel.animateToProjectsTab();
-                  }),
-              const SizedBox(
-                width: 5,
-              ),
-              _mainTabWidget(
-                  onClick: () {
-                    // viewModel.tabController.animateTo(3);
-                    // viewModel.currentTab.value = 4;
-                    viewModel.animateToEducationTab();
-                  },
-                  logo: AssetConstants.icEducation,
-                  isHovered: viewModel.isEducationBtnHovered,
-                  toolTipText: "Education",
-                isInMemoryStack: viewModel.isTabInMemoryStack(3),
-                currentTab: BaseGetXController.currentTab,
-                index: 3,
-              ),
-            ],
-          ),
-        )))
-      ],
+    alignment: MediaQuery.of(context).size.width < 700 ? Alignment.bottomCenter : Alignment.centerLeft,
+    child: Padding(
+      padding: EdgeInsets.only(left: MediaQuery.of(context).size.width < 700 ? 0 : 5.0, bottom: MediaQuery.of(context).size.width < 700 ? 5 : 0),
+      child: Row(
+        mainAxisAlignment: MediaQuery.of(context).size.width < 700 ? MainAxisAlignment.center : MainAxisAlignment.start,
+        children: [
+      ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+      child: BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+      child:Container(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+            // margin: const EdgeInsets.only(left: 5),
+            decoration: BoxDecoration(
+                // color: ColorConstants.lightGlassBlue,
+              gradient: LinearGradient(
+                colors: [
+                  ColorConstants.glassBlue.withAlpha(100),
+                  ColorConstants.lightGlassBlue.withAlpha(120),
+                ],
+                begin: FractionalOffset(0.0, 0.0),
+        end: FractionalOffset(1.0, 0.0),
+        stops: [0.0, 1.0],
+        tileMode: TileMode.clamp),
+                borderRadius: BorderRadius.circular(8)),
+            child: MediaQuery.of(context).size.width < 700 ?
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: menuItems(viewModel, context),
+            ) :
+            Column(
+              // crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: menuItems(viewModel, context),
+            ),
+          )))
+        ],
+      ),
     ),
   );
 }
+
+List<Widget> menuItems(HomePageViewModel viewModel, BuildContext context) =>
+    [
+      _mainTabWidget(
+          logo: AssetConstants.icOverview,
+          isHovered: viewModel.isOverviewBtnHovered,
+          toolTipText: "Overview",
+          isInMemoryStack: viewModel.isTabInMemoryStack(0),
+          currentTab: BaseGetXController.currentTab,
+          index: 0,
+          onClick: () {
+            viewModel.animateToOverviewTab();
+          }),
+      SizedBox(
+        height: MediaQuery.of(context).size.width < 700 ? 0 : 5,
+        width: MediaQuery.of(context).size.width < 700 ? 5 : 0,
+      ),
+      _mainTabWidget(
+          logo: AssetConstants.icExperience,
+          isHovered: viewModel.isExperienceBtnHovered,
+          toolTipText: "Experience",
+          isInMemoryStack: viewModel.isTabInMemoryStack(1),
+          currentTab: BaseGetXController.currentTab,
+          index: 1,
+          onClick: () {
+            viewModel.animateToExperienceTab();
+          }),
+      SizedBox(
+        height: MediaQuery.of(context).size.width < 700 ? 0 : 5,
+        width: MediaQuery.of(context).size.width < 700 ? 5 : 0,
+      ),
+      _mainTabWidget(
+          logo: AssetConstants.icProjects,
+          isHovered: viewModel.isProjectsBtnHovered,
+          toolTipText: "Projects",
+          isInMemoryStack: viewModel.isTabInMemoryStack(2),
+          currentTab: BaseGetXController.currentTab,
+          index: 2,
+          onClick: () {
+            viewModel.animateToProjectsTab();
+          }),
+      SizedBox(
+        height: MediaQuery.of(context).size.width < 700 ? 0 : 5,
+        width: MediaQuery.of(context).size.width < 700 ? 5 : 0,
+      ),
+      _mainTabWidget(
+        onClick: () {
+          // viewModel.tabController.animateTo(3);
+          // viewModel.currentTab.value = 4;
+          viewModel.animateToEducationTab();
+        },
+        logo: AssetConstants.icEducation,
+        isHovered: viewModel.isEducationBtnHovered,
+        toolTipText: "Education",
+        isInMemoryStack: viewModel.isTabInMemoryStack(3),
+        currentTab: BaseGetXController.currentTab,
+        index: 3,
+      ),
+    ];
 
 Widget _mainTabWidget(
     {required RxBool isHovered,
@@ -350,62 +366,66 @@ Widget _mainTabWidget(
     required RxInt currentTab,
     required int index,
     Function()? onClick}) {
-  return Tooltip(
-    message: toolTipText,
-    margin: const EdgeInsets.only(bottom: 15),
-    child: Obx(
-      () => InkWell(
-        onTap: () {
-          // isHovered.value = false;
-          if (onClick != null) {
-            onClick();
-          }
-        },
-        onHover: (hovered){
-          isHovered.value = hovered;
-        },
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 150),
-          curve: Curves.easeIn,
-          height: isHovered.value ? 55 : 45,
-          width: isHovered.value ? 55 : 45,
-          padding: EdgeInsets.all(2),
-          margin: isHovered.value
-              ? const EdgeInsets.symmetric(horizontal: 4.5)
-              : EdgeInsets.zero,
-          decoration: BoxDecoration(
-              color: isHovered.value
-                  // ? ColorConstants.white.withAlpha(80)
-                  // : ColorConstants.white.withAlpha(80),
-                  ? ColorConstants.glassBlack.withAlpha(50)
-                  : ColorConstants.glassWhite.withAlpha(50),
-              borderRadius: BorderRadius.circular(8)),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 6.0, left: 6.0, right: 6.0, bottom: 1.0),
-                child: Image.asset(
-                  logo,
-                  fit: BoxFit.cover,
-                ),
+  return Obx(
+    () => InkWell(
+      onTap: () {
+        // isHovered.value = false;
+        if (onClick != null) {
+          onClick();
+        }
+      },
+      onHover: (hovered){
+        isHovered.value = hovered;
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        curve: Curves.easeIn,
+        height: isHovered.value ? 60 : 54,
+        width: isHovered.value ? 55 : 48,
+        padding: EdgeInsets.all(2),
+        margin: isHovered.value
+            ? const EdgeInsets.symmetric(horizontal: 4.5)
+            : EdgeInsets.zero,
+        decoration: BoxDecoration(
+            color: isHovered.value
+                // ? ColorConstants.white.withAlpha(80)
+                // : ColorConstants.white.withAlpha(80),
+                ? ColorConstants.glassBlack
+                : ColorConstants.glassBlack.withAlpha(50),
+            borderRadius: BorderRadius.circular(8)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 6.0, left: 6.0, right: 6.0, bottom: 1.0),
+              child: Image.asset(
+                logo,
+                fit: BoxFit.cover,
+                height: isHovered.value ? 24 : null,
               ),
-              isInMemoryStack.value ? Container(height: 3,
-                  width: currentTab.value == index? 11 : 5.5,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(2.5),
-                  color: ColorConstants.glassWhite,),
-                ): const SizedBox(height: 3,)
-            ],
-          ),
+            ),
+
+            isHovered.value ? Padding(
+              padding: const EdgeInsets.only(bottom: 2.0),
+              child: Text(toolTipText, style: const TextStyle(fontSize: 9.5, color: ColorConstants.white, fontWeight: FontWeight.w300),),
+            ) : Offstage(),
+
+            isInMemoryStack.value ? Container(height: 3,
+                width: currentTab.value == index? 11 : 5.5,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(2.5),
+                color: ColorConstants.glassWhite,),
+              ): const SizedBox(height: 3,)
+          ],
         ),
       ),
     ),
   );
 }
 
-Widget _mainWidget(HomePageViewModel viewModel) {
+Widget _mainWidget(HomePageViewModel viewModel, BuildContext context) {
   return Obx(
       () => Container(
-          margin: const EdgeInsets.only(bottom: 70, top: 26, left: 2, right: 2),
+          margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.width < 700 ? 78 : 2, top: 26, left: MediaQuery.of(context).size.width < 700 ? 2 : 76, right: 2),
           // decoration: BoxDecoration(
           //   borderRadius: BorderRadius.circular(8),
           //     border: Border.all(width: 1, color: ColorConstants.black,)),

@@ -58,7 +58,10 @@ class HomePageViewModel extends BaseGetXController {
 
 
     //TODO Remove this line
-    // animateToOverviewTab();
+    // Future.delayed(const Duration(milliseconds: 200), () {
+      animateToOverviewTab();
+    // });
+
     // animateToProjectsTab();
     // animateToExperienceTab();
     // animateToEducationTab();

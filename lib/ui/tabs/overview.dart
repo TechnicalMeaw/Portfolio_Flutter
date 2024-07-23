@@ -1022,7 +1022,7 @@ class OverviewTab extends StatelessWidget {
                           child: Container(
                               // padding: const EdgeInsets.all(32),
                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                                  color: ColorConstants.darkTextBlue.withOpacity(0.8),
+                                  color: ColorConstants.darkTextBlue,
                                   image: DecorationImage(
                                     // image: const NetworkImage("https://img.freepik.com/premium-photo/beautiful-colorful-background-vector-gradation-set-wallpaper-printable-template_515653-42.jpg"),
                                     image: const NetworkImage("https://img.freepik.com/premium-photo/office-desktop-laptop-notebook-pen-black-background-top-view-free-space-text-copy-space_187166-45225.jpg?size=338&ext=jpg&ga=GA1.1.1826414947.1699401600&semt=ais"),

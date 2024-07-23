@@ -1022,12 +1022,12 @@ class OverviewTab extends StatelessWidget {
                           child: Container(
                               // padding: const EdgeInsets.all(32),
                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                                  color: ColorConstants.glassBlack.withOpacity(0.9),
+                                  color: ColorConstants.darkTextBlue.withOpacity(0.8),
                                   image: DecorationImage(
                                     // image: const NetworkImage("https://img.freepik.com/premium-photo/beautiful-colorful-background-vector-gradation-set-wallpaper-printable-template_515653-42.jpg"),
                                     image: const NetworkImage("https://img.freepik.com/premium-photo/office-desktop-laptop-notebook-pen-black-background-top-view-free-space-text-copy-space_187166-45225.jpg?size=338&ext=jpg&ga=GA1.1.1826414947.1699401600&semt=ais"),
                                     fit: BoxFit.cover,
-                                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.4), BlendMode.dstATop),
+                                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.6), BlendMode.dstATop),
                                   )
                               ),
                               child: ClipRRect(
@@ -1127,14 +1127,15 @@ class OverviewTab extends StatelessWidget {
             opacity: viewModel.isSkillsVisible.value ? 1: 0,
             child: Container(
               margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              // padding: const EdgeInsets.symmetric(horizontal: 24),
               decoration: BoxDecoration(
-                color: ColorConstants.cyanBlue.withOpacity(0.6),
+                color: ColorConstants.textBlue.withOpacity(0.6),
                 borderRadius: BorderRadius.circular(16),
                 image: DecorationImage(
-                  image: const NetworkImage("https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg"),
+                  // image: const NetworkImage("https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg"),
+                  image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                   fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.8), BlendMode.dstATop),
+                  colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.7), BlendMode.dstATop),
 
                 )
                 // gradient: LinearGradient(
@@ -1149,65 +1150,71 @@ class OverviewTab extends StatelessWidget {
                 // color: ColorConstants.glassWhite
               ),
               child:
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 32,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Skills", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.black),),
-                        InkWell(
-                          onTap: (){
-                            viewModel.animateToExperienceTab();
-                          },
-                          onHover: (isHovered){
-                            viewModel.skillsViewAllHovered.value = isHovered;
-                          },
-                          child: Text("View All", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400,
-                            color: viewModel.skillsViewAllHovered.value ? ColorConstants.white : ColorConstants.black, decoration: TextDecoration.underline,
-                            decorationColor: viewModel.skillsViewAllHovered.value ? ColorConstants.white : ColorConstants.black,
-                            shadows: <Shadow>[
-                              Shadow(
-                                offset: const Offset(0.0, 0.0),
-                                blurRadius: 10.0,
-                                color: viewModel.skillsViewAllHovered.value ? ColorConstants.black : ColorConstants.white,
-                              ),
-                            ],
-                          ),),
+                        const SizedBox(height: 32,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text("Skills", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white),),
+                            InkWell(
+                              onTap: (){
+                                viewModel.animateToExperienceTab();
+                              },
+                              onHover: (isHovered){
+                                viewModel.skillsViewAllHovered.value = isHovered;
+                              },
+                              child: Text("View All", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400,
+                                color: viewModel.skillsViewAllHovered.value ? ColorConstants.white : ColorConstants.glassWhite, decoration: TextDecoration.underline,
+                                decorationColor: viewModel.skillsViewAllHovered.value ? ColorConstants.white : ColorConstants.glassWhite,
+                                shadows: <Shadow>[
+                                  Shadow(
+                                    offset: const Offset(0.0, 0.0),
+                                    blurRadius: 10.0,
+                                    color: !viewModel.skillsViewAllHovered.value ? ColorConstants.black : ColorConstants.white,
+                                  ),
+                                ],
+                              ),),
+                            ),
+                          ],
                         ),
+                        const SizedBox(height: 8,),
+                        Obx(()=> skillRatingWidget(skillName: "Android development", rating: viewModel.androidSkillRating.value)),
+                        const SizedBox(height: 12,),
+                        Obx(()=> skillRatingWidget(skillName: "Flutter", rating: viewModel.flutterSkillRating.value)),
+                        const SizedBox(height: 12,),
+                        Obx(()=> skillRatingWidget(skillName: "Django", rating: viewModel.djangoSkillRating.value)),
+                        const SizedBox(height: 12,),
+                        Obx(()=> skillRatingWidget(skillName: "FastApi", rating: viewModel.fastApiSkillRating.value)),
+                        const SizedBox(height: 12,),
+                        Obx(()=> skillRatingWidget(skillName: "Problem Solving", rating: viewModel.problemSolvingSkillRating.value)),
+                        const SizedBox(height: 12,),
+                        Obx(()=> skillRatingWidget(skillName: "Firebase", rating: viewModel.firebaseSkillRating.value)),
+                        const SizedBox(height: 12,),
+                        Obx(()=> skillRatingWidget(skillName: "Python", rating: viewModel.pythonSkillRating.value)),
+                        const SizedBox(height: 12,),
+                        Obx(()=> skillRatingWidget(skillName: "DSA", rating: viewModel.dsaSkillRating.value)),
+                        const SizedBox(height: 12,),
+                        Obx(()=> skillRatingWidget(skillName: "AWS", rating: viewModel.awsSkillRating.value)),
+                        const SizedBox(height: 12,),
+                        Obx(()=> skillRatingWidget(skillName: "Kotlin", rating: viewModel.kotlinSkillRating.value)),
+                        const SizedBox(height: 12,),
+                        Obx(()=> skillRatingWidget(skillName: "Dart", rating: viewModel.dartSkillRating.value)),
+                        const SizedBox(height: 12,),
+                        Obx(()=> skillRatingWidget(skillName: "Java", rating: viewModel.javaSkillRating.value)),
+                        const SizedBox(height: 12,),
+                        Obx(()=> skillRatingWidget(skillName: "Git", rating: viewModel.gitSkillRating.value)),
+                        const SizedBox(height: 32,),
                       ],
                     ),
-                    const SizedBox(height: 8,),
-                    Obx(()=> skillRatingWidget(skillName: "Android development", rating: viewModel.androidSkillRating.value)),
-                    const SizedBox(height: 12,),
-                    Obx(()=> skillRatingWidget(skillName: "Flutter", rating: viewModel.flutterSkillRating.value)),
-                    const SizedBox(height: 12,),
-                    Obx(()=> skillRatingWidget(skillName: "Django", rating: viewModel.djangoSkillRating.value)),
-                    const SizedBox(height: 12,),
-                    Obx(()=> skillRatingWidget(skillName: "FastApi", rating: viewModel.fastApiSkillRating.value)),
-                    const SizedBox(height: 12,),
-                    Obx(()=> skillRatingWidget(skillName: "Problem Solving", rating: viewModel.problemSolvingSkillRating.value)),
-                    const SizedBox(height: 12,),
-                    Obx(()=> skillRatingWidget(skillName: "Firebase", rating: viewModel.firebaseSkillRating.value)),
-                    const SizedBox(height: 12,),
-                    Obx(()=> skillRatingWidget(skillName: "Python", rating: viewModel.pythonSkillRating.value)),
-                    const SizedBox(height: 12,),
-                    Obx(()=> skillRatingWidget(skillName: "DSA", rating: viewModel.dsaSkillRating.value)),
-                    const SizedBox(height: 12,),
-                    Obx(()=> skillRatingWidget(skillName: "AWS", rating: viewModel.awsSkillRating.value)),
-                    const SizedBox(height: 12,),
-                    Obx(()=> skillRatingWidget(skillName: "Kotlin", rating: viewModel.kotlinSkillRating.value)),
-                    const SizedBox(height: 12,),
-                    Obx(()=> skillRatingWidget(skillName: "Dart", rating: viewModel.dartSkillRating.value)),
-                    const SizedBox(height: 12,),
-                    Obx(()=> skillRatingWidget(skillName: "Java", rating: viewModel.javaSkillRating.value)),
-                    const SizedBox(height: 12,),
-                    Obx(()=> skillRatingWidget(skillName: "Git", rating: viewModel.gitSkillRating.value)),
-                    const SizedBox(height: 32,),
-                  ],
+                  ),
                 ),
               )
             ),
@@ -1228,8 +1235,7 @@ class OverviewTab extends StatelessWidget {
                     gradient: LinearGradient(
                         colors: [
                           ColorConstants.black.withOpacity(0.7),
-                          ColorConstants.darkBlack.withOpacity(0.8),
-
+                          ColorConstants.darkTextBlue.withOpacity(0.8),
                         ],
                         begin: FractionalOffset(0.0, 0.0),
                         end: FractionalOffset(1.0, 0.0),
@@ -1362,7 +1368,7 @@ class OverviewTab extends StatelessWidget {
               right: 0,
               child: Container(
                   width: constraints.maxWidth,
-                  height: 5.6,
+                  height: 4.6,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
                       border: Border.all(width: 0.8, color: ColorConstants.textBlue),
@@ -1412,7 +1418,7 @@ class OverviewTab extends StatelessWidget {
                             padding: const EdgeInsets.only(bottom: 2, right: 10),
                             child: Text("$rating%",
                               softWrap: true,
-                              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: ColorConstants.textBlue),
+                              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white),
                               overflow: TextOverflow.visible,
                             ),
                           ),
@@ -1420,19 +1426,20 @@ class OverviewTab extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      height: 4,
+                      height: 3,
                       decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
-                              color: ColorConstants.cyanBlue.withOpacity(0.5),
+                              color: ColorConstants.textBlue.withOpacity(0.5),
                               spreadRadius: 0,
                               blurRadius: 5,
                               offset: const Offset(0, 0), // changes position of shadow
                             ),],
                           gradient: LinearGradient(
                               colors: [
-                                ColorConstants.deepTextBlue.withOpacity(0.8),
-                                ColorConstants.deepTeal,
+                                ColorConstants.glassWhite,
+                                ColorConstants.cyanBlue.withOpacity(0.8),
+
                               ],
                               begin: const FractionalOffset(0.0, 0.0),
                               end: const FractionalOffset(1.0, 0.0),
@@ -1442,6 +1449,7 @@ class OverviewTab extends StatelessWidget {
                           color: ColorConstants.darkBlack
                       ),
                     ),
+
                   ],
                 ),
               ),
@@ -1453,17 +1461,17 @@ class OverviewTab extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 6),
                 child: Text(skillName,
                   softWrap: true,
-                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: ColorConstants.textBlue,
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white,
                     shadows: <Shadow>[
                       Shadow(
                         offset: Offset(0.0, 0.0),
                         blurRadius: 15.0,
-                        color: ColorConstants.white,
+                        color: ColorConstants.textBlue,
                       ),
                       Shadow(
                         offset: Offset(0.0, 0.0),
                         blurRadius: 15.0,
-                        color: ColorConstants.cyanBlue,
+                        color: ColorConstants.black,
                       ),
                     ],
                   ),

@@ -24,7 +24,7 @@ class ProjectsTab extends StatelessWidget {
             child:
             Container(
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),
-                  color: ColorConstants.glassWhite),
+                  color: ColorConstants.glassWhite.withOpacity(0.2)),
               child: Column(
                 children: [
                   // Top Common Widget
@@ -141,7 +141,7 @@ class ProjectsTab extends StatelessWidget {
               image: DecorationImage(
                 image: const NetworkImage("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjkwNC1udW5ueS0wMTIteC1qb2I1OTguanBn.jpg"),
                 fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.6), BlendMode.dstATop),
+                colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.2), BlendMode.dstATop),
               )
           ),
           child: LayoutBuilder(

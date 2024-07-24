@@ -26,7 +26,7 @@ class ExperienceTab extends StatelessWidget {
             filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
             child:
             Container(
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: ColorConstants.glassWhite),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: ColorConstants.glassWhite.withOpacity(0.2)),
               child: Column(
                 children: [
                   // Top Common Widget
@@ -139,7 +139,7 @@ class ExperienceTab extends StatelessWidget {
                   image: DecorationImage(
                     image: const NetworkImage("https://static.vecteezy.com/system/resources/previews/006/861/154/non_2x/light-blue-background-gradient-illustration-eps10-vector.jpg"),
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.8), BlendMode.dstATop),
+                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.6), BlendMode.dstATop),
                   )
               ),
               child: ClipRect(
@@ -217,17 +217,17 @@ class ExperienceTab extends StatelessWidget {
         child: Container(
               padding: const EdgeInsets.all(32),
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                  // color: ColorConstants.highlightQueenViolet.withOpacity(0.6),
-                  gradient: LinearGradient(
-                    colors: [
-                      ColorConstants.highlightQueenViolet.withOpacity(0.74),
-                      ColorConstants.deepQueenViolet.withOpacity(0.95)
-                    ]
-                  ),
+                  color: ColorConstants.queenViolet.withOpacity(0.7),
+                  // gradient: LinearGradient(
+                  //   colors: [
+                  //     ColorConstants.highlightQueenViolet.withOpacity(0.4),
+                  //     ColorConstants.deepQueenViolet.withOpacity(0.6)
+                  //   ]
+                  // ),
                   image: DecorationImage(
                     image: const NetworkImage("https://static.vecteezy.com/system/resources/previews/006/861/154/non_2x/light-blue-background-gradient-illustration-eps10-vector.jpg"),
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.45), BlendMode.dstATop),
+                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.3), BlendMode.dstATop),
                   )
               ),
               child: ClipRect(
@@ -257,7 +257,7 @@ class ExperienceTab extends StatelessWidget {
                                       gradient: LinearGradient(
                                           colors: [
                                             // ColorConstants.glassWhite.withAlpha(60),
-                                            ColorConstants.queenViolet.withAlpha(20),
+                                            ColorConstants.queenViolet.withAlpha(30),
                                             ColorConstants.deepQueenViolet.withAlpha(80),
                                             // ColorConstants.orange.withAlpha(10),
                                           ],
@@ -687,8 +687,8 @@ class ExperienceTab extends StatelessWidget {
           // ),
 
           PieChart(
-              size: Size(constraints.maxWidth/1.65 > 200 ? 200 : constraints.maxWidth/1.65 < 180 ? constraints.maxWidth/1.8 : constraints.maxWidth/1.65,
-                  constraints.maxWidth/1.65 > 200 ? 200 : constraints.maxWidth/1.65 < 180 ? constraints.maxWidth/1.8 : constraints.maxWidth/1.65),
+              size: Size(constraints.maxWidth/1.65 > 200 ? 200 : constraints.maxWidth/1.9 < 180 ? constraints.maxWidth/2.1 : constraints.maxWidth/1.75,
+                  constraints.maxWidth/1.65 > 200 ? 200 : constraints.maxWidth/1.9 < 180 ? constraints.maxWidth/2.1 : constraints.maxWidth/1.75),
               textDistance: 10,
               textGap: 20,
               isLabelVisible: false,

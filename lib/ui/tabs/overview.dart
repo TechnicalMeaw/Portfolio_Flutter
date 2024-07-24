@@ -32,7 +32,7 @@ class OverviewTab extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
     child:
     Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: ColorConstants.glassWhite),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: ColorConstants.glassWhite.withOpacity(0.2)),
       child: Column(
         children: [
           // Top Common Widget
@@ -92,7 +92,7 @@ class OverviewTab extends StatelessWidget {
                     child: Column(
                       children: [
                         Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
                               width: rootConstrains.maxWidth * 0.6,
@@ -100,7 +100,10 @@ class OverviewTab extends StatelessWidget {
                           // const SizedBox(width: 4,),
                           Expanded(child: _rightColumn)
                         ],
-                                        ),
+                        ),
+                        // const SizedBox(height: 8),
+                        // _projectsSection(context),
+                        const SizedBox(height: 16,)
                       ],
                     ),
                   )
@@ -110,7 +113,9 @@ class OverviewTab extends StatelessWidget {
                       _leftColumn,
                       // const SizedBox(height: 10,),
                       _rightColumn,
-                      const SizedBox(height: 100,)
+                      // const SizedBox(height: 8),
+                      // _projectsSection(context),
+                      const SizedBox(height: 16,)
                     ],
               ),),
           ))
@@ -652,7 +657,14 @@ class OverviewTab extends StatelessWidget {
                                                     !viewModel.kpi1KnowMoreHovered.value ? ColorConstants.blue : ColorConstants.blue1,
                                                     !viewModel.kpi1KnowMoreHovered.value ? ColorConstants.deepTextBlue : ColorConstants.black
                                                   ]
-                                                )
+                                                ),
+                                                  // boxShadow: [
+                                                  //   BoxShadow(
+                                                  //     color: ColorConstants.blue.withOpacity(0.4),
+                                                  //     blurRadius: 10,
+                                                  //     offset: Offset(0,0)
+                                                  //   )
+                                                  // ]
                                               ),
                                               child: ClipRect(
                                                 child: Column(
@@ -1129,7 +1141,7 @@ class OverviewTab extends StatelessWidget {
               margin: const EdgeInsets.all(16),
               // padding: const EdgeInsets.symmetric(horizontal: 24),
               decoration: BoxDecoration(
-                color: ColorConstants.textBlue.withOpacity(0.6),
+                color: ColorConstants.textBlue.withOpacity(0.4),
                 borderRadius: BorderRadius.circular(16),
                 image: DecorationImage(
                   // image: const NetworkImage("https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg"),
@@ -1153,7 +1165,7 @@ class OverviewTab extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+                  filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32.0),
                     child: Column(
@@ -1481,6 +1493,150 @@ class OverviewTab extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+
+  Widget _projectsSection(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width - 32,
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.all(16),
+      // height: 300,
+      decoration: BoxDecoration(color: ColorConstants.glassBlack, borderRadius: BorderRadius.circular(16)),
+      
+      child:
+      Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16, top: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text("Projects", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white),),
+                // Text("Know More", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.black, decoration: TextDecoration.underline),),
+                InkWell(
+                  onTap: (){
+                    viewModel.animateToProjectsTab();
+                  },
+                  onHover: (isHovered){
+                    viewModel.projectsViewAllHovered.value = isHovered;
+                  },
+                  child: Obx(
+                        () => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Text("View All", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400,
+                        color: viewModel.projectsViewAllHovered.value ? ColorConstants.white : ColorConstants.glassWhite, decoration: TextDecoration.underline,
+                        decorationColor: viewModel.projectsViewAllHovered.value ? ColorConstants.white : ColorConstants.glassWhite,
+                        shadows: <Shadow>[
+                          Shadow(
+                            offset: const Offset(0.0, 0.0),
+                            blurRadius: 10.0,
+                            color: !viewModel.projectsViewAllHovered.value ? ColorConstants.black : ColorConstants.white,
+                          ),
+                        ],
+                      ),),
+                    ),
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+          // const SizedBox(height: 10,),
+          Wrap(
+            // runAlignment: WrapAlignment.spaceBetween,
+            alignment: WrapAlignment.spaceBetween,
+            runSpacing: 16,
+            children: [
+              _project1Overview(),
+              _project1Overview(),
+              _project1Overview(),
+              // _project1Overview(),
+              // _project1Overview(),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _project1Overview() {
+    return Container(
+      constraints: BoxConstraints(maxWidth: 340),
+      padding: EdgeInsets.all(16),
+      child: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                // padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: ColorConstants.cyanBlue.withOpacity(0.6),
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [BoxShadow(
+                    color: ColorConstants.cyanBlue.withOpacity(0.6),
+                    spreadRadius: 0,
+                    blurRadius: 8,
+                    offset: const Offset(1, 1), // changes position of shadow
+                  ),],
+                  // image: DecorationImage(
+                  //   image: const NetworkImage("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjkwNC1udW5ueS0wMTIteC1qb2I1OTguanBn.jpg"),
+                  //   fit: BoxFit.cover,
+                  //   colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.6), BlendMode.dstATop),
+                  // )
+                ),
+                child: Container(
+                  // width: constraints.maxWidth,
+                  // margin: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      // color: ColorConstants.lightQueenViolet.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(16),
+
+                    ),
+                    // padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 32),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.asset(AssetConstants.imgPlantonicThumb))
+                ),
+
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              const Text("Plantonic", style: TextStyle(color: ColorConstants.white, fontSize: 20, fontWeight: FontWeight.w500),),
+              const SizedBox(
+                height: 8,
+              ),
+              const Text("E-Commerce plant shop application that allows users to search for and purchase plants across various categories", style: TextStyle(color: ColorConstants.white, fontSize: 14, fontWeight: FontWeight.w400),),
+
+            ],
+          ),
+
+          Positioned(
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                // gradient: const LinearGradient(
+                //   colors: [
+                //     ColorConstants.black,
+                //     ColorConstants.glassBlack,
+                //   ],
+                //   begin: Alignment.bottomCenter,
+                //   end: Alignment.topCenter,
+                // )
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

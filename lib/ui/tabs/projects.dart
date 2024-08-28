@@ -24,7 +24,8 @@ class ProjectsTab extends StatelessWidget {
             child:
             Container(
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),
-                  color: ColorConstants.glassWhite.withOpacity(0.2)),
+                  color: ColorConstants.glassWhite.withOpacity(0.1),
+                  border: Border.all(color: ColorConstants.glassWhite, width: 1)              ),
               child: Column(
                 children: [
                   // Top Common Widget
@@ -178,7 +179,7 @@ class ProjectsTab extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(32),
           decoration: BoxDecoration(
-              color: ColorConstants.glassWhite,
+              color: ColorConstants.glassWhite.withOpacity(0.6),
               borderRadius: BorderRadius.circular(16),
               // image: DecorationImage(
               //   image: const NetworkImage("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjkwNC1udW5ueS0wMTIteC1qb2I1OTguanBn.jpg"),

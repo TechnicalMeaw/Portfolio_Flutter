@@ -26,7 +26,11 @@ class ExperienceTab extends StatelessWidget {
             filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
             child:
             Container(
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: ColorConstants.glassWhite.withOpacity(0.2)),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: ColorConstants.glassWhite.withOpacity(0.1),
+                  border: Border.all(color: ColorConstants.glassWhite, width: 1)
+              ),
               child: Column(
                 children: [
                   // Top Common Widget

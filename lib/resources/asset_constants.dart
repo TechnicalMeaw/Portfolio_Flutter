@@ -4,7 +4,7 @@ class AssetConstants{
   static const _rootImagesPath = "assets/images";
   static const _rootIconsPath = "assets/icons";
 
-  static const imgBackgroundImage = "$_rootImagesPath/background.jpg";
+  static const imgBackgroundImage = "$_rootImagesPath/background_1.jpg";
   static const imgProfileImage = "$_rootImagesPath/img_profile.png";
   static const imgPlantonicThumb = "$_rootImagesPath/plantonic_thumb.jpg";
 

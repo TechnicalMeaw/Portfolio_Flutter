@@ -109,7 +109,7 @@ class HomePage extends StatelessWidget {
                               },
                               child: Text(
                                 "GitHub",
-                                style: TextStyle(color: _viewModel.isOptionsGithubHovered.value ? ColorConstants.cyanBlue : ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
+                                style: TextStyle(color: _viewModel.isOptionsGithubHovered.value ? ColorConstants.black : ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
                               ),
                             ),
                             SizedBox(
@@ -134,7 +134,7 @@ class HomePage extends StatelessWidget {
                               },
                               child: Text(
                                 "LinkedIn",
-                                style: TextStyle(color: _viewModel.isOptionsLinkedInHovered.value ? ColorConstants.cyanBlue : ColorConstants.white,  fontWeight: FontWeight.w400, fontSize: 12),
+                                style: TextStyle(color: _viewModel.isOptionsLinkedInHovered.value ? ColorConstants.black : ColorConstants.white,  fontWeight: FontWeight.w400, fontSize: 12),
                               ),
                             ),
                             SizedBox(
@@ -159,7 +159,7 @@ class HomePage extends StatelessWidget {
                               },
                               child: Text(
                                 "Email",
-                                style: TextStyle(color: _viewModel.isOptionsEmailHovered.value ? ColorConstants.cyanBlue : ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
+                                style: TextStyle(color: _viewModel.isOptionsEmailHovered.value ? ColorConstants.black : ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
                               ),
                             ),
                             SizedBox(
@@ -194,7 +194,7 @@ class HomePage extends StatelessWidget {
                               },
                               child: Text(
                                 "Phone",
-                                style: TextStyle(color: _viewModel.isOptionsPhoneHovered.value ? ColorConstants.cyanBlue : ColorConstants.white,  fontWeight: FontWeight.w400, fontSize: 12),
+                                style: TextStyle(color: _viewModel.isOptionsPhoneHovered.value ? ColorConstants.black : ColorConstants.white,  fontWeight: FontWeight.w400, fontSize: 12),
                               ),
                             ),
                             SizedBox(
@@ -219,7 +219,7 @@ class HomePage extends StatelessWidget {
                               },
                               child: Text(
                                 "Download Resume",
-                                style: TextStyle(color: _viewModel.isOptionsDownloadCVHovered.value ? ColorConstants.cyanBlue : ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
+                                style: TextStyle(color: _viewModel.isOptionsDownloadCVHovered.value ? ColorConstants.black : ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
                               ),
                             ),
                                                     ],
@@ -237,7 +237,7 @@ class HomePage extends StatelessWidget {
                               },
                               child: Text(
                                 "Download Resume",
-                                style: TextStyle(color: _viewModel.isOptionsDownloadCVHovered.value ? ColorConstants.cyanBlue : ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
+                                style: TextStyle(color: _viewModel.isOptionsDownloadCVHovered.value ? ColorConstants.black : ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
                               ),
                           ),
                       Obx(
@@ -270,6 +270,7 @@ Widget _bottomMainTabs(HomePageViewModel viewModel, BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
             // margin: const EdgeInsets.only(left: 5),
             decoration: BoxDecoration(
+              border: Border.all(color: ColorConstants.glassWhite),
                 // color: ColorConstants.lightGlassBlue,
               gradient: LinearGradient(
                 colors: [
@@ -380,8 +381,8 @@ Widget _mainTabWidget(
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
         curve: Curves.easeIn,
-        height: isHovered.value ? 60 : 54,
-        width: isHovered.value ? 55 : 48,
+        height: isHovered.value ? 62 : 56,
+        width: isHovered.value ? 57 : 49,
         padding: EdgeInsets.all(2),
         margin: isHovered.value
             ? const EdgeInsets.symmetric(horizontal: 4.5)
@@ -392,7 +393,9 @@ Widget _mainTabWidget(
                 // : ColorConstants.white.withAlpha(80),
                 ? ColorConstants.glassBlack
                 : ColorConstants.glassBlack.withAlpha(50),
-            borderRadius: BorderRadius.circular(8)),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.5), width: 0.8)
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -425,7 +428,7 @@ Widget _mainTabWidget(
 Widget _mainWidget(HomePageViewModel viewModel, BuildContext context) {
   return Obx(
       () => Container(
-          margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.width < 700 ? 78 : 2, top: 26, left: MediaQuery.of(context).size.width < 700 ? 2 : 76, right: 2),
+          margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.width < 700 ? 81.5 : 2, top: 26, left: MediaQuery.of(context).size.width < 700 ? 2 : 78, right: 2),
           // decoration: BoxDecoration(
           //   borderRadius: BorderRadius.circular(8),
           //     border: Border.all(width: 1, color: ColorConstants.black,)),

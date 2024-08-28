@@ -32,7 +32,11 @@ class OverviewTab extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
     child:
     Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: ColorConstants.glassWhite.withOpacity(0.2)),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: ColorConstants.glassWhite.withOpacity(0.1),
+          border: Border.all(color: ColorConstants.glassWhite, width: 1)
+      ),
       child: Column(
         children: [
           // Top Common Widget
@@ -345,7 +349,9 @@ class OverviewTab extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: const CircleAvatar(backgroundImage: NetworkImage("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjFlo8urDNphNYN4hjlXRXIlaDhd72DJYI43haKClXGJTPZ3DIF1tXWTH-x8-8KLj2AMnkrYgnxXyponzgCx-jFodVL5U2ohfhQqH0ktV50iVB_kpBbWl-FtFDzvp3fJLZp4oyVmIleBTZHuFC4M7T1Mw0x2E80IZozrwH392DUDVGR4hRaTQha3sqoMsw/s320/20230305_174155.jpg"),)),
+                        child:
+                        const CircleAvatar(backgroundImage: AssetImage(AssetConstants.imgProfileImage),))
+                        // const CircleAvatar(backgroundImage: NetworkImage("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjFlo8urDNphNYN4hjlXRXIlaDhd72DJYI43haKClXGJTPZ3DIF1tXWTH-x8-8KLj2AMnkrYgnxXyponzgCx-jFodVL5U2ohfhQqH0ktV50iVB_kpBbWl-FtFDzvp3fJLZp4oyVmIleBTZHuFC4M7T1Mw0x2E80IZozrwH392DUDVGR4hRaTQha3sqoMsw/s320/20230305_174155.jpg"),)),
                   ],
                 ),
                 // const SizedBox(height: 10,),
@@ -361,6 +367,8 @@ class OverviewTab extends StatelessWidget {
                   child: Container(
                     // padding: const EdgeInsets.all(32),
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+
                         color: ColorConstants.black.withOpacity(0.7),
                     image: DecorationImage(
                       // image: const NetworkImage("https://images.squarespace-cdn.com/content/v1/5ffb7c47a24aef1e5b942c13/1618436873379-0JSK85ANOQC8Y2QN1O98/gs-gradientsite2.png"),
@@ -380,7 +388,7 @@ class OverviewTab extends StatelessWidget {
                           const Text("Summary", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white),),
                           const SizedBox(height: 8,),
                           const Text(
-                            "I'm a seasoned Flutter and Android developer with 2+ years of experience. From enhancing apps to building from scratch, I've served 500k+ users. Proficient in Django, FastAPI, Firebase, and AWS, let's create exceptional software together!",
+                            "I'm a seasoned Flutter and Android developer with almost 3 years of experience. From enhancing apps to building from scratch, I've served 1M+ users. Proficient in Django, FastAPI, Firebase, and AWS, let's create exceptional software together!",
                             softWrap: true,
                             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white),
                             overflow: TextOverflow.visible,
@@ -650,6 +658,7 @@ class OverviewTab extends StatelessWidget {
                                               constraints: const BoxConstraints(minWidth: 250),
                                               padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
                                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+                                                border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
                                                 // color: viewModel.kpi1KnowMoreHovered.value ? ColorConstants.textBlue : ColorConstants.cyanBlue.withOpacity(0.8),
                                                 gradient: RadialGradient(
                                                   radius: 1,
@@ -727,7 +736,9 @@ class OverviewTab extends StatelessWidget {
                                             constraints: const BoxConstraints(minWidth: 250),
                                               padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
                                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                                                // color: viewModel.kpi2KnowMoreHovered.value ? ColorConstants.black.withOpacity(0.8): ColorConstants.white.withOpacity(0.8),
+                                                  border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+
+                                                  // color: viewModel.kpi2KnowMoreHovered.value ? ColorConstants.black.withOpacity(0.8): ColorConstants.white.withOpacity(0.8),
                                                                         // border: Border.all(color: ColorConstants.white, width: 1)
                                                   gradient: RadialGradient(
                                                       radius: 1,
@@ -805,7 +816,9 @@ class OverviewTab extends StatelessWidget {
                                                 constraints: const BoxConstraints(minWidth: 250),
                                               padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
                                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                                                color: viewModel.kpi3KnowMoreHovered.value ? ColorConstants.lightYellow : ColorConstants.lightGlassBlue.withOpacity(0.8),
+                                                  border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+
+                                                  color: viewModel.kpi3KnowMoreHovered.value ? ColorConstants.lightYellow : ColorConstants.lightGlassBlue.withOpacity(0.8),
                                                   gradient: RadialGradient(
                                                       radius: 1,
                                                       colors: [
@@ -879,7 +892,9 @@ class OverviewTab extends StatelessWidget {
                                                 constraints: const BoxConstraints(minWidth: 250),
                                               padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
                                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                                                // color: viewModel.kpi4KnowMoreHovered.value? ColorConstants.white.withOpacity(0.8) : ColorConstants.textBlue.withOpacity(0.8),
+                                                  border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+
+                                                  // color: viewModel.kpi4KnowMoreHovered.value? ColorConstants.white.withOpacity(0.8) : ColorConstants.textBlue.withOpacity(0.8),
                                                   gradient: RadialGradient(
                                                       radius: 1,
                                                       colors: [
@@ -951,6 +966,8 @@ class OverviewTab extends StatelessWidget {
                                                   constraints: const BoxConstraints(minWidth: 250),
                                                 padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
                                                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+                                                    border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+
                                                     // color: viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black : ColorConstants.cyanBlue.withOpacity(0.8),
                                                     gradient: RadialGradient(
                                                         radius: 1,
@@ -1035,6 +1052,8 @@ class OverviewTab extends StatelessWidget {
                               // padding: const EdgeInsets.all(32),
                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
                                   color: ColorConstants.darkTextBlue,
+                                  border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+
                                   image: DecorationImage(
                                     // image: const NetworkImage("https://img.freepik.com/premium-photo/beautiful-colorful-background-vector-gradation-set-wallpaper-printable-template_515653-42.jpg"),
                                     image: const NetworkImage("https://img.freepik.com/premium-photo/office-desktop-laptop-notebook-pen-black-background-top-view-free-space-text-copy-space_187166-45225.jpg?size=338&ext=jpg&ga=GA1.1.1826414947.1699401600&semt=ais"),
@@ -1141,13 +1160,14 @@ class OverviewTab extends StatelessWidget {
               margin: const EdgeInsets.all(16),
               // padding: const EdgeInsets.symmetric(horizontal: 24),
               decoration: BoxDecoration(
-                color: ColorConstants.textBlue.withOpacity(0.4),
+                color: ColorConstants.textBlue.withOpacity(0.5),
                 borderRadius: BorderRadius.circular(16),
-                image: DecorationImage(
+                  border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+                  image: DecorationImage(
                   // image: const NetworkImage("https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg"),
                   image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                   fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.7), BlendMode.dstATop),
+                  colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.8), BlendMode.dstATop),
 
                 )
                 // gradient: LinearGradient(
@@ -1244,6 +1264,8 @@ class OverviewTab extends StatelessWidget {
                   padding: const EdgeInsets.all(32),
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
                       // color: ColorConstants.deepTextBlue.withOpacity(0.8),
+                    border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+
                     gradient: LinearGradient(
                         colors: [
                           ColorConstants.black.withOpacity(0.7),
@@ -1383,7 +1405,7 @@ class OverviewTab extends StatelessWidget {
                   height: 4.6,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
-                      border: Border.all(width: 0.8, color: ColorConstants.textBlue),
+                      border: Border.all(width: 0.8, color: ColorConstants.glassBlue.withOpacity(0.6)),
                       // color: ColorConstants.white,
                       // boxShadow: const [
                       //   BoxShadow(
@@ -1451,6 +1473,8 @@ class OverviewTab extends StatelessWidget {
                               colors: [
                                 ColorConstants.glassWhite,
                                 ColorConstants.cyanBlue.withOpacity(0.8),
+
+                                // ColorConstants.textBlue.withOpacity(0.8),
 
                               ],
                               begin: const FractionalOffset(0.0, 0.0),

@@ -95,7 +95,7 @@ class ExperienceTab extends StatelessWidget {
                               children: [
                                 const SizedBox(width: 16,),
                                 SizedBox(
-                                    width: rootConstrains.maxWidth * 0.4,
+                                    width: rootConstrains.maxWidth * 0.6,
                                     child: _leftColumn),
                                 // const SizedBox(width: 4,),
                                 const SizedBox(width: 32,),
@@ -139,11 +139,12 @@ class ExperienceTab extends StatelessWidget {
           child: Container(
               padding: const EdgeInsets.all(32),
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
                   color: ColorConstants.cyanBlue.withOpacity(0.5),
                   image: DecorationImage(
                     image: const NetworkImage("https://static.vecteezy.com/system/resources/previews/006/861/154/non_2x/light-blue-background-gradient-illustration-eps10-vector.jpg"),
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.6), BlendMode.dstATop),
+                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.4), BlendMode.dstATop),
                   )
               ),
               child: ClipRect(
@@ -170,10 +171,11 @@ class ExperienceTab extends StatelessWidget {
                             Container(
                               decoration: BoxDecoration(
                                   color: ColorConstants.lightCyanBlue.withOpacity(0.4),
+                                  border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
                                   gradient: LinearGradient(
                                       colors: [
-                                        ColorConstants.lightCyanBlue.withAlpha(30),
-                                        ColorConstants.cyanBlue.withAlpha(50),
+                                        ColorConstants.glassWhite.withOpacity(0.2),
+                                        ColorConstants.glassWhite.withOpacity(0.7),
                                       ],
                                       begin: const FractionalOffset(0.0, 0.0),
                                       end: const FractionalOffset(1.0, 0.0),
@@ -181,18 +183,25 @@ class ExperienceTab extends StatelessWidget {
                                       tileMode: TileMode.clamp),
                                   borderRadius: BorderRadius.circular(16)),
                               padding: const EdgeInsets.all(16),
-                              child: _companyWidget(
-                                companyData: viewModel.experienceCompanyList[index],
-                                // jobTitle: "Software Engineer",
-                                // companyName: "Mantra Labs",
-                                // jobDuration: "June 2022 - Present",
-                                // keyResponsibilities: [
-                                //   "Flutter developer with expertise in state management using Bloc, GetX.",
-                                //   "Consistently delivered pixel-perfect UI designs with functionalities.",
-                                //   "Optimized MySQL data flow with Django Restful APIs, cutting response time by 30%, boosting user experience."
-                                // ],
-                                index: index,
-                                // length: 2
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _companyWidget(
+                                    companyData: viewModel.experienceCompanyList[index],
+                                    // jobTitle: "Software Engineer",
+                                    // companyName: "Mantra Labs",
+                                    // jobDuration: "June 2022 - Present",
+                                    // keyResponsibilities: [
+                                    //   "Flutter developer with expertise in state management using Bloc, GetX.",
+                                    //   "Consistently delivered pixel-perfect UI designs with functionalities.",
+                                    //   "Optimized MySQL data flow with Django Restful APIs, cutting response time by 30%, boosting user experience."
+                                    // ],
+                                    index: index,
+                                    // length: 2
+                                  ),
+
+
+                                ],
                               ),
                             ),
 
@@ -220,8 +229,10 @@ class ExperienceTab extends StatelessWidget {
         duration: const Duration(milliseconds: 800),
         child: Container(
               padding: const EdgeInsets.all(32),
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                  color: ColorConstants.queenViolet.withOpacity(0.7),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+                  color: ColorConstants.lightQueenViolet.withOpacity(0.6),
                   // gradient: LinearGradient(
                   //   colors: [
                   //     ColorConstants.highlightQueenViolet.withOpacity(0.4),
@@ -231,7 +242,7 @@ class ExperienceTab extends StatelessWidget {
                   image: DecorationImage(
                     image: const NetworkImage("https://static.vecteezy.com/system/resources/previews/006/861/154/non_2x/light-blue-background-gradient-illustration-eps10-vector.jpg"),
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.3), BlendMode.dstATop),
+                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.4), BlendMode.dstATop),
                   )
               ),
               child: ClipRect(
@@ -244,7 +255,7 @@ class ExperienceTab extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text("Freelancing Experience", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white),),
+                            Text("Freelancing Experience", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.black),),
                             // Text("Know More", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.black, decoration: TextDecoration.underline),),
                           ],
                         ),
@@ -258,11 +269,12 @@ class ExperienceTab extends StatelessWidget {
                                 Container(
                                   decoration: BoxDecoration(
                                       color: ColorConstants.glassWhite.withOpacity(0.4),
+                                      border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
                                       gradient: LinearGradient(
                                           colors: [
                                             // ColorConstants.glassWhite.withAlpha(60),
-                                            ColorConstants.queenViolet.withAlpha(30),
-                                            ColorConstants.deepQueenViolet.withAlpha(80),
+                                            ColorConstants.glassWhite.withOpacity(0.2),
+                                            ColorConstants.glassWhite.withOpacity(0.7),
                                             // ColorConstants.orange.withAlpha(10),
                                           ],
                                           begin: const FractionalOffset(0.0, 0.0),
@@ -282,7 +294,7 @@ class ExperienceTab extends StatelessWidget {
                                     //   "Optimized MySQL data flow with Django Restful APIs, cutting response time by 30%, boosting user experience."
                                     // ],
                                     index: index,
-                                    isFreelancing: true
+                                    isFreelancing: false
                                     // length: 2
                                   ),
                                 ),
@@ -452,7 +464,41 @@ class ExperienceTab extends StatelessWidget {
                           const SizedBox(height: 16,)
                       ],
                     ),
-                  )
+                  ),
+                if (companyData.projects.isNotEmpty)
+                const Text("Contributed to",
+                  style: TextStyle(color: ColorConstants.textBlue, fontWeight: FontWeight.w500, fontSize: 14),),
+                if (companyData.projects.isNotEmpty)
+                  const SizedBox(height: 8,),
+                if (companyData.projects.isNotEmpty)
+                Wrap(
+                  runSpacing: 8,
+                  spacing: 8,
+                  alignment: WrapAlignment.start,
+                  children: List.generate(companyData.projects.length, (index){
+                    return  Container(
+                      constraints: const BoxConstraints(maxWidth: 96),
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        // color: ColorConstants.glassBlack.withOpacity(0.1),
+                        // border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 2),
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                              height: 64,
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.network(companyData.projects[index].logoUrl ?? "", height: 64, width: 64, fit: BoxFit.cover))),
+
+                          const SizedBox(height: 4,),
+                          Text(companyData.projects[index].title,
+                            style: const TextStyle(fontSize: 12), overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, maxLines: 2,),
+                        ],
+                      ),
+                    );
+                  }),)
               ],
             ),
           )
@@ -473,6 +519,8 @@ class ExperienceTab extends StatelessWidget {
               padding: const EdgeInsets.all(32),
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
                   color: ColorConstants.glassWhite.withOpacity(0.8),
+                  border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+
                   image: DecorationImage(
                     image: const NetworkImage("https://img.freepik.com/premium-photo/beautiful-colorful-background-vector-gradation-set-wallpaper-printable-template_515653-42.jpg"),
                     fit: BoxFit.cover,
@@ -757,6 +805,7 @@ class ExperienceTab extends StatelessWidget {
             padding: constraints.maxWidth > 434 ? const EdgeInsets.only(left: 32, right: 32, top: 32, bottom: 52) : const EdgeInsets.all(32),
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
                 color: ColorConstants.glassWhite.withOpacity(0.8),
+                border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
                 image: DecorationImage(
                   image: const NetworkImage("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjkwNC1udW5ueS0wMTIteC1qb2I1OTguanBn.jpg"),
                   fit: BoxFit.cover,
@@ -848,6 +897,7 @@ class ExperienceTab extends StatelessWidget {
             padding: const EdgeInsets.all(32),
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
                 color: ColorConstants.glassWhite.withOpacity(0.8),
+                border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
                 image: DecorationImage(
                   image: const NetworkImage("https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg"),
                   fit: BoxFit.cover,

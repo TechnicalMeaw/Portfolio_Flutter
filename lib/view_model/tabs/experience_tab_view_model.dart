@@ -22,6 +22,8 @@ class ExperienceTabViewModel extends BaseGetXController {
   List<PieChartDataModel> programmingLanguageList = [];
   List<PieChartDataModel> domainKnowledgeList = [];
 
+  RxBool isProject1KnowMoreBtnHovered = false.obs;
+
   @override
   void onInit() {
 
@@ -85,7 +87,7 @@ class ExperienceTabViewModel extends BaseGetXController {
           jobDuration: "June 2022 - Present",
           keyResponsibilities: [
             Responsibilities(
-              // title: "Development and Enhancement of Flutter apps",
+              // title: "Mobile Development [SBI General Insurance]",
                 responsibilityTexts: [
                   CompanyResponsibilityText(
                       text: "Development of ",
@@ -224,6 +226,14 @@ class ExperienceTabViewModel extends BaseGetXController {
             ),
 
           ],
+            projects : [
+              Project(title: "SBI General Insurance", logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpGuI7J3LkxwxiwvKTiqKUzv-JyKeHpTHg2g&s"),
+              Project(title: "Manipal Hospitals", logoUrl: "https://upload.wikimedia.org/wikipedia/en/d/dd/Manipal_Hospitals_%28logo%29.png"),
+              Project(title: "Green Brillance", logoUrl: "https://media.licdn.com/dms/image/v2/D4E05AQHFqCuPF3J2zQ/videocover-low/videocover-low/0/1724013897010?e=2147483647&v=beta&t=9Ik3XXmaNdYUvfR1UfMu9hdYuUDIAmMrZgBzSPJz-Ls"),
+              Project(title: "Care Health Insurance", logoUrl: "https://play-lh.googleusercontent.com/ZBdHZIdRgt-8pMRTHrSiJqLLQ_03SDr9LVfj_wZOUOgEb5CXA2_Dy-0pJdNKVicex-BS=w240-h480-rw"),
+              Project(title: "Blaze Solar", logoUrl: "https://play-lh.googleusercontent.com/VRh30hR50buyXTagkEYldX1sfBFvTi7-bqsTNvC7t-TY-2QP6_KnUGgeabupT1sQeLQ=w240-h480-rw"),
+              Project(title: "Hero Insurance Broking", logoUrl: "https://media.licdn.com/dms/image/v2/C560BAQEFJxadILROsQ/company-logo_200_200/company-logo_200_200/0/1630632785455/heroinsurancebroking_logo?e=2147483647&v=beta&t=mJ4Q_fTvnS9p8rmaBjDdjT_Debyrcg4kg1UAn3-YVLU"),
+            ]
         )
     );
     experienceCompanyList.add(
@@ -293,6 +303,9 @@ class ExperienceTabViewModel extends BaseGetXController {
                 ]
             ),
           ],
+          projects: [
+            Project(title: "Shilah Rakhs", logoUrl: "https://raw.githubusercontent.com/TechnicalMeaw/ShilahRakhs/master/app/src/main/ic_launcher-playstore.png")
+          ]
         )
     );
   }
@@ -304,6 +317,96 @@ class ExperienceTabViewModel extends BaseGetXController {
           companyName: "",
           jobDuration: "Nov 2022 - Mar 2023",
           keyResponsibilities: [
+            Responsibilities(
+              // title: "Flutter",
+                responsibilityTexts: [
+                  CompanyResponsibilityText(
+                      text: "Developed a ",
+                      textType: TextType.normal
+                  ),
+                  CompanyResponsibilityText(
+                      text: "social-media application",
+                      textType: TextType.bold
+                  ),
+                  CompanyResponsibilityText(
+                      text: " featuring ",
+                      textType: TextType.normal
+                  ),
+                  CompanyResponsibilityText(
+                      text: "multiple sub-communities",
+                      textType: TextType.bold
+                  ),
+                  CompanyResponsibilityText(
+                      text: ", ",
+                      textType: TextType.normal
+                  ),
+                  CompanyResponsibilityText(
+                      text: "video streaming",
+                      textType: TextType.bold
+                  ),
+                  CompanyResponsibilityText(
+                      text: ", interactive features like ",
+                      textType: TextType.normal
+                  ),
+                  CompanyResponsibilityText(
+                      text: "follow, like, comment",
+                      textType: TextType.bold
+                  ),
+                  CompanyResponsibilityText(
+                      text: ", Instagram-like ",
+                      textType: TextType.normal
+                  ),
+                  CompanyResponsibilityText(
+                      text: "story sharing",
+                      textType: TextType.bold
+                  ),
+                  CompanyResponsibilityText(
+                      text: ", and advanced ",
+                      textType: TextType.normal
+                  ),
+                  CompanyResponsibilityText(
+                      text: "location and role management.",
+                      textType: TextType.bold
+                  )
+                ]
+
+            ),
+
+            Responsibilities(
+              // title: "Flutter",
+                responsibilityTexts: [
+                  CompanyResponsibilityText(
+                      text: "Crafted an ",
+                      textType: TextType.normal
+                  ),
+                  CompanyResponsibilityText(
+                      text: "e-commerce application",
+                      textType: TextType.bold
+                  ),
+                  CompanyResponsibilityText(
+                      text: ", integrating ",
+                      textType: TextType.normal
+                  ),
+                  CompanyResponsibilityText(
+                      text: "courier services",
+                      textType: TextType.bold
+                  ),
+                  CompanyResponsibilityText(
+                      text: ", along with an ",
+                      textType: TextType.normal
+                  ),
+                  CompanyResponsibilityText(
+                      text: "admin panel",
+                      textType: TextType.bold
+                  ),
+                  CompanyResponsibilityText(
+                      text: " for efficient product and order management.",
+                      textType: TextType.normal
+                  ),
+
+                ]
+            ),
+
             Responsibilities(
               // title: "Flutter",
                 responsibilityTexts: [
@@ -351,41 +454,13 @@ class ExperienceTabViewModel extends BaseGetXController {
                 ]
             ),
 
-            Responsibilities(
-              // title: "Flutter",
-                responsibilityTexts: [
-                  CompanyResponsibilityText(
-                      text: "Crafted an ",
-                      textType: TextType.normal
-                  ),
-                  CompanyResponsibilityText(
-                      text: "e-commerce application",
-                      textType: TextType.bold
-                  ),
-                  CompanyResponsibilityText(
-                      text: ", integrating ",
-                      textType: TextType.normal
-                  ),
-                  CompanyResponsibilityText(
-                      text: "courier services",
-                      textType: TextType.bold
-                  ),
-                  CompanyResponsibilityText(
-                      text: ", along with an ",
-                      textType: TextType.normal
-                  ),
-                  CompanyResponsibilityText(
-                      text: "admin panel",
-                      textType: TextType.bold
-                  ),
-                  CompanyResponsibilityText(
-                      text: " for efficient product and order management.",
-                      textType: TextType.normal
-                  ),
 
-                ]
-            ),
           ],
+          projects: [
+            Project(title: "Plantonic", logoUrl: "https://play-lh.googleusercontent.com/xVgqu1sLpSt6iPPwCIB09rkSgkmsroDq91UuwMElTXDCAjw_ccfsJrRJlBShveuuGLU=w240-h480-rw"),
+            Project(title: "Gangs of Greenpur", logoUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxg2VdN56bgPRq9D0_Ih6mJDPrWGnkOnCbWYBfg9tflBq1p4KZzlXeXq1e67aIpGltVZdEn3hxqxQe3VAuns4b3GZaNVbJ5qM4uhNzkRTYAGW4AbuPCkD6mf55t9Dy-EEtR26W4bcyiDx9pRX-iWQHh7lFEBgFVO19N51e_I0Pn2CZg2kRRq96yJbtcgQ/s320/gog_logo.png"),
+            Project(title: "95 Club", logoUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEijbnCSKWmDGgrhFQ8yNqzq0esRwr6_9T_K7tyAPEtWtuKS73O8d8AznU_w_CHIyOGEFtbv-ycC-M9eoKbHO35CTIKBrBOwTd5NYpXmW-J5SRz4qomVTrmhyphenhyphenFL3A8BMvwfAsgjKeL3ewAQ_pCe_Pc6gEI8BqUeSSuw1rbXd0ZdubYCZaXJrCJOZT2Q1VhQ/s1024/app_logo.jpg")
+          ]
         )
     );
 
@@ -395,14 +470,17 @@ class ExperienceTabViewModel extends BaseGetXController {
     technologyStackList = [
       PieChartDataModel(title: "Android Development", color: ColorConstants.textBlue, percentage: 24),
       PieChartDataModel(title: "Flutter", color: ColorConstants.blue, percentage: 20),
-      PieChartDataModel(title: "FastApi", color: ColorConstants.crossRed, percentage: 14),
-      PieChartDataModel(title: "AWS", color: ColorConstants.minimizeYellow, percentage: 6),
+      PieChartDataModel(title: "FastApi", color: ColorConstants.darkQueenViolet.withOpacity(0.85), percentage: 14),
+      PieChartDataModel(title: "AWS", color: ColorConstants.minimizeYellow, percentage: 7),
       PieChartDataModel(title: "Django", color: ColorConstants.grassGreen, percentage: 12),
+
       PieChartDataModel(title: "PostgresQL", color: ColorConstants.cyanBlue, percentage: 4),
       PieChartDataModel(title: "Unity 2D", color: ColorConstants.queenViolet, percentage: 4),
+      PieChartDataModel(title: "Firebase", color: ColorConstants.orange, percentage: 8),
+
       PieChartDataModel(title: "MySQL", color: ColorConstants.teal, percentage: 3),
-      PieChartDataModel(title: "Amplify", color: ColorConstants.glassBlack.withOpacity(0.7), percentage: 4),
-      PieChartDataModel(title: "Firebase", color: ColorConstants.orange, percentage: 9),
+      PieChartDataModel(title: "Amplify", color: ColorConstants.deepTeal.withOpacity(0.7), percentage: 4),
+
       // PieChartDataModel(title: "", color: ColorConstants.glassBlack, percentage: 20),
     ];
   }
@@ -424,12 +502,12 @@ class ExperienceTabViewModel extends BaseGetXController {
     domainKnowledgeList = [
       PieChartDataModel(title: "Mobile", color: ColorConstants.textBlue, percentage: 30),
       PieChartDataModel(title: "Backend", color: ColorConstants.orange, percentage: 18),
-      PieChartDataModel(title: "DevOps", color: ColorConstants.teal, percentage: 8),
+      PieChartDataModel(title: "DevOps", color: ColorConstants.teal, percentage: 9),
       PieChartDataModel(title: "Cyber Security", color: ColorConstants.queenViolet, percentage: 13),
 
-      PieChartDataModel(title: "DSA", color: ColorConstants.grassGreen, percentage: 22),
+      PieChartDataModel(title: "DSA", color: ColorConstants.grassGreen, percentage: 20),
       // PieChartDataModel(title: "Game Development", color: ColorConstants.minimizeYellow, percentage: 4),
-      PieChartDataModel(title: "DBMS", color: ColorConstants.crossRed, percentage: 9),
+      PieChartDataModel(title: "DBMS", color: ColorConstants.deepTeal.withOpacity(0.7), percentage: 10),
 
     ];
   }

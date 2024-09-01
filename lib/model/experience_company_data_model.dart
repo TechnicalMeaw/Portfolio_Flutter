@@ -3,13 +3,15 @@ class ExperienceCompanyDataModel{
   final String companyName;
   final String jobDuration;
   final List<Responsibilities> keyResponsibilities;
+  final List<Project> projects;
   // int index;
 
   const ExperienceCompanyDataModel({
     required this.jobTitle,
     required this.keyResponsibilities,
     required this.jobDuration,
-    required this.companyName
+    required this.companyName,
+    this.projects = const []
   });
 }
 
@@ -24,6 +26,13 @@ class CompanyResponsibilityText{
   TextType textType;
 
   CompanyResponsibilityText({required this.text, required this.textType});
+}
+
+class Project{
+  String title;
+  String? logoUrl;
+
+  Project({required this.title, this.logoUrl});
 }
 
 enum TextType{

@@ -137,7 +137,8 @@ class ProjectsTab extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(32),
           decoration: BoxDecoration(
-              color: ColorConstants.cyanBlue.withOpacity(0.6),
+              color: ColorConstants.cyanBlue.withOpacity(0.4),
+              border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
               borderRadius: BorderRadius.circular(16),
               image: DecorationImage(
                 image: const NetworkImage("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjkwNC1udW5ueS0wMTIteC1qb2I1OTguanBn.jpg"),
@@ -179,8 +180,10 @@ class ProjectsTab extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(32),
           decoration: BoxDecoration(
-              color: ColorConstants.glassWhite.withOpacity(0.6),
-              borderRadius: BorderRadius.circular(16),
+              color: ColorConstants.glassWhite.withOpacity(0.4),
+            border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+
+            borderRadius: BorderRadius.circular(16),
               // image: DecorationImage(
               //   image: const NetworkImage("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjkwNC1udW5ueS0wMTIteC1qb2I1OTguanBn.jpg"),
               //   fit: BoxFit.cover,
@@ -231,7 +234,9 @@ class ProjectsTab extends StatelessWidget {
             duration: const Duration(milliseconds: 800),
             child: Container(
             decoration: BoxDecoration(
-              color: ColorConstants.glassWhite.withOpacity(0.6),
+              color: ColorConstants.glassWhite.withOpacity(0.56),
+              border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+
               borderRadius: BorderRadius.circular(16),
               // boxShadow: [BoxShadow(
               //   color: ColorConstants.glassWhite.withOpacity(0.6),

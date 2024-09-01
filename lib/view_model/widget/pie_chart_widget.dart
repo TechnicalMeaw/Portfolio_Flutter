@@ -163,6 +163,21 @@ class MyPainter extends CustomPainter {
         Offset(size.width/2 + (size.width/2 + size.width/8/stroke) * cos((startAngle * fraction)),  size.width/2 + (size.width/2 + size.width/8/stroke) * sin((startAngle * fraction))),
         paint);
 
+//     canvas.drawArc(
+//         Rect.fromCenter(center: Offset(
+//             (size.width/2 + (size.width/2 - size.width/8/stroke) * cos((startAngle * fraction)) + size.width/2 + (size.width/2 + size.width/8/stroke) * cos((startAngle * fraction)))/2,
+//             (size.width/2 + (size.width/2 - size.width/8/stroke) * sin((startAngle * fraction)) + size.width/2 + (size.width/2 + size.width/8/stroke) * sin((startAngle * fraction)))/2),
+//             height: ((size.width/2 + (size.width/2 + size.width/8/stroke)) - (size.width/2 + (size.width/2 - size.width/8/stroke) * cos((startAngle * 0))))/2
+//
+//             // (size.width + size.width/4/stroke),
+//                 ,
+//             // width: (size.width + size.width/4/stroke)),
+//             width: ((size.width/2 + (size.width/2 + size.width/8/stroke)) - (size.width/2 + (size.width/2 - size.width/8/stroke) * cos((startAngle * 0))))/2
+// ,),
+//             startAngle * fraction, 90,
+//         false,
+//         paint);
+
     paint..strokeWidth = 0.5
       ..color= ColorConstants.darkGray.withOpacity(fraction);
 

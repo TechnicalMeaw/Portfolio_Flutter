@@ -764,7 +764,7 @@ class OverviewTab extends StatelessWidget {
                                                           ),
                                                         ]),),
                                                     const SizedBox(height: 12,),
-                                                    Text("Handled Project", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500,
+                                                    Text("Handled Projects", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500,
                                                         color: viewModel.kpi2KnowMoreHovered.value ? ColorConstants.white: ColorConstants.white,
                                                         shadows: const <Shadow>[
                                                           Shadow(
@@ -1087,16 +1087,15 @@ class OverviewTab extends StatelessWidget {
                                                       () => Padding(
                                                         padding: const EdgeInsets.symmetric(horizontal: 8),
                                                         child: Text("View All", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400,
-                                                                                                            color: viewModel.educationViewAllHovered.value ? ColorConstants.white : ColorConstants.glassWhite, decoration: TextDecoration.underline,
-                                                                                                            decorationColor: viewModel.educationViewAllHovered.value ? ColorConstants.white : ColorConstants.glassWhite,
-                                                                                                            shadows: <Shadow>[
+                                                          color: viewModel.educationViewAllHovered.value ? ColorConstants.white : ColorConstants.glassWhite, decoration: TextDecoration.underline,
+                                                          decorationColor: viewModel.educationViewAllHovered.value ? ColorConstants.white : ColorConstants.glassWhite,
+                                                          shadows: <Shadow>[
                                                         Shadow(
                                                           offset: const Offset(0.0, 0.0),
                                                           blurRadius: 10.0,
                                                           color: !viewModel.educationViewAllHovered.value ? ColorConstants.black : ColorConstants.white,
-                                                        ),
-                                                                                                            ],
-                                                                                                          ),),
+                                                        ),],
+                                                        ),),
                                                       ),
                                                 ),
                                               ),

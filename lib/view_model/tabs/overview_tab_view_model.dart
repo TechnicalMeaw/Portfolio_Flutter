@@ -135,11 +135,11 @@ class OverviewTabViewModel extends BaseGetXController {
           });
           t7 = Future.delayed(const Duration(milliseconds: 1000), () {
             isKPI1Visible.value = true;
-            startIncreasingAnimation(kpi1Value, 2, 100, 500, increaseValue: 1);
+            startIncreasingAnimation(kpi1Value, 3, 100, 500, increaseValue: 1);
           });
           t8 = Future.delayed(const Duration(milliseconds: 2400), () {
             isKPI2Visible.value = true;
-            startIncreasingAnimation(kpi2Value, 7, 100, 220, increaseValue: 1);
+            startIncreasingAnimation(kpi2Value, 9, 100, 220, increaseValue: 1);
           });
           t9 = Future.delayed(const Duration(milliseconds: 4400), () {
             isKPI3Visible.value = true;
@@ -147,11 +147,11 @@ class OverviewTabViewModel extends BaseGetXController {
           });
           t10 = Future.delayed(const Duration(milliseconds: 7200), () {
             isKPI4Visible.value = true;
-            startIncreasingAnimation(kpi4Value, 6, 1800, 300, increaseValue: 1);
+            startIncreasingAnimation(kpi4Value, 7, 1800, 300, increaseValue: 1);
           });
           t11 = Future.delayed(const Duration(milliseconds: 10400), () {
             isKPI5Visible.value = true;
-            startIncreasingAnimation(kpi5Value, 56, 2600, 120, increaseValue: 4);
+            startIncreasingAnimation(kpi5Value, 246, 2600, 60, increaseValue: 4);
           });
         });
 

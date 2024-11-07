@@ -139,19 +139,19 @@ class OverviewTabViewModel extends BaseGetXController {
           });
           t8 = Future.delayed(const Duration(milliseconds: 2400), () {
             isKPI2Visible.value = true;
-            startIncreasingAnimation(kpi2Value, 9, 100, 220, increaseValue: 1);
+            startIncreasingAnimation(kpi2Value, 12, 100, 200, increaseValue: 1);
           });
           t9 = Future.delayed(const Duration(milliseconds: 4400), () {
             isKPI3Visible.value = true;
-            startIncreasingAnimation(kpi3Value, 6, 500, 360, increaseValue: 1);
+            startIncreasingAnimation(kpi3Value, 8, 500, 320, increaseValue: 1);
           });
           t10 = Future.delayed(const Duration(milliseconds: 7200), () {
             isKPI4Visible.value = true;
-            startIncreasingAnimation(kpi4Value, 7, 1800, 300, increaseValue: 1);
+            startIncreasingAnimation(kpi4Value, 9, 1800, 280, increaseValue: 1);
           });
           t11 = Future.delayed(const Duration(milliseconds: 10400), () {
             isKPI5Visible.value = true;
-            startIncreasingAnimation(kpi5Value, 246, 2600, 60, increaseValue: 4);
+            startIncreasingAnimation(kpi5Value, 456, 2600, 30, increaseValue: 4);
           });
         });
 

@@ -231,8 +231,9 @@ class ExperienceTabViewModel extends BaseGetXController {
               Project(title: "Manipal Hospitals", logoUrl: "https://upload.wikimedia.org/wikipedia/en/d/dd/Manipal_Hospitals_%28logo%29.png"),
               Project(title: "Green Brillance", logoUrl: "https://media.licdn.com/dms/image/v2/D4E05AQHFqCuPF3J2zQ/videocover-low/videocover-low/0/1724013897010?e=2147483647&v=beta&t=9Ik3XXmaNdYUvfR1UfMu9hdYuUDIAmMrZgBzSPJz-Ls"),
               Project(title: "Care Health Insurance", logoUrl: "https://play-lh.googleusercontent.com/ZBdHZIdRgt-8pMRTHrSiJqLLQ_03SDr9LVfj_wZOUOgEb5CXA2_Dy-0pJdNKVicex-BS=w240-h480-rw"),
+
               Project(title: "Blaze Solar", logoUrl: "https://play-lh.googleusercontent.com/VRh30hR50buyXTagkEYldX1sfBFvTi7-bqsTNvC7t-TY-2QP6_KnUGgeabupT1sQeLQ=w240-h480-rw"),
-              Project(title: "Hero Insurance Broking", logoUrl: "https://media.licdn.com/dms/image/v2/C560BAQEFJxadILROsQ/company-logo_200_200/company-logo_200_200/0/1630632785455/heroinsurancebroking_logo?e=2147483647&v=beta&t=mJ4Q_fTvnS9p8rmaBjDdjT_Debyrcg4kg1UAn3-YVLU"),
+              Project(title: "Hero Insurance", logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVdj6TumZRkyMvGB9Jn_RR-LwrJZ3nklckzQ&s"),
             ]
         )
     );

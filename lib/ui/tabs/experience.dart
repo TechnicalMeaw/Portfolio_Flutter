@@ -294,7 +294,7 @@ class ExperienceTab extends StatelessWidget {
                                     //   "Optimized MySQL data flow with Django Restful APIs, cutting response time by 30%, boosting user experience."
                                     // ],
                                     index: index,
-                                    isFreelancing: false
+                                    isFreelancing: true
                                     // length: 2
                                   ),
                                 ),
@@ -346,11 +346,11 @@ class ExperienceTab extends StatelessWidget {
                 height: 12,
                 width: 12,
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(6),
-                    border: Border.all(width: 1.5, color: isFreelancing? ColorConstants.white: ColorConstants.textBlue)),
+                    border: Border.all(width: 1.5, color: isFreelancing? ColorConstants.darkQueenViolet: ColorConstants.textBlue)),
               ),
               Expanded(
                 child: Container(
-                  width: 1.5, color: isFreelancing? ColorConstants.white: ColorConstants.textBlue,),
+                  width: 1.5, color: isFreelancing? ColorConstants.darkQueenViolet: ColorConstants.textBlue,),
               ),
               const SizedBox(height: 8),
             ],
@@ -364,7 +364,7 @@ class ExperienceTab extends StatelessWidget {
                 // if(index != 0)
                 //   const SizedBox(height: 24,),
                 Text(companyData.jobTitle, style: TextStyle(fontSize: 16,
-                    fontWeight: FontWeight.w500, color: isFreelancing ? ColorConstants.white : ColorConstants.deepTextBlue,
+                    fontWeight: FontWeight.w500, color: isFreelancing ? ColorConstants.darkQueenViolet : ColorConstants.deepTextBlue,
                   shadows: <Shadow>[
                     Shadow(
                       offset: const Offset(0.0, 0.0),
@@ -384,7 +384,7 @@ class ExperienceTab extends StatelessWidget {
                     Shadow(
                       offset: const Offset(0.0, 0.0),
                       blurRadius: 0.1,
-                      color: isFreelancing ? ColorConstants.lightYellow : ColorConstants.deepBlue,
+                      color: isFreelancing ? ColorConstants.queenViolet : ColorConstants.deepBlue,
                     ),
                     const Shadow(
                       offset: Offset(0.0, 0.0),
@@ -394,12 +394,12 @@ class ExperienceTab extends StatelessWidget {
                   ],
                 )),
                 const SizedBox(height: 2,),
-                Text(companyData.jobDuration, style: TextStyle(fontSize: 10, color: isFreelancing ? ColorConstants.glassWhite : ColorConstants.textBlue, fontWeight: FontWeight.w400,
+                Text(companyData.jobDuration, style: TextStyle(fontSize: 10, color: isFreelancing ? ColorConstants.queenViolet : ColorConstants.textBlue, fontWeight: FontWeight.w400,
                   shadows: <Shadow>[
                     Shadow(
                       offset: const Offset(0.0, 0.0),
                       blurRadius: 0.1,
-                      color: isFreelancing ? ColorConstants.lightYellow : ColorConstants.deepBlue,
+                      color: isFreelancing ? ColorConstants.darkQueenViolet : ColorConstants.deepBlue,
                     ),
                     const Shadow(
                       offset: Offset(0.0, 0.0),
@@ -421,8 +421,8 @@ class ExperienceTab extends StatelessWidget {
                                 height: 5,
                                 width: 5,
                                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(4),
-                                  border: Border.all(width: 1.5, color: isFreelancing ? ColorConstants.glassWhite : ColorConstants.glassBlack),
-                                color: isFreelancing ? ColorConstants.white : ColorConstants.black
+                                  border: Border.all(width: 1.5, color: isFreelancing ? ColorConstants.glassBlack : ColorConstants.glassBlack),
+                                color: isFreelancing ? ColorConstants.black : ColorConstants.black
                                 ),
                               ),
                               const SizedBox(width: 10,),
@@ -437,7 +437,7 @@ class ExperienceTab extends StatelessWidget {
                                   Text.rich(TextSpan(
                                       children: List.generate(companyData.keyResponsibilities[keyIndex].responsibilityTexts.length, (textIndex) =>
                                       TextSpan(text: companyData.keyResponsibilities[keyIndex].responsibilityTexts[textIndex].text,
-                                          style: TextStyle(fontSize: 14, color: isFreelancing ? ColorConstants.white : ColorConstants.deepTextBlue,
+                                          style: TextStyle(fontSize: 14, color: isFreelancing ? ColorConstants.black : ColorConstants.deepTextBlue,
                                               fontWeight: companyData.keyResponsibilities[keyIndex].responsibilityTexts[textIndex].textType == TextType.bold ? FontWeight.w500
                                                   // : FontWeight.lerp(FontWeight.w400, FontWeight.w500, 0.5),
                                                   : FontWeight.w400,
@@ -445,12 +445,12 @@ class ExperienceTab extends StatelessWidget {
                                               Shadow(
                                                 offset: const Offset(0.0, 0.0),
                                                 blurRadius: 0.1,
-                                                color: isFreelancing ? ColorConstants.lightQueenViolet : ColorConstants.deepBlue,
+                                                color: isFreelancing ? ColorConstants.white : ColorConstants.deepBlue,
                                               ),
                                               Shadow(
                                                 offset: Offset(0.0, 0.0),
                                                 blurRadius: 0.5,
-                                                color: isFreelancing ? ColorConstants.glassBlack : ColorConstants.cyanBlue,
+                                                color: isFreelancing ? ColorConstants.queenViolet : ColorConstants.cyanBlue,
                                               ),
                                             ],
                                           )))),
@@ -466,8 +466,8 @@ class ExperienceTab extends StatelessWidget {
                     ),
                   ),
                 if (companyData.projects.isNotEmpty)
-                const Text("Contributed to",
-                  style: TextStyle(color: ColorConstants.textBlue, fontWeight: FontWeight.w500, fontSize: 14),),
+                Text("Contributed to",
+                  style: TextStyle(color: isFreelancing ? ColorConstants.darkQueenViolet : ColorConstants.textBlue, fontWeight: FontWeight.w500, fontSize: 14),),
                 if (companyData.projects.isNotEmpty)
                   const SizedBox(height: 8,),
                 if (companyData.projects.isNotEmpty)

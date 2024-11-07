@@ -427,9 +427,9 @@ class OverviewTab extends StatelessWidget {
                                             // vertical: viewModel.isDownloadCvBtnHovered.value? 12 : 12
                                             vertical: 12
                                         ),
-                                        decoration: BoxDecoration(color:viewModel.isDownloadCvBtnHovered.value? ColorConstants.white.withOpacity(0.8) : ColorConstants.black.withOpacity(0.9),
+                                        decoration: BoxDecoration(color:!viewModel.isDownloadCvBtnHovered.value? ColorConstants.white.withOpacity(0.8) : ColorConstants.black.withOpacity(0.9),
                                           borderRadius: BorderRadius.circular(24),
-                                          border: Border.all(width: 1, color: viewModel.isDownloadCvBtnHovered.value? ColorConstants.black : ColorConstants.white),
+                                          border: Border.all(width: 1, color: !viewModel.isDownloadCvBtnHovered.value? ColorConstants.black : ColorConstants.white),
                                           boxShadow: [
                                             BoxShadow(
                                               color: ColorConstants.glassBlue.withOpacity(0.4),
@@ -438,8 +438,8 @@ class OverviewTab extends StatelessWidget {
                                               offset: const Offset(0, 0), // changes position of shadow
                                             ),],),
                                         child: Text("Download CV", style: TextStyle(fontSize: 14,
-                                            fontWeight: viewModel.isDownloadCvBtnHovered.value? FontWeight.w500: FontWeight.w500,
-                                            color: viewModel.isDownloadCvBtnHovered.value? ColorConstants.black : ColorConstants.white),
+                                            fontWeight: !viewModel.isDownloadCvBtnHovered.value? FontWeight.w500: FontWeight.w500,
+                                            color: !viewModel.isDownloadCvBtnHovered.value? ColorConstants.black : ColorConstants.white),
                                         ),),
                                     ),
                                     const SizedBox(width: 24,),

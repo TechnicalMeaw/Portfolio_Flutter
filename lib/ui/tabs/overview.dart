@@ -407,7 +407,7 @@ class OverviewTab extends StatelessWidget {
                                     InkWell(
                                       onTap: () async {
                                         // final Uri url = Uri.parse('mailto:santanumukherjeebh@gmail.com?subject=Exciting Opportunity: Join Our Team!&body=Hi Santanu,\n\nImpressed by your portfolio, we\'re keen on having you join our team. Ready to chat about it?\n\nBest regards,\n[Your Name]');
-                                        final Uri url = Uri.parse('https://1drv.ms/b/s!AofcIzI1lmhnhLlwwjJGyPUD6OicEg?e=vUoFsM');
+                                        final Uri url = Uri.parse('https://1drv.ms/b/c/676896353223dc87/ESCxAKK0Ip9DnuywRVuSX7oBpgXcbo2N4AOQPfgLMRFRyA?e=7yxIvf');
                                         if (!await launchUrl(url)) {
                                           throw Exception('Could not launch $url');
                                         }

@@ -72,7 +72,7 @@ class HomePage extends StatelessWidget {
         child:
         ClipRect(
             child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+              filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
               child:
               Container(
                 height: 25,
@@ -212,7 +212,7 @@ class HomePage extends StatelessWidget {
                                 _viewModel.isOptionsDownloadCVHovered.value = isHovered;
                               },
                               onTap: () async {
-                                final Uri url = Uri.parse('https://1drv.ms/b/s!AofcIzI1lmhnhLlwwjJGyPUD6OicEg?e=vUoFsM');
+                                final Uri url = Uri.parse('https://1drv.ms/b/c/676896353223dc87/ESCxAKK0Ip9DnuywRVuSX7oBpgXcbo2N4AOQPfgLMRFRyA?e=MvOLa1');
                                 if (!await launchUrl(url)) {
                                   throw Exception('Could not launch $url');
                                 }
@@ -265,7 +265,7 @@ Widget _bottomMainTabs(HomePageViewModel viewModel, BuildContext context) {
       ClipRRect(
         borderRadius: BorderRadius.circular(8),
       child: BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+      filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
       child:Container(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
             // margin: const EdgeInsets.only(left: 5),

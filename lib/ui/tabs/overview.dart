@@ -8,13 +8,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/state_manager.dart';
 import 'package:portfolio/resources/asset_constants.dart';
 import 'package:portfolio/resources/color_constants.dart';
-import 'package:portfolio/view_model/home/home_page_view_model.dart';
 import 'package:portfolio/view_model/tabs/overview_tab_view_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -29,7 +27,7 @@ class OverviewTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRect(
         child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+        filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
     child:
     Container(
       decoration: BoxDecoration(
@@ -182,7 +180,7 @@ class OverviewTab extends StatelessWidget {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(16),
                                 child: BackdropFilter(
-                                filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+                                filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 75),
                                   child: Visibility(
@@ -369,17 +367,17 @@ class OverviewTab extends StatelessWidget {
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
                         border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
 
-                        color: ColorConstants.black.withOpacity(0.7),
+                        color: ColorConstants.black.withOpacity(0.65),
                     image: DecorationImage(
                       // image: const NetworkImage("https://images.squarespace-cdn.com/content/v1/5ffb7c47a24aef1e5b942c13/1618436873379-0JSK85ANOQC8Y2QN1O98/gs-gradientsite2.png"),
                       image: const NetworkImage("https://images.pexels.com/photos/2569997/pexels-photo-2569997.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                       fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.4), BlendMode.dstATop),
+                      colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.35), BlendMode.dstATop),
                     )
                     ),
                     child: ClipRRect(borderRadius: BorderRadius.circular(16),
                       child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                      filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
                       child: Padding(
                         padding: const EdgeInsets.all(32.0),
                         child: Column(
@@ -407,7 +405,7 @@ class OverviewTab extends StatelessWidget {
                                     InkWell(
                                       onTap: () async {
                                         // final Uri url = Uri.parse('mailto:santanumukherjeebh@gmail.com?subject=Exciting Opportunity: Join Our Team!&body=Hi Santanu,\n\nImpressed by your portfolio, we\'re keen on having you join our team. Ready to chat about it?\n\nBest regards,\n[Your Name]');
-                                        final Uri url = Uri.parse('https://1drv.ms/b/c/676896353223dc87/ESCxAKK0Ip9DnuywRVuSX7oBpgXcbo2N4AOQPfgLMRFRyA?e=7yxIvf');
+                                        final Uri url = Uri.parse('https://1drv.ms/b/c/676896353223dc87/ESCxAKK0Ip9DnuywRVuSX7oBpgXcbo2N4AOQPfgLMRFRyA?e=MvOLa1');
                                         if (!await launchUrl(url)) {
                                           throw Exception('Could not launch $url');
                                         }
@@ -652,76 +650,91 @@ class OverviewTab extends StatelessWidget {
                                         opacity: viewModel.isKPI1Visible.value ? 1: 0,
                                         curve: Curves.easeIn,
                                         child: Obx(
-                                            ()=> AnimatedContainer(
-                                            duration: const Duration(milliseconds: 200),
-                                              // margin: const EdgeInsets.all(16),
-                                              constraints: const BoxConstraints(minWidth: 250),
-                                              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                                                border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
-                                                // color: viewModel.kpi1KnowMoreHovered.value ? ColorConstants.textBlue : ColorConstants.cyanBlue.withOpacity(0.8),
-                                                gradient: RadialGradient(
-                                                  radius: 1,
-                                                  colors: [
-                                                    !viewModel.kpi1KnowMoreHovered.value ? ColorConstants.blue : ColorConstants.blue1,
-                                                    !viewModel.kpi1KnowMoreHovered.value ? ColorConstants.deepTextBlue : ColorConstants.black
-                                                  ]
+                                            ()=> InkWell(
+                                              onTap: (){
+                                                viewModel.animateToExperienceTab();
+                                              },
+                                              onHover: (isHovered){
+                                                viewModel.kpi1KnowMoreHovered.value = isHovered;
+                                              },
+                                              child: AnimatedContainer(
+                                              duration: const Duration(milliseconds: 200),
+                                                // margin: const EdgeInsets.all(16),
+                                                constraints: const BoxConstraints(minWidth: 250),
+                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+                                                  border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+                                                  // color: viewModel.kpi1KnowMoreHovered.value ? ColorConstants.textBlue : ColorConstants.cyanBlue.withOpacity(0.8),
+                                                  gradient: RadialGradient(
+                                                    radius: 1,
+                                                    colors: [
+                                                      !viewModel.kpi1KnowMoreHovered.value ? ColorConstants.blue : ColorConstants.blue1,
+                                                      !viewModel.kpi1KnowMoreHovered.value ? ColorConstants.deepTextBlue : ColorConstants.black
+                                                    ]
+                                                  ),
+                                                    // boxShadow: [
+                                                    //   BoxShadow(
+                                                    //     color: ColorConstants.blue.withOpacity(0.4),
+                                                    //     blurRadius: 10,
+                                                    //     offset: Offset(0,0)
+                                                    //   )
+                                                    // ]
                                                 ),
-                                                  // boxShadow: [
-                                                  //   BoxShadow(
-                                                  //     color: ColorConstants.blue.withOpacity(0.4),
-                                                  //     blurRadius: 10,
-                                                  //     offset: Offset(0,0)
-                                                  //   )
-                                                  // ]
-                                              ),
-                                              child: ClipRect(
-                                                child: Column(
-                                                  children: [
-                                                    Text("${viewModel.kpi1Value.value}+", style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700, color: viewModel.kpi1KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
-                                                      shadows: <Shadow>[
-                                                        Shadow(
-                                                          offset: const Offset(0.0, 0.0),
-                                                          blurRadius: 15.0,
-                                                          color: viewModel.kpi1KnowMoreHovered.value ? ColorConstants.black : ColorConstants.black,
-                                                        ),
-                                                      ],
-                                                    ),),
-                                                    const SizedBox(height: 12,),
-                                                    Text("Years Experience",
-                                                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: viewModel.kpi1KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
-                                                        shadows: const <Shadow>[
-                                                          Shadow(
-                                                            offset: Offset(0.0, 0.0),
-                                                            blurRadius: 15.0,
-                                                            color: ColorConstants.black,
+                                                child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(16),
+                                                  child: BackdropFilter(
+                                                    filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Text("${viewModel.kpi1Value.value}+", style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700, color: viewModel.kpi1KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
+                                                            shadows: <Shadow>[
+                                                              Shadow(
+                                                                offset: const Offset(0.0, 0.0),
+                                                                blurRadius: 15.0,
+                                                                color: viewModel.kpi1KnowMoreHovered.value ? ColorConstants.black : ColorConstants.black,
+                                                              ),
+                                                            ],
+                                                          ),),
+                                                          const SizedBox(height: 12,),
+                                                          Text("Years Experience",
+                                                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: viewModel.kpi1KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
+                                                              shadows: const <Shadow>[
+                                                                Shadow(
+                                                                  offset: Offset(0.0, 0.0),
+                                                                  blurRadius: 15.0,
+                                                                  color: ColorConstants.black,
+                                                                ),
+                                                              ]
+                                                              ),
+                                                            textAlign: TextAlign.center,
                                                           ),
-                                                        ]
-                                                        ),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                    const SizedBox(height: 8,),
-                                                    InkWell(
-                                                      onTap: (){
-                                                        viewModel.animateToExperienceTab();
-                                                      },
-                                                      onHover: (isHovered){
-                                                        viewModel.kpi1KnowMoreHovered.value = isHovered;
-                                                      },
-                                                      child: Text("Know More", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400,
-                                                          color: viewModel.kpi1KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white, decoration: TextDecoration.underline,
-                                                            decorationColor: viewModel.kpi1KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
-                                                        shadows: <Shadow>[
-                                                          Shadow(
-                                                          offset: const Offset(0.0, 0.0),
-                                                        blurRadius: 15.0,
-                                                        color: viewModel.kpi1KnowMoreHovered.value ? ColorConstants.black : ColorConstants.black,
-                                                      ),
+                                                          // const SizedBox(height: 8,),
+                                                          // InkWell(
+                                                          //   onTap: (){
+                                                          //     viewModel.animateToExperienceTab();
+                                                          //   },
+                                                          //   onHover: (isHovered){
+                                                          //     viewModel.kpi1KnowMoreHovered.value = isHovered;
+                                                          //   },
+                                                          //   child: Text("Know More", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400,
+                                                          //       color: viewModel.kpi1KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white, decoration: TextDecoration.underline,
+                                                          //         decorationColor: viewModel.kpi1KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
+                                                          //     shadows: <Shadow>[
+                                                          //       Shadow(
+                                                          //       offset: const Offset(0.0, 0.0),
+                                                          //     blurRadius: 15.0,
+                                                          //     color: viewModel.kpi1KnowMoreHovered.value ? ColorConstants.black : ColorConstants.black,
+                                                          //   ),
+                                                          //     ],
+                                                          //   ),),
+                                                          // ),
                                                         ],
-                                                      ),),
+                                                      ),
                                                     ),
-                                                  ],
-                                                ),),
+                                                  ),),
+                                              ),
                                             ),
                                         ),
                                         ),
@@ -730,79 +743,94 @@ class OverviewTab extends StatelessWidget {
                                           opacity: viewModel.isKPI2Visible.value ? 1: 0,
                                           curve: Curves.easeIn,
                                           child: Obx(
-                                          ()=> AnimatedContainer(
-                                            duration: const Duration(milliseconds: 200),
-                                              // margin: const EdgeInsets.all(16),
-                                            constraints: const BoxConstraints(minWidth: 250),
-                                              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                                                  border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+                                          ()=> InkWell(
+                                            onTap: (){
+                                              viewModel.animateToProjectsTab();
+                                            },
+                                            onHover: (isHovered){
+                                              viewModel.kpi2KnowMoreHovered.value = isHovered;
+                                            },
+                                            child: AnimatedContainer(
+                                              duration: const Duration(milliseconds: 200),
+                                                // margin: const EdgeInsets.all(16),
+                                              constraints: const BoxConstraints(minWidth: 250),
+                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+                                                    border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
 
-                                                  // color: viewModel.kpi2KnowMoreHovered.value ? ColorConstants.black.withOpacity(0.8): ColorConstants.white.withOpacity(0.8),
-                                                                        // border: Border.all(color: ColorConstants.white, width: 1)
-                                                  gradient: RadialGradient(
-                                                      radius: 1,
-                                                      colors: [
-                                                        viewModel.kpi2KnowMoreHovered.value ? ColorConstants.grassGreen.withOpacity(0.7) : ColorConstants.grassGreen.withOpacity(0.8),
-                                                        viewModel.kpi2KnowMoreHovered.value ? ColorConstants.black : ColorConstants.deepTextBlue
-                                                        // viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black.withOpacity(0.8) : ColorConstants.textBlue1.withOpacity(0.6),
-                                                        // viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black : ColorConstants.textBlue1.withOpacity(0.8),
-                                                      ]
-                                                  )
+                                                    // color: viewModel.kpi2KnowMoreHovered.value ? ColorConstants.black.withOpacity(0.8): ColorConstants.white.withOpacity(0.8),
+                                                                          // border: Border.all(color: ColorConstants.white, width: 1)
+                                                    gradient: RadialGradient(
+                                                        radius: 1,
+                                                        colors: [
+                                                          viewModel.kpi2KnowMoreHovered.value ? ColorConstants.grassGreen.withOpacity(0.7) : ColorConstants.grassGreen.withOpacity(0.8),
+                                                          viewModel.kpi2KnowMoreHovered.value ? ColorConstants.black : ColorConstants.deepTextBlue
+                                                          // viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black.withOpacity(0.8) : ColorConstants.textBlue1.withOpacity(0.6),
+                                                          // viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black : ColorConstants.textBlue1.withOpacity(0.8),
+                                                        ]
+                                                    )
 
-                                              ),
-                                              child: ClipRect(
-                                                child: Column(
-                                                  children: [
-                                                    Text("${viewModel.kpi2Value.value}+", style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700,
-                                                        color: viewModel.kpi2KnowMoreHovered.value ? ColorConstants.white: ColorConstants.white,
-                                                        shadows: const <Shadow>[
-                                                          Shadow(
-                                                            offset: Offset(0.0, 0.0),
-                                                            blurRadius: 15.0,
-                                                            color: ColorConstants.black,
-                                                          ),
-                                                        ]),),
-                                                    const SizedBox(height: 12,),
-                                                    Text("Handled Projects", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500,
-                                                        color: viewModel.kpi2KnowMoreHovered.value ? ColorConstants.white: ColorConstants.white,
-                                                        shadows: const <Shadow>[
-                                                          Shadow(
-                                                            offset: Offset(0.0, 0.0),
-                                                            blurRadius: 15.0,
-                                                            color: ColorConstants.black,
-                                                          ),
-                                                        ]),),
-                                                    const SizedBox(height: 8,),
-                                                    // const Text("Know More", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, color: ColorConstants.black,
-                                                    //     decoration: TextDecoration.underline, decorationColor: ColorConstants.glassBlack),),
-                                                    MouseRegion(
-                                                      onHover: (pointer){
-                                                        viewModel.kpi2KnowMoreHovered.value = true;
-                                                      },
-                                                      onExit: (pointer){
-                                                        viewModel.kpi2KnowMoreHovered.value = false;
-                                                      },
-                                                      child: InkWell(
-                                                        onTap: (){
-                                                          viewModel.animateToProjectsTab();
-                                                        },
-                                                        child: Text("Know More", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400,
-                                                                                                                    color: viewModel.kpi2KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white, decoration: TextDecoration.underline,
-                                                                                                                    decorationColor: viewModel.kpi2KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
-                                                                                                                    shadows: <Shadow>[
-                                                        Shadow(
-                                                          offset: const Offset(0.0, 0.0),
-                                                          blurRadius: 10.0,
-                                                          color: viewModel.kpi2KnowMoreHovered.value ? ColorConstants.black : ColorConstants.black,
-                                                        ),
-                                                                                                                    ],
-                                                                                                                  ),),
+                                                ),
+                                                child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(16),
+                                                  child: BackdropFilter(
+                                                    filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Text("${viewModel.kpi2Value.value}+", style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700,
+                                                              color: viewModel.kpi2KnowMoreHovered.value ? ColorConstants.white: ColorConstants.white,
+                                                              shadows: const <Shadow>[
+                                                                Shadow(
+                                                                  offset: Offset(0.0, 0.0),
+                                                                  blurRadius: 15.0,
+                                                                  color: ColorConstants.black,
+                                                                ),
+                                                              ]),),
+                                                          const SizedBox(height: 12,),
+                                                          Text("Handled Projects", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500,
+                                                              color: viewModel.kpi2KnowMoreHovered.value ? ColorConstants.white: ColorConstants.white,
+                                                              shadows: const <Shadow>[
+                                                                Shadow(
+                                                                  offset: Offset(0.0, 0.0),
+                                                                  blurRadius: 15.0,
+                                                                  color: ColorConstants.black,
+                                                                ),
+                                                              ]),),
+                                                          // const SizedBox(height: 8,),
+                                                          // const Text("Know More", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, color: ColorConstants.black,
+                                                          //     decoration: TextDecoration.underline, decorationColor: ColorConstants.glassBlack),),
+                                                          // MouseRegion(
+                                                          //   onHover: (pointer){
+                                                          //     viewModel.kpi2KnowMoreHovered.value = true;
+                                                          //   },
+                                                          //   onExit: (pointer){
+                                                          //     viewModel.kpi2KnowMoreHovered.value = false;
+                                                          //   },
+                                                          //   child: InkWell(
+                                                          //     onTap: (){
+                                                          //       viewModel.animateToProjectsTab();
+                                                          //     },
+                                                          //     child: Text("Know More", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400,
+                                                          //                                                                 color: viewModel.kpi2KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white, decoration: TextDecoration.underline,
+                                                          //                                                                 decorationColor: viewModel.kpi2KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
+                                                          //                                                                 shadows: <Shadow>[
+                                                          //     Shadow(
+                                                          //       offset: const Offset(0.0, 0.0),
+                                                          //       blurRadius: 10.0,
+                                                          //       color: viewModel.kpi2KnowMoreHovered.value ? ColorConstants.black : ColorConstants.black,
+                                                          //     ),
+                                                          //                                                                 ],
+                                                          //                                                               ),),
+                                                          //   ),
+                                                          // ),
+                                                        ],
                                                       ),
                                                     ),
-                                                  ],
-                                                ),),
-                                            ),
+                                                  ),),
+                                              ),
+                                          ),
                                           ),
                                         ),
                                         AnimatedOpacity(
@@ -810,75 +838,91 @@ class OverviewTab extends StatelessWidget {
                                           opacity: viewModel.isKPI3Visible.value ? 1: 0,
                                           curve: Curves.easeIn,
                                           child: Obx(
-                                              ()=> AnimatedContainer(
-                                                duration: const Duration(milliseconds: 200),
-                                              // margin: const EdgeInsets.all(16),
-                                                constraints: const BoxConstraints(minWidth: 250),
-                                              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                                                  border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
-
-                                                  color: viewModel.kpi3KnowMoreHovered.value ? ColorConstants.lightYellow : ColorConstants.lightGlassBlue.withOpacity(0.8),
-                                                  gradient: RadialGradient(
-                                                      radius: 1,
-                                                      colors: [
-                                                        viewModel.kpi3KnowMoreHovered.value ? ColorConstants.deepTeal.withOpacity(0.8) : ColorConstants.deepTeal.withOpacity(0.7),
-                                                        viewModel.kpi3KnowMoreHovered.value ? ColorConstants.black : ColorConstants.deepTextBlue
-                                                        // viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black.withOpacity(0.8) : ColorConstants.textBlue1.withOpacity(0.6),
-                                                        // viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black : ColorConstants.textBlue1.withOpacity(0.8),
-                                                      ]
-                                                  )),
-                                              child: ClipRect(
-                                                child: Column(
-                                                  children: [
-                                                    Text("${viewModel.kpi3Value.value}+", style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700,
-                                                        color: viewModel.kpi3KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
-                                                        shadows: const <Shadow>[
-                                                          Shadow(
-                                                            offset: Offset(0.0, 0.0),
-                                                            blurRadius: 15.0,
-                                                            color: ColorConstants.black,
-                                                          ),
-                                                        ]),),
-                                                    const SizedBox(height: 12,),
-                                                    Text("Finished Apps", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500,
-                                                        color: viewModel.kpi3KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
-                                                        shadows: const <Shadow>[
-                                                          Shadow(
-                                                            offset: Offset(0.0, 0.0),
-                                                            blurRadius: 15.0,
-                                                            color: ColorConstants.black,
-                                                          ),
-                                                        ]),),
-                                                    const SizedBox(height: 8,),
-                                                    // const Text("Know More", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, color: ColorConstants.white, decoration: TextDecoration.underline, decorationColor: ColorConstants.white),),
-                                                    MouseRegion(
-                                                      onHover: (pointer){
-                                                        viewModel.kpi3KnowMoreHovered.value = true;
-                                                      },
-                                                      onExit: (pointer){
-                                                        viewModel.kpi3KnowMoreHovered.value = false;
-                                                      },
-                                                      child: InkWell(
-                                                        onTap: (){
-                                                          viewModel.animateToProjectsTab();
+                                              ()=> InkWell(
+                                                  onTap: (){
+                                                        viewModel.animateToProjectsTab();
                                                         },
-                                                        child: Text("Know More", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400,
-                                                                                                                      color: viewModel.kpi3KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white, decoration: TextDecoration.underline,
-                                                                                                                      decorationColor: viewModel.kpi3KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
-                                                                                                                      shadows: <Shadow>[
-                                                        Shadow(
-                                                          offset: const Offset(0.0, 0.0),
-                                                          blurRadius: 10.0,
-                                                          color: viewModel.kpi3KnowMoreHovered.value ? ColorConstants.black : ColorConstants.black,
-                                                        ),
-                                                                                                                      ],
-                                                                                                                    ),),
+                                                onHover: (isHovered){
+                                                  viewModel.kpi3KnowMoreHovered.value = isHovered;
+                                                },
+                                                child: AnimatedContainer(
+                                                  duration: const Duration(milliseconds: 200),
+                                                // margin: const EdgeInsets.all(16),
+                                                  constraints: const BoxConstraints(minWidth: 250),
+
+                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+                                                    border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+
+                                                    color: viewModel.kpi3KnowMoreHovered.value ? ColorConstants.lightYellow : ColorConstants.lightGlassBlue.withOpacity(0.8),
+                                                    gradient: RadialGradient(
+                                                        radius: 1,
+                                                        colors: [
+                                                          viewModel.kpi3KnowMoreHovered.value ? ColorConstants.deepTeal.withOpacity(0.8) : ColorConstants.deepTeal.withOpacity(0.7),
+                                                          viewModel.kpi3KnowMoreHovered.value ? ColorConstants.black : ColorConstants.deepTextBlue
+                                                          // viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black.withOpacity(0.8) : ColorConstants.textBlue1.withOpacity(0.6),
+                                                          // viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black : ColorConstants.textBlue1.withOpacity(0.8),
+                                                        ]
+                                                    )),
+                                                child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(16),
+                                                  child: BackdropFilter(
+                                                    filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Text("${viewModel.kpi3Value.value}+", style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700,
+                                                              color: viewModel.kpi3KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
+                                                              shadows: const <Shadow>[
+                                                                Shadow(
+                                                                  offset: Offset(0.0, 0.0),
+                                                                  blurRadius: 15.0,
+                                                                  color: ColorConstants.black,
+                                                                ),
+                                                              ]),),
+                                                          const SizedBox(height: 12,),
+                                                          Text("Finished Apps", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500,
+                                                              color: viewModel.kpi3KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
+                                                              shadows: const <Shadow>[
+                                                                Shadow(
+                                                                  offset: Offset(0.0, 0.0),
+                                                                  blurRadius: 15.0,
+                                                                  color: ColorConstants.black,
+                                                                ),
+                                                              ]),),
+                                                          // const SizedBox(height: 8,),
+                                                          // // const Text("Know More", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, color: ColorConstants.white, decoration: TextDecoration.underline, decorationColor: ColorConstants.white),),
+                                                          // MouseRegion(
+                                                          //   onHover: (pointer){
+                                                          //     viewModel.kpi3KnowMoreHovered.value = true;
+                                                          //   },
+                                                          //   onExit: (pointer){
+                                                          //     viewModel.kpi3KnowMoreHovered.value = false;
+                                                          //   },
+                                                          //   child: InkWell(
+                                                          //     onTap: (){
+                                                          //       viewModel.animateToProjectsTab();
+                                                          //     },
+                                                          //     child: Text("Know More", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400,
+                                                          //                                                                   color: viewModel.kpi3KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white, decoration: TextDecoration.underline,
+                                                          //                                                                   decorationColor: viewModel.kpi3KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
+                                                          //                                                                   shadows: <Shadow>[
+                                                          //     Shadow(
+                                                          //       offset: const Offset(0.0, 0.0),
+                                                          //       blurRadius: 10.0,
+                                                          //       color: viewModel.kpi3KnowMoreHovered.value ? ColorConstants.black : ColorConstants.black,
+                                                          //     ),
+                                                          //                                                                   ],
+                                                          //                                                                 ),),
+                                                          //   ),
+                                                          // ),
+                                                        ],
                                                       ),
                                                     ),
-                                                  ],
-                                                ),),
-                                            ),
+                                                  ),),
+                                                                                            ),
+                                              ),
                                           ),
                                         ),
                                         AnimatedOpacity(
@@ -886,73 +930,90 @@ class OverviewTab extends StatelessWidget {
                                           opacity: viewModel.isKPI4Visible.value ? 1: 0,
                                           curve: Curves.easeIn,
                                           child: Obx(
-                                              ()=> AnimatedContainer(
-                                                duration: const Duration(milliseconds: 200),
-                                              // margin: const EdgeInsets.all(16),
-                                                constraints: const BoxConstraints(minWidth: 250),
-                                              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                                                  border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+                                              ()=> InkWell(
+                                                onTap: (){
+                                                  viewModel.animateToProjectsTab();
+                                                },
+                                                onHover: (isHovered){
+                                                  viewModel.kpi4KnowMoreHovered.value = isHovered;
+                                                },
+                                                child: AnimatedContainer(
+                                                  duration: const Duration(milliseconds: 200),
+                                                // margin: const EdgeInsets.all(16),
+                                                  constraints: const BoxConstraints(minWidth: 250),
 
-                                                  // color: viewModel.kpi4KnowMoreHovered.value? ColorConstants.white.withOpacity(0.8) : ColorConstants.textBlue.withOpacity(0.8),
-                                                  gradient: RadialGradient(
-                                                      radius: 1,
-                                                      colors: [
-                                                        viewModel.kpi4KnowMoreHovered.value ? ColorConstants.teal.withOpacity(0.8) : ColorConstants.teal.withOpacity(0.8),
-                                                        viewModel.kpi4KnowMoreHovered.value ? ColorConstants.black : ColorConstants.deepTextBlue
-                                                        // viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black.withOpacity(0.8) : ColorConstants.textBlue1.withOpacity(0.6),
-                                                        // viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black : ColorConstants.textBlue1.withOpacity(0.8),
-                                                      ]
-                                                  )),
-                                              child: ClipRect(
-                                                child: Column(
-                                                  children: [
-                                                    Text("${viewModel.kpi4Value.value}+", style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700,
-                                                        color: viewModel.kpi4KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
-                                                        shadows: const <Shadow>[
-                                                          Shadow(
-                                                            offset: Offset(0.0, 0.0),
-                                                            blurRadius: 15.0,
-                                                            color: ColorConstants.black,
-                                                          ),
-                                                        ]),),
-                                                    const SizedBox(height: 12,),
-                                                    Text("Architected Apps", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500,
-                                                        color: viewModel.kpi4KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
-                                                        shadows: const <Shadow>[
-                                                          Shadow(
-                                                            offset: Offset(0.0, 0.0),
-                                                            blurRadius: 15.0,
-                                                            color: ColorConstants.black,
-                                                          ),
-                                                        ]),),
-                                                    const SizedBox(height: 8,),
-                                                    MouseRegion(
-                                                        onHover: (pointer){
-                                                          viewModel.kpi4KnowMoreHovered.value = true;
-                                                        },
-                                                        onExit: (pointer){
-                                                          viewModel.kpi4KnowMoreHovered.value = false;
-                                                        },
-                                                        child: InkWell(
-                                                          onTap: (){
-                                                            viewModel.animateToProjectsTab();
-                                                          },
-                                                          child: Text("Know More", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400,
-                                                            color: viewModel.kpi4KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white, decoration: TextDecoration.underline,
-                                                            decorationColor: viewModel.kpi4KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
-                                                            shadows: <Shadow>[
-                                                              Shadow(
-                                                                offset: const Offset(0.0, 0.0),
-                                                                blurRadius: 15.0,
-                                                                color: viewModel.kpi4KnowMoreHovered.value ? ColorConstants.black : ColorConstants.black,
-                                                              ),
-                                                            ],
-                                                          ),),
-                                                        ),
-                                                    )],
-                                                ),),
-                                            ),
+                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+                                                    border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+
+                                                    // color: viewModel.kpi4KnowMoreHovered.value? ColorConstants.white.withOpacity(0.8) : ColorConstants.textBlue.withOpacity(0.8),
+                                                    gradient: RadialGradient(
+                                                        radius: 1,
+                                                        colors: [
+                                                          viewModel.kpi4KnowMoreHovered.value ? ColorConstants.teal.withOpacity(0.8) : ColorConstants.teal.withOpacity(0.8),
+                                                          viewModel.kpi4KnowMoreHovered.value ? ColorConstants.black : ColorConstants.deepTextBlue
+                                                          // viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black.withOpacity(0.8) : ColorConstants.textBlue1.withOpacity(0.6),
+                                                          // viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black : ColorConstants.textBlue1.withOpacity(0.8),
+                                                        ]
+                                                    )),
+                                                child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(16),
+                                                  child: BackdropFilter(
+                                                    filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Text("${viewModel.kpi4Value.value}+", style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700,
+                                                              color: viewModel.kpi4KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
+                                                              shadows: const <Shadow>[
+                                                                Shadow(
+                                                                  offset: Offset(0.0, 0.0),
+                                                                  blurRadius: 15.0,
+                                                                  color: ColorConstants.black,
+                                                                ),
+                                                              ]),),
+                                                          const SizedBox(height: 12,),
+                                                          Text("Architected Apps", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500,
+                                                              color: viewModel.kpi4KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
+                                                              shadows: const <Shadow>[
+                                                                Shadow(
+                                                                  offset: Offset(0.0, 0.0),
+                                                                  blurRadius: 15.0,
+                                                                  color: ColorConstants.black,
+                                                                ),
+                                                              ]),),
+                                                          // const SizedBox(height: 8,),
+                                                          // MouseRegion(
+                                                          //     onHover: (pointer){
+                                                          //       viewModel.kpi4KnowMoreHovered.value = true;
+                                                          //     },
+                                                          //     onExit: (pointer){
+                                                          //       viewModel.kpi4KnowMoreHovered.value = false;
+                                                          //     },
+                                                          //     child: InkWell(
+                                                          //       onTap: (){
+                                                          //         viewModel.animateToProjectsTab();
+                                                          //       },
+                                                          //       child: Text("Know More", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400,
+                                                          //         color: viewModel.kpi4KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white, decoration: TextDecoration.underline,
+                                                          //         decorationColor: viewModel.kpi4KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
+                                                          //         shadows: <Shadow>[
+                                                          //           Shadow(
+                                                          //             offset: const Offset(0.0, 0.0),
+                                                          //             blurRadius: 15.0,
+                                                          //             color: viewModel.kpi4KnowMoreHovered.value ? ColorConstants.black : ColorConstants.black,
+                                                          //           ),
+                                                          //         ],
+                                                          //       ),),
+                                                          //     ),
+                                                          // )
+                                                              ],
+                                                      ),
+                                                    ),
+                                                  ),),
+                                                                                            ),
+                                              ),
                                           ),
                                         ),
                                         AnimatedOpacity(
@@ -960,76 +1021,92 @@ class OverviewTab extends StatelessWidget {
                                           opacity: viewModel.isKPI5Visible.value ? 1: 0,
                                           curve: Curves.easeIn,
                                           child: Obx(
-                                                ()=> AnimatedContainer(
-                                                duration: const Duration(milliseconds: 200),
-                                              // margin: const EdgeInsets.all(16),
-                                                  constraints: const BoxConstraints(minWidth: 250),
-                                                padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
-                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                                                    border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+                                                ()=> InkWell(
+                                                  onTap: (){
+                                                    viewModel.animateToExperienceTab();
+                                                  },
+                                                  onHover: (isHovered){
+                                                    viewModel.kpi5KnowMoreHovered.value = isHovered;
+                                                  },
+                                                  child: AnimatedContainer(
+                                                  duration: const Duration(milliseconds: 200),
+                                                                                                // margin: const EdgeInsets.all(16),
+                                                    constraints: const BoxConstraints(minWidth: 250),
 
-                                                    // color: viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black : ColorConstants.cyanBlue.withOpacity(0.8),
-                                                    gradient: RadialGradient(
-                                                        radius: 1,
-                                                        colors: [
-                                                          !viewModel.kpi5KnowMoreHovered.value ? ColorConstants.cyanBlue.withOpacity(0.8) : ColorConstants.cyanBlue1,
-                                                          !viewModel.kpi5KnowMoreHovered.value ? ColorConstants.deepTextBlue : ColorConstants.black
-                                                          // viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black.withOpacity(0.8) : ColorConstants.textBlue1.withOpacity(0.6),
-                                                          // viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black : ColorConstants.textBlue1.withOpacity(0.8),
-                                                        ]
-                                                    )),
-                                                child: ClipRect(
-                                                  child: Column(
-                                                    children: [
-                                                      Text("${viewModel.kpi5Value.value}k+", style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700,
-                                                          color: viewModel.kpi5KnowMoreHovered.value ?ColorConstants.white : ColorConstants.white,
-                                                          shadows: const <Shadow>[
-                                                            Shadow(
-                                                              offset: Offset(0.0, 0.0),
-                                                              blurRadius: 15.0,
-                                                              color: ColorConstants.black,
-                                                            ),
-                                                          ]),),
-                                                      const SizedBox(height: 12,),
-                                                      Text("Lines of Code", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500,
-                                                          color: viewModel.kpi5KnowMoreHovered.value ?ColorConstants.white : ColorConstants.white,
-                                                          shadows: const <Shadow>[
-                                                            Shadow(
-                                                              offset: Offset(0.0, 0.0),
-                                                              blurRadius: 15.0,
-                                                              color: ColorConstants.black,
-                                                            ),
-                                                          ]),),
-                                                      const SizedBox(height: 8,),
-                                                      // const Text("Know More", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, color: ColorConstants.black,
-                                                      //     decoration: TextDecoration.underline, decorationColor: ColorConstants.glassBlack),),
-                                                      MouseRegion(
-                                                        onHover: (pointer){
-                                                          viewModel.kpi5KnowMoreHovered.value = true;
-                                                        },
-                                                        onExit: (pointer){
-                                                          viewModel.kpi5KnowMoreHovered.value = false;
-                                                        },
-                                                        child: InkWell(
-                                                          onTap: (){
-                                                            viewModel.animateToExperienceTab();
-                                                          },
-                                                          child: Text("Know More", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400,
-                                                            color: viewModel.kpi5KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white, decoration: TextDecoration.underline,
-                                                            decorationColor: viewModel.kpi5KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
-                                                            shadows: const <Shadow>[
-                                                              Shadow(
-                                                                offset: Offset(0.0, 0.0),
-                                                                blurRadius: 15.0,
-                                                                color: ColorConstants.black,
-                                                              ),
-                                                            ],
-                                                          ),),
+                                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+                                                      border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+
+                                                      // color: viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black : ColorConstants.cyanBlue.withOpacity(0.8),
+                                                      gradient: RadialGradient(
+                                                          radius: 1,
+                                                          colors: [
+                                                            !viewModel.kpi5KnowMoreHovered.value ? ColorConstants.cyanBlue.withOpacity(0.8) : ColorConstants.cyanBlue1,
+                                                            !viewModel.kpi5KnowMoreHovered.value ? ColorConstants.deepTextBlue : ColorConstants.black
+                                                            // viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black.withOpacity(0.8) : ColorConstants.textBlue1.withOpacity(0.6),
+                                                            // viewModel.kpi5KnowMoreHovered.value ? ColorConstants.black : ColorConstants.textBlue1.withOpacity(0.8),
+                                                          ]
+                                                      )),
+                                                  child: ClipRRect(
+                                                    borderRadius: BorderRadius.circular(16),
+                                                    child: BackdropFilter(
+                                                      filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
+                                                        child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            Text("${viewModel.kpi5Value.value}k+", style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700,
+                                                                color: viewModel.kpi5KnowMoreHovered.value ?ColorConstants.white : ColorConstants.white,
+                                                                shadows: const <Shadow>[
+                                                                  Shadow(
+                                                                    offset: Offset(0.0, 0.0),
+                                                                    blurRadius: 15.0,
+                                                                    color: ColorConstants.black,
+                                                                  ),
+                                                                ]),),
+                                                            const SizedBox(height: 12,),
+                                                            Text("Lines of Code", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500,
+                                                                color: viewModel.kpi5KnowMoreHovered.value ?ColorConstants.white : ColorConstants.white,
+                                                                shadows: const <Shadow>[
+                                                                  Shadow(
+                                                                    offset: Offset(0.0, 0.0),
+                                                                    blurRadius: 15.0,
+                                                                    color: ColorConstants.black,
+                                                                  ),
+                                                                ]),),
+                                                            // const SizedBox(height: 8,),
+                                                            // const Text("Know More", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, color: ColorConstants.black,
+                                                            //     decoration: TextDecoration.underline, decorationColor: ColorConstants.glassBlack),),
+                                                            // MouseRegion(
+                                                            //   onHover: (pointer){
+                                                            //     viewModel.kpi5KnowMoreHovered.value = true;
+                                                            //   },
+                                                            //   onExit: (pointer){
+                                                            //     viewModel.kpi5KnowMoreHovered.value = false;
+                                                            //   },
+                                                            //   child: InkWell(
+                                                            //     onTap: (){
+                                                            //       viewModel.animateToExperienceTab();
+                                                            //     },
+                                                            //     child: Text("Know More", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400,
+                                                            //       color: viewModel.kpi5KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white, decoration: TextDecoration.underline,
+                                                            //       decorationColor: viewModel.kpi5KnowMoreHovered.value ? ColorConstants.white : ColorConstants.white,
+                                                            //       shadows: const <Shadow>[
+                                                            //         Shadow(
+                                                            //           offset: Offset(0.0, 0.0),
+                                                            //           blurRadius: 15.0,
+                                                            //           color: ColorConstants.black,
+                                                            //         ),
+                                                            //       ],
+                                                            //     ),),
+                                                            //   ),
+                                                            // ),
+                                                          ],
                                                         ),
                                                       ),
-                                                    ],
-                                                  ),),
-                                            ),
+                                                    ),),
+                                                                                              ),
+                                                ),
                                           ),
                                         ),
                                       ],
@@ -1051,20 +1128,20 @@ class OverviewTab extends StatelessWidget {
                           child: Container(
                               // padding: const EdgeInsets.all(32),
                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                                  color: ColorConstants.darkTextBlue,
+                                  color: ColorConstants.darkTextBlue.withAlpha(225),
                                   border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
 
-                                  image: DecorationImage(
-                                    // image: const NetworkImage("https://img.freepik.com/premium-photo/beautiful-colorful-background-vector-gradation-set-wallpaper-printable-template_515653-42.jpg"),
-                                    image: const NetworkImage("https://img.freepik.com/premium-photo/office-desktop-laptop-notebook-pen-black-background-top-view-free-space-text-copy-space_187166-45225.jpg?size=338&ext=jpg&ga=GA1.1.1826414947.1699401600&semt=ais"),
-                                    fit: BoxFit.cover,
-                                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.6), BlendMode.dstATop),
-                                  )
+                                  // image: DecorationImage(
+                                  //   // image: const NetworkImage("https://img.freepik.com/premium-photo/beautiful-colorful-background-vector-gradation-set-wallpaper-printable-template_515653-42.jpg"),
+                                  //   image: const NetworkImage("https://img.freepik.com/premium-photo/office-desktop-laptop-notebook-pen-black-background-top-view-free-space-text-copy-space_187166-45225.jpg?size=338&ext=jpg&ga=GA1.1.1826414947.1699401600&semt=ais"),
+                                  //   fit: BoxFit.cover,
+                                  //   colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.3), BlendMode.dstATop),
+                                  // )
                               ),
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(16),
                                   child: BackdropFilter(
-                                    filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                                    filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
                                     child: Padding(
                                       padding: const EdgeInsets.all(32.0),
                                       child: Column(
@@ -1166,7 +1243,7 @@ class OverviewTab extends StatelessWidget {
                   // image: const NetworkImage("https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg"),
                   image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                   fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.8), BlendMode.dstATop),
+                  colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.6), BlendMode.dstATop),
 
                 )
                 // gradient: LinearGradient(
@@ -1184,7 +1261,7 @@ class OverviewTab extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+                  filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32.0),
                     child: Column(
@@ -1282,7 +1359,7 @@ class OverviewTab extends StatelessWidget {
                   ),
                   child: ClipRect(
                       child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                        filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
                         child: Column(
                          crossAxisAlignment: CrossAxisAlignment.start,
                          children: [

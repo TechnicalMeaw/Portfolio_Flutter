@@ -86,7 +86,7 @@ class _PieChartState extends State<PieChart> with SingleTickerProviderStateMixin
           painter: MyPainter(
               startAngle: _pieData[index].startAngle,
               sweepAngle: _pieData[index].sweepAngle,
-              color: widget.dataList[index].color,
+              color: widget.dataList[index].color.withAlpha(190),
             stroke: 1/widget.stroke,
             fraction: _fraction,
             text: widget.isLabelVisible ? widget.dataList[index].title
@@ -179,7 +179,7 @@ class MyPainter extends CustomPainter {
 //         paint);
 
     paint..strokeWidth = 0.5
-      ..color= ColorConstants.darkGray.withOpacity(fraction);
+      ..color= ColorConstants.glassWhite.withOpacity(fraction);
 
     // Outer Arrow Lines
     canvas.drawLine(Offset(size.width/2 + (size.width/2 + size.width/16/stroke) * cos((startAngle * fraction + sweepAngle * fraction/2)),  size.width/2 + (size.width/2 + size.width/16/stroke) * sin((startAngle * fraction + sweepAngle * fraction/2))),
@@ -210,7 +210,7 @@ class MyPainter extends CustomPainter {
     // TextPainter tp = new TextPainter(
     // text: span, textDirection: TextDirection.ltr);
     // tp.layout();
-    TextSpan span = TextSpan(text: text, style: TextStyle(color: ColorConstants.black.withOpacity(fraction)));
+    TextSpan span = TextSpan(text: text, style: TextStyle(color: ColorConstants.white.withOpacity(fraction)));
     TextPainter tp = TextPainter(text: span, textAlign: TextAlign.left, textDirection: TextDirection.ltr);
     tp.layout();
 

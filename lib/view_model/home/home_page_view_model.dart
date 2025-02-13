@@ -15,7 +15,7 @@ import 'package:portfolio/view_model/tabs/experience_tab_view_model.dart';
 import 'package:portfolio/view_model/tabs/overview_tab_view_model.dart';
 import 'package:portfolio/view_model/tabs/projects_tab_view_model.dart';
 
-class HomePageViewModel extends BaseGetXController {
+class HomePageViewModel extends BaseGetXController with GetTickerProviderStateMixin{
   RxBool isOverviewBtnHovered = false.obs;
   RxBool isExperienceBtnHovered = false.obs;
   RxBool isProjectsBtnHovered = false.obs;
@@ -32,6 +32,10 @@ class HomePageViewModel extends BaseGetXController {
   RxBool isOptionsPhoneHovered = false.obs;
   RxBool isOptionsDownloadCVHovered = false.obs;
 
+  late AnimationController overviewAnimationController;
+  Rx<Animation<double>?> overviewScaleAnimation = Rx<Animation<double>?>(null);
+  Rx<Animation<double>?> overviewOpacityAnimation = Rx<Animation<double>?>(null);
+  Future? initialAction;
 
   @override
   void onInit() {
@@ -58,9 +62,9 @@ class HomePageViewModel extends BaseGetXController {
 
 
     //TODO Remove this line
-    Future.delayed(const Duration(milliseconds: 350), () {
-      animateToOverviewTab();
-    });
+    // Future.delayed(const Duration(milliseconds: 350), () {
+    //   animateToOverviewTab();
+    // });
 
     // animateToProjectsTab();
     // animateToExperienceTab();
@@ -85,6 +89,35 @@ class HomePageViewModel extends BaseGetXController {
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) => _updateCurrentTime());
     // tabController = TabController(vsync: this, length: allTabs.length);
+
+    /// Initial Animation
+    overviewAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    )..repeat(reverse: true);
+
+    overviewScaleAnimation.value = Tween<double>(begin: 0.88, end: 1.0).animate(
+      CurvedAnimation(parent: overviewAnimationController, curve: Curves.easeInOut),
+    );
+
+    overviewOpacityAnimation.value = Tween<double>(begin: 0.5, end: 1.0).animate(
+      CurvedAnimation(parent: overviewAnimationController, curve: Curves.easeInOut),
+    );
+
+    Future.delayed(const Duration(milliseconds: 400), () {
+      isOverviewBtnHovered.value = true;
+      initialAction = Future.delayed(const Duration(milliseconds: 5200), () {
+        if (overviewAnimationController.isAnimating){
+          overviewAnimationController.stop(); // Stop animation after 5s
+          overviewScaleAnimation.value = null;
+          overviewOpacityAnimation.value = null;
+          animateToOverviewTab();
+          isOverviewBtnHovered.value = false;
+        }
+      });
+    });
+
+
     super.onInit();
   }
 
@@ -107,5 +140,11 @@ class HomePageViewModel extends BaseGetXController {
   void _updateCurrentTime() {
     now = DateTime.now();
     currentTime.value = DateFormat('hh:mm a').format(now);
+  }
+
+  @override
+  void onClose() {
+    overviewAnimationController.dispose();
+    super.onClose();
   }
 }

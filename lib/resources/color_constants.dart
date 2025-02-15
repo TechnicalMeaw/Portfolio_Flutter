@@ -34,7 +34,7 @@ class ColorConstants{
   static const lightQueenViolet = Color(0xffc965ff);
   static const queenViolet = Color(0xFFab1ce8);
   static const deepQueenViolet = Color(0xff8d0ac5);
-  static const highlightQueenViolet = Color(0xff6d00ce);
+  static const highlightQueenViolet = Color(0xff5e00b5);
   static const darkQueenViolet = Color(0xff350048);
   static const orange = Color(0xffff8800);
   static const teal = Color(0xff20d6a0);

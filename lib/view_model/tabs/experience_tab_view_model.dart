@@ -229,6 +229,7 @@ class ExperienceTabViewModel extends BaseGetXController {
             projects : [
               Project(title: "SBI General Insurance", logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpGuI7J3LkxwxiwvKTiqKUzv-JyKeHpTHg2g&s"),
               Project(title: "Manipal Hospitals", logoUrl: "https://upload.wikimedia.org/wikipedia/en/d/dd/Manipal_Hospitals_%28logo%29.png"),
+              Project(title: "Manipal Doctors", logoUrl: "https://play-lh.googleusercontent.com/3w0UtjoEvy9BdmPO6FFyCZxAsfaY_WpYZAuElWHD_PTJstEyT8UIvoOmH8DL0iSCb4A=w240-h480-rw"),
               Project(title: "Green Brillance", logoUrl: "https://es-media-prod.s3.amazonaws.com/media/supplier/logo/source/GreenBrilliance_Logo_1080_Square_kT2ETQ4.jpg"),
               Project(title: "Care Health Insurance", logoUrl: "https://play-lh.googleusercontent.com/ZBdHZIdRgt-8pMRTHrSiJqLLQ_03SDr9LVfj_wZOUOgEb5CXA2_Dy-0pJdNKVicex-BS=w240-h480-rw"),
 
@@ -305,7 +306,7 @@ class ExperienceTabViewModel extends BaseGetXController {
             ),
           ],
           projects: [
-            Project(title: "Shilah Rakhs", logoUrl: "https://raw.githubusercontent.com/TechnicalMeaw/ShilahRakhs/master/app/src/main/ic_launcher-playstore.png")
+            Project(title: "Shilah Rakhs", logoUrl: "https://raw.githubusercontent.com/TechnicalMeaw/ShilahRakhs/master/app/src/main/ic_launcher-playstore.png"),
           ]
         )
     );
@@ -460,7 +461,9 @@ class ExperienceTabViewModel extends BaseGetXController {
           projects: [
             Project(title: "Plantonic", logoUrl: "https://play-lh.googleusercontent.com/xVgqu1sLpSt6iPPwCIB09rkSgkmsroDq91UuwMElTXDCAjw_ccfsJrRJlBShveuuGLU=w240-h480-rw"),
             Project(title: "Gangs of Greenpur", logoUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxg2VdN56bgPRq9D0_Ih6mJDPrWGnkOnCbWYBfg9tflBq1p4KZzlXeXq1e67aIpGltVZdEn3hxqxQe3VAuns4b3GZaNVbJ5qM4uhNzkRTYAGW4AbuPCkD6mf55t9Dy-EEtR26W4bcyiDx9pRX-iWQHh7lFEBgFVO19N51e_I0Pn2CZg2kRRq96yJbtcgQ/s320/gog_logo.png"),
-            Project(title: "95 Club", logoUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEijbnCSKWmDGgrhFQ8yNqzq0esRwr6_9T_K7tyAPEtWtuKS73O8d8AznU_w_CHIyOGEFtbv-ycC-M9eoKbHO35CTIKBrBOwTd5NYpXmW-J5SRz4qomVTrmhyphenhyphenFL3A8BMvwfAsgjKeL3ewAQ_pCe_Pc6gEI8BqUeSSuw1rbXd0ZdubYCZaXJrCJOZT2Q1VhQ/s1024/app_logo.jpg")
+            Project(title: "95 Club", logoUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEijbnCSKWmDGgrhFQ8yNqzq0esRwr6_9T_K7tyAPEtWtuKS73O8d8AznU_w_CHIyOGEFtbv-ycC-M9eoKbHO35CTIKBrBOwTd5NYpXmW-J5SRz4qomVTrmhyphenhyphenFL3A8BMvwfAsgjKeL3ewAQ_pCe_Pc6gEI8BqUeSSuw1rbXd0ZdubYCZaXJrCJOZT2Q1VhQ/s1024/app_logo.jpg"),
+            Project(title: "Bhumi Technocare", logoUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh1oYj4l5Ty26T5fPGESet3aynoGMC2eSbPNe1FnOAEB_XG4ATZ1Ovnd4wv48qa92mcESymqrgtjk-ugDhr56yOPa3lNFg5A2L8JbnAOg09ZR2mH7ns2XNPXi4RXLJDQanTSsr7naPS8asAtft3y0MzcgFnBFsqpuqOgmuW2bEWk0fYeXE2yrLM7TZGjn8/s562/bhumi_logo.jpg")
+
           ]
         )
     );

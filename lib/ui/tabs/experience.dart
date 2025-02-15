@@ -145,7 +145,7 @@ class ExperienceTab extends StatelessWidget {
                     image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                     // image: const NetworkImage("https://static.vecteezy.com/system/resources/previews/006/861/154/non_2x/light-blue-background-gradient-illustration-eps10-vector.jpg"),
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.22), BlendMode.dstATop),
+                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.32), BlendMode.dstATop),
                   )
               ),
               child: ClipRRect(
@@ -237,7 +237,7 @@ class ExperienceTab extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
-                  color: ColorConstants.highlightQueenViolet.withOpacity(0.42),
+                  color: ColorConstants.highlightQueenViolet.withOpacity(0.48),
                   // gradient: LinearGradient(
                   //   colors: [
                   //     ColorConstants.highlightQueenViolet.withOpacity(0.4),
@@ -249,7 +249,7 @@ class ExperienceTab extends StatelessWidget {
                     // image: const NetworkImage("https://images.pexels.com/photos/2569997/pexels-photo-2569997.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                     // image: const NetworkImage("https://static.vecteezy.com/system/resources/previews/006/861/154/non_2x/light-blue-background-gradient-illustration-eps10-vector.jpg"),
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.24), BlendMode.dstATop),
+                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.32), BlendMode.dstATop),
                   )
               ),
               child: ClipRRect(
@@ -408,7 +408,7 @@ class ExperienceTab extends StatelessWidget {
                   ],
                 )),
                 const SizedBox(height: 2,),
-                Text(companyData.jobDuration, style: TextStyle(fontSize: 10, color: isFreelancing ? ColorConstants.lightQueenViolet : ColorConstants.glassWhite, fontWeight: FontWeight.w400,
+                Text(companyData.jobDuration, style: TextStyle(fontSize: 10, color: isFreelancing ? ColorConstants.white.withAlpha(200) : ColorConstants.glassWhite, fontWeight: FontWeight.w400,
                   shadows: <Shadow>[
                     Shadow(
                       offset: const Offset(0.0, 0.0),
@@ -534,7 +534,7 @@ class ExperienceTab extends StatelessWidget {
                   // color: ColorConstants.glassBlack.withOpacity(0.65),
                 gradient: LinearGradient(
                     colors: [
-                      ColorConstants.black.withOpacity(0.7),
+                      ColorConstants.darkTextBlue.withOpacity(0.6),
                       ColorConstants.darkTextBlue.withOpacity(0.8),
                     ],
                     begin: FractionalOffset(0.0, 0.0),
@@ -544,9 +544,12 @@ class ExperienceTab extends StatelessWidget {
                   border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
 
                   image: DecorationImage(
-                    image: const NetworkImage("https://img.freepik.com/premium-photo/beautiful-colorful-background-vector-gradation-set-wallpaper-printable-template_515653-42.jpg"),
+                    image: const NetworkImage("https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg"),
+                    // image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
+
+                    // image: const NetworkImage("https://img.freepik.com/premium-photo/beautiful-colorful-background-vector-gradation-set-wallpaper-printable-template_515653-42.jpg"),
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.12), BlendMode.dstATop),
+                    colorFilter: ColorFilter.mode(ColorConstants.black.withOpacity(0.15), BlendMode.dstATop),
                   )
               ),
               child: ClipRRect(
@@ -832,7 +835,7 @@ class ExperienceTab extends StatelessWidget {
                 // color: ColorConstants.glassWhite.withOpacity(0.6),
                 gradient: LinearGradient(
                     colors: [
-                      ColorConstants.black.withOpacity(0.7),
+                      ColorConstants.darkTextBlue.withOpacity(0.6),
                       ColorConstants.darkTextBlue.withOpacity(0.8),
                     ],
                     begin: FractionalOffset(0.0, 0.0),
@@ -841,6 +844,8 @@ class ExperienceTab extends StatelessWidget {
                     tileMode: TileMode.clamp),
                 border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
                 image: DecorationImage(
+                  // image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
+
                   image: const NetworkImage("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjkwNC1udW5ueS0wMTIteC1qb2I1OTguanBn.jpg"),
                   fit: BoxFit.cover,
                   colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.15), BlendMode.dstATop),
@@ -937,8 +942,8 @@ class ExperienceTab extends StatelessWidget {
                 // color: ColorConstants.glassWhite.withOpacity(0.6),
                 gradient: LinearGradient(
                     colors: [
-                      ColorConstants.black.withOpacity(0.7),
-                      ColorConstants.darkTextBlue.withOpacity(0.8),
+                      ColorConstants.deepTextBlue.withOpacity(0.38),
+                      ColorConstants.deepTextBlue.withOpacity(0.45),
                     ],
                     begin: FractionalOffset(0.0, 0.0),
                     end: FractionalOffset(1.0, 0.0),
@@ -946,9 +951,12 @@ class ExperienceTab extends StatelessWidget {
                     tileMode: TileMode.clamp),
                 border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
                 image: DecorationImage(
-                  image: const NetworkImage("https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg"),
+                  // image: const NetworkImage("https://img.freepik.com/premium-photo/beautiful-colorful-background-vector-gradation-set-wallpaper-printable-template_515653-42.jpg"),
+                  image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
+
+                  // image: const NetworkImage("https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg"),
                   fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.15), BlendMode.dstATop),
+                  colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.1), BlendMode.dstATop),
                 )
             ),
             child:

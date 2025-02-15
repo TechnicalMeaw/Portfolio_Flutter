@@ -104,7 +104,7 @@ class HomePageViewModel extends BaseGetXController with GetTickerProviderStateMi
       CurvedAnimation(parent: overviewAnimationController, curve: Curves.easeInOut),
     );
 
-    Future.delayed(const Duration(milliseconds: 400), () {
+    Future.delayed(const Duration(milliseconds: 600), () {
       isOverviewBtnHovered.value = true;
       initialAction = Future.delayed(const Duration(milliseconds: 5200), () {
         if (overviewAnimationController.isAnimating){

@@ -22,7 +22,6 @@ class OverviewTab extends StatelessWidget {
   OverviewTabViewModel viewModel;
   // HomePageViewModel get _homeViewModel => Get.find<HomePageViewModel>();
 
-
   @override
   Widget build(BuildContext context) {
     return ClipRect(
@@ -86,40 +85,125 @@ class OverviewTab extends StatelessWidget {
 
           // Main Content
           Expanded(child: LayoutBuilder(
-            builder:(context, rootConstrains) => Container(
-              padding: const EdgeInsets.only(top: 4, bottom: 4),
-              color: ColorConstants.glassBlack.withOpacity(0.1),
-              child: rootConstrains.maxWidth > 1100
-                  ? SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                              width: rootConstrains.maxWidth * 0.6,
-                              child: _leftColumn),
-                          // const SizedBox(width: 4,),
-                          Expanded(child: _rightColumn)
-                        ],
+            builder:(context, rootConstrains) => Stack(
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(top: 4, bottom: 4),
+                  color: ColorConstants.glassBlack.withOpacity(0.1),
+                  child: rootConstrains.maxWidth > 1100
+                      ? SingleChildScrollView(
+                    controller: viewModel.scrollController,
+                        child: Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                  width: rootConstrains.maxWidth * 0.6,
+                                  child: _leftColumn),
+                              // const SizedBox(width: 4,),
+                              Expanded(child: _rightColumn)
+                            ],
+                            ),
+                            // const SizedBox(height: 8),
+                            // _projectsSection(context),
+                            const SizedBox(height: 16,)
+                          ],
                         ),
-                        // const SizedBox(height: 8),
-                        // _projectsSection(context),
-                        const SizedBox(height: 16,)
-                      ],
+                      )
+                      : ListView(
+                    controller: viewModel.scrollController,
+                          shrinkWrap: true,
+                        children: [
+                          _leftColumn,
+                          // const SizedBox(height: 10,),
+                          _rightColumn,
+                          // const SizedBox(height: 8),
+                          // _projectsSection(context),
+                          const SizedBox(height: 16,)
+                        ],
+                  ),),
+
+                Obx(() {
+                  double scrollProgress = viewModel.scrollProgress.value;
+                  bool isAtBottom = scrollProgress == 1.0;
+
+                  return AnimatedPositioned(
+                    duration: const Duration(milliseconds: 300),
+                    bottom: 16,
+                    right: 12,
+                    child: AnimatedOpacity(
+                      duration: const Duration(milliseconds: 300),
+                      opacity: viewModel.isSummaryVisible.value ? 1: 0,
+                      curve: Curves.easeIn,
+                      child: InkWell(
+                        onTap: isAtBottom ? () => viewModel.animateToExperienceTab() : ()=> viewModel.scrollController.animateTo(viewModel.scrollController.offset + rootConstrains.maxHeight/1.5, duration: Duration(milliseconds: 1000), curve: Curves.easeInOut),
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          width: isAtBottom ? 48 : 36,
+                          height: isAtBottom ? 48 : 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(isAtBottom ? 16 : 16),
+                            border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+                          ),
+                          alignment: Alignment.center,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                width: isAtBottom ? 120 : 50,
+                                height: isAtBottom ? 50 : 80,
+                                decoration: BoxDecoration(
+                                  color: ColorConstants.indicatorHighlight.withOpacity(scrollProgress),
+                                  borderRadius: BorderRadius.circular(isAtBottom ? 16 : 16),
+                                ),
+                              ),
+                              isAtBottom ?
+                              //     ? Row(
+                              //   mainAxisAlignment: MainAxisAlignment.center,
+                              //   children: const [
+                              //     Text("Experience", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                              //     SizedBox(width: 5),
+                              //     Icon(Icons.arrow_forward, color: Colors.white),
+                              //   ],
+                              // )
+                              AnimatedBuilder(
+                                animation: viewModel.animationController,
+                                builder: (context, child) {
+                                  return Transform.translate(
+                                    offset: viewModel.leftRightAnimation.value,
+                                    child: const Icon(
+                                      Icons.arrow_forward,
+                                      color: Colors.white,
+                                      size: 24,
+                                    ),
+                                  );
+                                },
+                              )
+                                  : AnimatedBuilder(
+                                animation: viewModel.animationController,
+                                builder: (context, child) {
+                                  return Transform.translate(
+                                    offset: viewModel.upDownAnimation.value,
+                                    child: const Icon(
+                                      Icons.arrow_downward,
+                                      color: Colors.white,
+                                      size: 24,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                  )
-                  : ListView(
-                      shrinkWrap: true,
-                    children: [
-                      _leftColumn,
-                      // const SizedBox(height: 10,),
-                      _rightColumn,
-                      // const SizedBox(height: 8),
-                      // _projectsSection(context),
-                      const SizedBox(height: 16,)
-                    ],
-              ),),
+                  );
+                })
+              ],
+            ),
           ))
         ],
       ),

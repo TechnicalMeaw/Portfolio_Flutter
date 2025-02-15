@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:portfolio/model/experience_company_data_model.dart';
 import 'package:portfolio/model/pie_chart_data_model.dart';
@@ -5,6 +6,9 @@ import 'package:portfolio/resources/color_constants.dart';
 import 'package:portfolio/view_model/base_controller.dart';
 
 class ExperienceTabViewModel extends BaseGetXController {
+
+  RxDouble scrollProgress = 0.0.obs;
+  ScrollController scrollController = ScrollController();
 
   RxBool crossBtnHovered = false.obs;
   RxBool minimizeBtnHovered = false.obs;
@@ -32,10 +36,16 @@ class ExperienceTabViewModel extends BaseGetXController {
     addTechnologyStackData();
     addProgrammingLanguageListData();
     addDomainKnowledgeListData();
+    scrollController.addListener(_updateScrollProgress);
 
     super.onInit();
   }
 
+  void _updateScrollProgress() {
+    final maxScroll = scrollController.position.maxScrollExtent;
+    final currentScroll = scrollController.position.pixels;
+    scrollProgress.value = (currentScroll / maxScroll).clamp(0.0, 1.0);
+  }
 
   @override
   void animateToExperienceTab() {
@@ -45,6 +55,7 @@ class ExperienceTabViewModel extends BaseGetXController {
       resetAnimations();
       startExperiencePageAnimations();
     }
+    scrollProgress.value = 0;
     // super.animateToExperienceTab();
   }
 
@@ -316,7 +327,7 @@ class ExperienceTabViewModel extends BaseGetXController {
     freelanceExperienceList.add(
         ExperienceCompanyDataModel(
           jobTitle: "Full Stack Mobile Developer",
-          companyName: "",
+          companyName: "InfusedByte Technologies",
           jobDuration: "Nov 2022 - Mar 2023",
           keyResponsibilities: [
             Responsibilities(

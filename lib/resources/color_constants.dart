@@ -12,6 +12,7 @@ class ColorConstants{
   static const blue = Color(0xFF41C4FF);
   static const blue1 = Color(0xFF21C1FF);
   static const deepBlue = Color(0xFF00E3CC);
+  static const indicatorHighlight = Color(0xFF05BCA9);
   static const glassBlue = Color(0xBF41C4FF);
   static const textBlue = Color(0xFF005273);
   static const deepTextBlue = Color(0xFF002A3A);

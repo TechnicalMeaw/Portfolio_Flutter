@@ -1,11 +1,16 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:portfolio/view_model/base_controller.dart';
 import 'package:portfolio/view_model/home/home_page_view_model.dart';
 
 class OverviewTabViewModel extends BaseGetXController {
+
+  RxDouble scrollProgress = 0.0.obs;
+  ScrollController scrollController = ScrollController();
+
 
   RxBool crossBtnHovered = false.obs;
   RxBool minimizeBtnHovered = false.obs;
@@ -87,11 +92,11 @@ class OverviewTabViewModel extends BaseGetXController {
   late Future t12;
   late Future t13;
 
-  // @override
-  // void onInit() {
-  //     // startOverviewPageAnimations();
-  //   super.onInit();
-  // }
+  @override
+  void onInit() {
+    scrollController.addListener(_updateScrollProgress);
+    super.onInit();
+  }
 
   @override
   void animateToOverviewTab() {
@@ -101,7 +106,14 @@ class OverviewTabViewModel extends BaseGetXController {
       resetAnimations();
       startOverviewPageAnimations();
     }
+    scrollProgress.value = 0;
     // super.animateToOverviewTab();
+  }
+
+  void _updateScrollProgress() {
+    final maxScroll = scrollController.position.maxScrollExtent;
+    final currentScroll = scrollController.position.pixels;
+    scrollProgress.value = (currentScroll / maxScroll).clamp(0.0, 1.0);
   }
 
   void startOverviewPageAnimations(){
@@ -250,5 +262,12 @@ class OverviewTabViewModel extends BaseGetXController {
     kpi5Value = 0.obs;
 
     isSkillsVisible = false.obs;
+  }
+
+  @override
+  void onClose() {
+    scrollController.removeListener(_updateScrollProgress);
+    scrollController.dispose();
+    super.onClose();
   }
 }

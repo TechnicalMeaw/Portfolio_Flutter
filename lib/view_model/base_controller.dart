@@ -22,6 +22,10 @@ abstract class BaseGetXController extends GetxController with GetSingleTickerPro
   static final List<RxBool> _backgroundTabsStackStatus = [false.obs, false.obs, false.obs, false.obs];
   static RxInt currentTab = 100.obs;
 
+  late AnimationController animationController;
+  late Animation<Offset> upDownAnimation;
+  late Animation<Offset> leftRightAnimation;
+
   void animateToOverviewTab(){
     overviewTabViewModel.animateToOverviewTab();
     _allTabsStackStatus[0].value = true;
@@ -91,10 +95,24 @@ abstract class BaseGetXController extends GetxController with GetSingleTickerPro
     return _backgroundTabsStackStatus[tabIndex];
   }
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  // }
+  @override
+  void onInit() {
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..repeat(reverse: true);
+
+    upDownAnimation = Tween<Offset>(
+      begin: const Offset(0, -5),
+      end: const Offset(0, 5),
+    ).animate(CurvedAnimation(parent: animationController, curve: Curves.easeInOut));
+
+    leftRightAnimation = Tween<Offset>(
+      begin: const Offset(-5, 0),
+      end: const Offset(5, 0),
+    ).animate(CurvedAnimation(parent: animationController, curve: Curves.easeInOut));
+    super.onInit();
+  }
 
   @override
   void onClose() {
@@ -103,6 +121,7 @@ abstract class BaseGetXController extends GetxController with GetSingleTickerPro
     experienceTabViewModel.dispose();
     projectsTabViewModel.dispose();
     educationTabViewModel.dispose();
+    animationController.dispose();
     super.onClose();
   }
 }

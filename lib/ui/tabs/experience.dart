@@ -225,7 +225,7 @@ class ExperienceTab extends StatelessWidget {
 
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: ColorConstants.white.withOpacity(0.4), width: 0.8),
-                  color: ColorConstants.deepTeal.withOpacity(0.45),
+                  color: ColorConstants.deepTeal.withOpacity(0.5),
                   image: DecorationImage(
                     image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                     // image: const NetworkImage("https://static.vecteezy.com/system/resources/previews/006/861/154/non_2x/light-blue-background-gradient-illustration-eps10-vector.jpg"),

@@ -32,21 +32,24 @@ class HomePage extends StatelessWidget {
             ),
           ),
 
-          Align(alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Text("Hey,", style: TextStyle(color: ColorConstants.glassWhite, fontSize: 16),),
-                Text("Welcome to my portfolio!", textAlign: TextAlign.center, style: TextStyle(color: ColorConstants.glassWhite, fontSize: 16, fontWeight: FontWeight.w700),),
-                const SizedBox(height: 4,),
-                Text("Consider using desktop for better experience.", textAlign: TextAlign.center, style: TextStyle(color: ColorConstants.glassWhite, fontSize: 14, fontWeight: FontWeight.w600),),
-                // const SizedBox(height: 2,),
-                Text("This is a simulation of Linux based Operating System, feel free to explore!", textAlign: TextAlign.center, style: TextStyle(color: ColorConstants.glassWhite, fontSize: 12),),
-                const SizedBox(height: 10,),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Align(alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Text("Hey,", style: TextStyle(color: ColorConstants.glassWhite, fontSize: 16),),
+                  Text("Welcome to my portfolio!", textAlign: TextAlign.center, style: TextStyle(color: ColorConstants.glassBlack, fontSize: 16, fontWeight: FontWeight.w700),),
+                  SizedBox(height: 4,),
+                  Text("Consider using desktop for better experience.", textAlign: TextAlign.center, style: TextStyle(color: ColorConstants.glassBlack, fontSize: 14, fontWeight: FontWeight.w600),),
+                  // const SizedBox(height: 2,),
+                  Text("This is a simulation of Linux based Operating System, feel free to explore!", textAlign: TextAlign.center, style: TextStyle(color: ColorConstants.glassBlack, fontSize: 12),),
+                  SizedBox(height: 10,),
 
-                Text("Created with 💗 by Santanu.", textAlign: TextAlign.center, style: TextStyle(color: ColorConstants.glassWhite, fontSize: 12),),
-              ],
+                  Text("Created with 💗 by Santanu.", textAlign: TextAlign.center, style: TextStyle(color: ColorConstants.glassBlack, fontSize: 12),),
+                ],
+              ),
             ),
           ),
           // ClipRect(
@@ -108,7 +111,7 @@ class HomePage extends StatelessWidget {
                             },
                             child: Text(
                               "GitHub",
-                              style: TextStyle(color: _viewModel.isOptionsGithubHovered.value ? ColorConstants.black : ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
+                              style: TextStyle(color: _viewModel.isOptionsGithubHovered.value ? ColorConstants.black : ColorConstants.darkGray, fontWeight: FontWeight.w400, fontSize: 12),
                             ),
                           ),
                           SizedBox(
@@ -116,7 +119,7 @@ class HomePage extends StatelessWidget {
                           ),
                           Text(
                             "|",
-                            style: TextStyle(color: ColorConstants.glassBlack, fontWeight: FontWeight.w100, fontSize: 12),
+                            style: TextStyle(color: ColorConstants.glassWhite, fontWeight: FontWeight.w100, fontSize: 12),
                           ),
                           SizedBox(
                             width: 5,
@@ -133,7 +136,7 @@ class HomePage extends StatelessWidget {
                             },
                             child: Text(
                               "LinkedIn",
-                              style: TextStyle(color: _viewModel.isOptionsLinkedInHovered.value ? ColorConstants.black : ColorConstants.white,  fontWeight: FontWeight.w400, fontSize: 12),
+                              style: TextStyle(color: _viewModel.isOptionsLinkedInHovered.value ? ColorConstants.black : ColorConstants.darkGray,  fontWeight: FontWeight.w400, fontSize: 12),
                             ),
                           ),
                           SizedBox(
@@ -141,7 +144,7 @@ class HomePage extends StatelessWidget {
                           ),
                           Text(
                             "|",
-                            style: TextStyle(color: ColorConstants.glassBlack,  fontWeight: FontWeight.w100, fontSize: 12),
+                            style: TextStyle(color: ColorConstants.glassWhite,  fontWeight: FontWeight.w100, fontSize: 12),
                           ),
                           SizedBox(
                             width: 5,
@@ -158,7 +161,7 @@ class HomePage extends StatelessWidget {
                             },
                             child: Text(
                               "Email",
-                              style: TextStyle(color: _viewModel.isOptionsEmailHovered.value ? ColorConstants.black : ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
+                              style: TextStyle(color: _viewModel.isOptionsEmailHovered.value ? ColorConstants.black : ColorConstants.darkGray, fontWeight: FontWeight.w400, fontSize: 12),
                             ),
                           ),
                           SizedBox(
@@ -166,7 +169,7 @@ class HomePage extends StatelessWidget {
                           ),
                           Text(
                             "|",
-                            style: TextStyle(color: ColorConstants.glassBlack,  fontWeight: FontWeight.w100, fontSize: 12),
+                            style: TextStyle(color: ColorConstants.glassWhite,  fontWeight: FontWeight.w100, fontSize: 12),
                           ),
                           SizedBox(
                             width: 5,
@@ -178,7 +181,7 @@ class HomePage extends StatelessWidget {
                             onTap: () async {
                               // viewModel.isPhoneNumberCopied.value = true;
                               const snackBar = SnackBar(
-                                content: Text('Phone number copied.', style: TextStyle(color: ColorConstants.white, fontWeight: FontWeight.w400),),
+                                content: Text('Phone number copied.', style: TextStyle(color: ColorConstants.darkGray, fontWeight: FontWeight.w400),),
                                 backgroundColor: ColorConstants.glassBlue,
                                 elevation: 10,
                                 behavior: SnackBarBehavior.floating,
@@ -193,7 +196,7 @@ class HomePage extends StatelessWidget {
                             },
                             child: Text(
                               "Phone",
-                              style: TextStyle(color: _viewModel.isOptionsPhoneHovered.value ? ColorConstants.black : ColorConstants.white,  fontWeight: FontWeight.w400, fontSize: 12),
+                              style: TextStyle(color: _viewModel.isOptionsPhoneHovered.value ? ColorConstants.black : ColorConstants.darkGray,  fontWeight: FontWeight.w400, fontSize: 12),
                             ),
                           ),
                           SizedBox(
@@ -201,7 +204,7 @@ class HomePage extends StatelessWidget {
                           ),
                           Text(
                             "|",
-                            style: TextStyle(color: ColorConstants.glassBlack, fontWeight: FontWeight.w100, fontSize: 12),
+                            style: TextStyle(color: ColorConstants.glassWhite, fontWeight: FontWeight.w100, fontSize: 12),
                           ),
                           SizedBox(
                             width: 5,
@@ -218,7 +221,7 @@ class HomePage extends StatelessWidget {
                             },
                             child: Text(
                               "Download Resume",
-                              style: TextStyle(color: _viewModel.isOptionsDownloadCVHovered.value ? ColorConstants.black : ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
+                              style: TextStyle(color: _viewModel.isOptionsDownloadCVHovered.value ? ColorConstants.black : ColorConstants.darkGray, fontWeight: FontWeight.w400, fontSize: 12),
                             ),
                           ),
                         ],
@@ -236,7 +239,7 @@ class HomePage extends StatelessWidget {
                         },
                         child: Text(
                           "Download Resume",
-                          style: TextStyle(color: _viewModel.isOptionsDownloadCVHovered.value ? ColorConstants.black : ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12),
+                          style: TextStyle(color: _viewModel.isOptionsDownloadCVHovered.value ? ColorConstants.black : ColorConstants.darkGray, fontWeight: FontWeight.w400, fontSize: 12),
                         ),
                       ),
                       Obx(
@@ -270,7 +273,7 @@ class HomePage extends StatelessWidget {
                           // color: ColorConstants.lightGlassBlue,
                           gradient: LinearGradient(
                               colors: [
-                                ColorConstants.glassBlue.withAlpha(100),
+                                ColorConstants.glassBlue.withAlpha(120),
                                 ColorConstants.lightGlassBlue.withAlpha(120),
                               ],
                               begin: FractionalOffset(0.0, 0.0),
@@ -404,7 +407,7 @@ class HomePage extends StatelessWidget {
               duration: const Duration(milliseconds: 150),
               curve: Curves.easeIn,
               height: isHovered.value ? 62 : 56,
-              width: isHovered.value ? 57 : 49,
+              width: isHovered.value ? 59 : 55,
               padding: EdgeInsets.all(2),
               margin: isHovered.value
                   ? const EdgeInsets.symmetric(horizontal: 4.5)
@@ -432,7 +435,7 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 2.0),
                     child: Text(
                       toolTipText,
-                      style: const TextStyle(fontSize: 9.5, color: ColorConstants.white, fontWeight: FontWeight.w300),
+                      style: const TextStyle(fontSize: 9.5, color: ColorConstants.white, fontWeight: FontWeight.w200),
                     ),
                   )
                       : Offstage(),
@@ -458,7 +461,7 @@ class HomePage extends StatelessWidget {
   Widget _mainWidget(HomePageViewModel viewModel, BuildContext context) {
     return Obx(
           () => Container(
-          margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.width < 700 ? 81.5 : 2, top: 26, left: MediaQuery.of(context).size.width < 700 ? 2 : 78, right: 2),
+          margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.width < 700 ? 81.5 : 2, top: 26, left: MediaQuery.of(context).size.width < 700 ? 2 : 82, right: 2),
           // decoration: BoxDecoration(
           //   borderRadius: BorderRadius.circular(8),
           //     border: Border.all(width: 1, color: ColorConstants.black,)),

@@ -230,7 +230,7 @@ class ExperienceTab extends StatelessWidget {
                     image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                     // image: const NetworkImage("https://static.vecteezy.com/system/resources/previews/006/861/154/non_2x/light-blue-background-gradient-illustration-eps10-vector.jpg"),
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.32), BlendMode.dstATop),
+                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.22), BlendMode.dstATop),
                   )
               ),
               child: ClipRRect(
@@ -263,9 +263,9 @@ class ExperienceTab extends StatelessWidget {
                                     border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
                                     gradient: LinearGradient(
                                         colors: [
-                                          ColorConstants.black.withOpacity(0.08),
+                                          ColorConstants.black.withOpacity(0.09),
 
-                                          ColorConstants.black.withOpacity(0.3),
+                                          ColorConstants.black.withOpacity(0.34),
                                         ],
                                         begin: const FractionalOffset(0.0, 0.0),
                                         end: const FractionalOffset(1.0, 0.0),
@@ -276,18 +276,24 @@ class ExperienceTab extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    _companyWidget(
-                                      companyData: viewModel.experienceCompanyList[index],
-                                      // jobTitle: "Software Engineer",
-                                      // companyName: "Mantra Labs",
-                                      // jobDuration: "June 2022 - Present",
-                                      // keyResponsibilities: [
-                                      //   "Flutter developer with expertise in state management using Bloc, GetX.",
-                                      //   "Consistently delivered pixel-perfect UI designs with functionalities.",
-                                      //   "Optimized MySQL data flow with Django Restful APIs, cutting response time by 30%, boosting user experience."
-                                      // ],
-                                      index: index,
-                                      // length: 2
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(16),
+                                      child: BackdropFilter(
+                                        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                                        child: _companyWidget(
+                                          companyData: viewModel.experienceCompanyList[index],
+                                          // jobTitle: "Software Engineer",
+                                          // companyName: "Mantra Labs",
+                                          // jobDuration: "June 2022 - Present",
+                                          // keyResponsibilities: [
+                                          //   "Flutter developer with expertise in state management using Bloc, GetX.",
+                                          //   "Consistently delivered pixel-perfect UI designs with functionalities.",
+                                          //   "Optimized MySQL data flow with Django Restful APIs, cutting response time by 30%, boosting user experience."
+                                          // ],
+                                          index: index,
+                                          // length: 2
+                                        ),
+                                      ),
                                     ),
 
 
@@ -334,7 +340,7 @@ class ExperienceTab extends StatelessWidget {
                     // image: const NetworkImage("https://images.pexels.com/photos/2569997/pexels-photo-2569997.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                     // image: const NetworkImage("https://static.vecteezy.com/system/resources/previews/006/861/154/non_2x/light-blue-background-gradient-illustration-eps10-vector.jpg"),
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.32), BlendMode.dstATop),
+                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.24), BlendMode.dstATop),
                   )
               ),
               child: ClipRRect(
@@ -371,9 +377,9 @@ class ExperienceTab extends StatelessWidget {
                                               // ColorConstants.glassWhite.withOpacity(0.2),
                                               // ColorConstants.glassWhite.withOpacity(0.7),
                                               // ColorConstants.orange.withAlpha(10),
-                                              ColorConstants.black.withOpacity(0.08),
+                                              ColorConstants.black.withOpacity(0.09),
 
-                                              ColorConstants.black.withOpacity(0.3),
+                                              ColorConstants.black.withOpacity(0.34),
                                             ],
                                             begin: const FractionalOffset(0.0, 0.0),
                                             end: const FractionalOffset(1.0, 0.0),
@@ -381,19 +387,25 @@ class ExperienceTab extends StatelessWidget {
                                             tileMode: TileMode.clamp),
                                         borderRadius: BorderRadius.circular(16)),
                                     padding: const EdgeInsets.all(16),
-                                    child: _companyWidget(
-                                      companyData: viewModel.freelanceExperienceList[index],
-                                      // jobTitle: "Software Engineer",
-                                      // companyName: "Mantra Labs",
-                                      // jobDuration: "June 2022 - Present",
-                                      // keyResponsibilities: [
-                                      //   "Flutter developer with expertise in state management using Bloc, GetX.",
-                                      //   "Consistently delivered pixel-perfect UI designs with functionalities.",
-                                      //   "Optimized MySQL data flow with Django Restful APIs, cutting response time by 30%, boosting user experience."
-                                      // ],
-                                      index: index,
-                                      isFreelancing: true
-                                      // length: 2
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(16),
+                                      child: BackdropFilter(
+                                        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                                        child: _companyWidget(
+                                          companyData: viewModel.freelanceExperienceList[index],
+                                          // jobTitle: "Software Engineer",
+                                          // companyName: "Mantra Labs",
+                                          // jobDuration: "June 2022 - Present",
+                                          // keyResponsibilities: [
+                                          //   "Flutter developer with expertise in state management using Bloc, GetX.",
+                                          //   "Consistently delivered pixel-perfect UI designs with functionalities.",
+                                          //   "Optimized MySQL data flow with Django Restful APIs, cutting response time by 30%, boosting user experience."
+                                          // ],
+                                          index: index,
+                                          isFreelancing: true
+                                          // length: 2
+                                        ),
+                                      ),
                                     ),
                                   ),
 

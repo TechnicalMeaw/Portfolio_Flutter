@@ -1,59 +1,246 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="$FLUTTER_BASE_HREF">
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
 
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="portfolio">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <meta
+          name="description"
+          content="Santanu Mukherjee – Flutter Developer & Backend Engineer specializing in FastAPI, AWS, and scalable full-stack apps with Python, Kotlin, Dart, and PostgreSQL. Hire for modern mobile/web app development."
+  />
+  <meta
+          name="keywords"
+          content="Flutter Developer, FastAPI, AWS Developer, Backend Engineer, Python, Dart, Kotlin, PostgreSQL, Supabase, Django, Mobile App Developer, Android, Java, Go, Gin, Full Stack Developer, Santanu Mukherjee, Freelance Developer, Hire Flutter Developer, API Developer, AWS Lambda, Cloud Functions, Firebase, Software Engineer Portfolio"
+  />
+  <meta name="author" content="Santanu Mukherjee" />
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="Santanu's Portfolio" />
+  <link rel="apple-touch-icon" href="icons/Icon-192.png" />
+
+  <meta property="og:title" content="Santanu Mukherjee | Flutter, FastAPI & AWS Developer Portfolio" />
+  <meta
+          property="og:description"
+          content="Explore Santanu Mukherjee's full-stack projects using Flutter, FastAPI, AWS, and Python. Build scalable apps from UI to backend infrastructure."
+  />
+  <meta property="og:image" content="https://santanumukherjee.com/preview.png" />
+  <meta property="og:url" content="https://santanumukherjee.com/" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="manifest" href="manifest.json" />
 
-  <title>portfolio</title>
-  <link rel="manifest" href="manifest.json">
+  <title>Santanu Mukherjee | Flutter, FastAPI & AWS Developer Portfolio</title>
 
   <script>
-    // The value below is injected by flutter build, do not touch.
     const serviceWorkerVersion = null;
   </script>
-  <!-- This script adds the flutter initialization JS code -->
+
   <script src="flutter.js" defer></script>
+
+  <style>
+    /* Remove default margin/padding & fix white line */
+    html, body {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      outline: 0;
+      height: 100%;
+      background-color: black;
+      overflow: hidden;
+    }
+
+    /* Boot Loader Styles */
+    #boot-loader {
+      position: fixed;
+      z-index: 9999;
+      width: 100vw;
+      height: 100vh;
+      background: url('assets/assets/images/background_1.jpg') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: monospace;
+      color: #00ff00;
+      background-color: black;
+      opacity: 1;
+      transition: opacity 0.8s ease-in-out;
+      overflow: hidden;
+    }
+
+    #boot-loader.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .boot-terminal {
+      margin: 0;
+      border: none;
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 1.2rem 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 15px #00ff00;
+      max-width: 95%;
+      max-height: 80vh;
+      font-size: 1rem;
+      overflow-y: auto;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    @media (max-width: 600px) {
+      .boot-terminal {
+        font-size: 0.9rem;
+        white-space: normal;
+        padding: 1rem 1.5rem;
+        max-height: 70vh;
+      }
+    }
+
+    .boot-line {
+      margin-bottom: 0.4rem;
+      white-space: nowrap;
+    }
+
+    .cursor-blink::after {
+      content: '_';
+      animation: blink 1s step-start infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% {
+        opacity: 1;
+      }
+      50.01%, 100% {
+        opacity: 0;
+      }
+    }
+
+    .dots::after {
+      content: '';
+      animation: dots 1.2s infinite steps(4, end);
+    }
+
+    @keyframes dots {
+      0% {
+        content: '';
+      }
+      25% {
+        content: '.';
+      }
+      50% {
+        content: '..';
+      }
+      75% {
+        content: '...';
+      }
+      100% {
+        content: '';
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <script>
-    window.addEventListener('load', function(ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
-          });
-        }
-      });
+<div style="position: absolute; left: -9999px; visibility: hidden;">
+  <h1>Santanu Mukherjee – Flutter, FastAPI & Cloud App Developer</h1>
+  <p>
+    I specialize in building production-grade mobile and web apps using Flutter and backend APIs using FastAPI,
+    Python, and AWS. With deep experience in Dart, Kotlin, PostgreSQL, Supabase, Django, and scalable cloud
+    architectures, I help startups, agencies, and businesses bring full-stack solutions to life — from UI to deployment.
+  </p>
+</div>
+
+<div id="boot-loader">
+  <div class="boot-terminal" id="boot-terminal">
+    <!-- Static lines will be inserted here -->
+  </div>
+</div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const staticLines = [
+      "[  OK  ] Booting Santanu OS...",
+      "[  OK  ] Initializing UI modules",
+      "[  OK  ] Starting Flutter engine",
+      "[  OK  ] Establishing secure connection",
+      "[  OK  ] Launching Desktop Environment",
+    ];
+
+    const lastLine = "Loading";
+
+    const terminal = document.getElementById('boot-terminal');
+
+    // Insert static lines all at once:
+    staticLines.forEach((line) => {
+      const div = document.createElement('div');
+      div.classList.add('boot-line');
+      div.textContent = line;
+      terminal.appendChild(div);
     });
-  </script>
+
+    // Create last line container
+    const lastLineElem = document.createElement('div');
+    lastLineElem.classList.add('boot-line', 'cursor-blink');
+    terminal.appendChild(lastLineElem);
+
+    // Typing function for last line
+    function typeText(text, element, delay = 30) {
+      return new Promise((resolve) => {
+        let i = 0;
+        element.textContent = '';
+        element.classList.add('cursor-blink');
+
+        function type() {
+          if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, delay);
+          } else {
+            element.classList.remove('cursor-blink');
+            resolve();
+          }
+        }
+
+        type();
+      });
+    }
+
+    // Start typing the last line, then add animated dots
+    typeText(lastLine, lastLineElem, 30).then(() => {
+      const dotsSpan = document.createElement('span');
+      dotsSpan.classList.add('dots');
+      lastLineElem.appendChild(dotsSpan);
+    });
+
+    // Flutter app loader stays unchanged:
+    window.addEventListener('load', () => {
+      if (typeof _flutter !== 'undefined') {
+        _flutter.loader.loadEntrypoint({
+          serviceWorker: { serviceWorkerVersion: serviceWorkerVersion },
+          onEntrypointLoaded: function (engineInitializer) {
+            engineInitializer.initializeEngine().then(function (appRunner) {
+              appRunner.runApp().then(function () {
+                const loader = document.getElementById('boot-loader');
+                if (loader) {
+                  loader.classList.add('fade-out');
+                  setTimeout(() => loader.remove(), 1000);
+                }
+              });
+            });
+          }
+        });
+      } else {
+        console.error('_flutter is not defined');
+      }
+    });
+  });
+</script>
 </body>
 </html>

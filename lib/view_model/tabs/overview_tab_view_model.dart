@@ -77,6 +77,9 @@ class OverviewTabViewModel extends BaseGetXController {
   RxBool isDownloadCvBtnHovered = false.obs;
   RxBool isViewProjectsBtnHovered = false.obs;
 
+  RxBool isEducationOverviewVisible = false.obs;
+  RxBool isProjectsOverviewVisible = false.obs;
+
 
   late Future t1;
   late Future t2;
@@ -91,6 +94,8 @@ class OverviewTabViewModel extends BaseGetXController {
   late Future t11;
   late Future t12;
   late Future t13;
+  late Future t14;
+  late Future t15;
 
   @override
   void onInit() {
@@ -147,47 +152,57 @@ class OverviewTabViewModel extends BaseGetXController {
           });
           t7 = Future.delayed(const Duration(milliseconds: 1000), () {
             isKPI1Visible.value = true;
-            startIncreasingAnimation(kpi1Value, 3, 100, 500, increaseValue: 1);
+            startIncreasingAnimation(kpi1Value, 4, 100, 400, increaseValue: 1);
           });
           t8 = Future.delayed(const Duration(milliseconds: 2400), () {
             isKPI2Visible.value = true;
-            startIncreasingAnimation(kpi2Value, 12, 100, 200, increaseValue: 1);
+            startIncreasingAnimation(kpi2Value, 14, 100, 160, increaseValue: 1);
           });
           t9 = Future.delayed(const Duration(milliseconds: 4400), () {
             isKPI3Visible.value = true;
-            startIncreasingAnimation(kpi3Value, 8, 500, 320, increaseValue: 1);
+            startIncreasingAnimation(kpi3Value, 9, 500, 310, increaseValue: 1);
           });
           t10 = Future.delayed(const Duration(milliseconds: 7200), () {
             isKPI4Visible.value = true;
-            startIncreasingAnimation(kpi4Value, 9, 1800, 280, increaseValue: 1);
+            startIncreasingAnimation(kpi4Value, 11, 1800, 280, increaseValue: 1);
           });
           t11 = Future.delayed(const Duration(milliseconds: 10400), () {
             isKPI5Visible.value = true;
-            startIncreasingAnimation(kpi5Value, 456, 2600, 30, increaseValue: 4);
+            startIncreasingAnimation(kpi5Value, 532, 2600, 25, increaseValue: 4);
           });
         });
 
     t12 = Future.delayed(const Duration(milliseconds: 3000), () {
       isSkillsVisible.value = true;
       startIncreasingAnimation(androidSkillRating, 91, 750, 35~/2);
-      startIncreasingAnimation(flutterSkillRating, 87, 200, 30~/2);
-      startIncreasingAnimation(djangoSkillRating, 71, 300, 45~/2);
-      startIncreasingAnimation(fastApiSkillRating, 78, 400, 25~/2);
+      startIncreasingAnimation(flutterSkillRating, 93, 200, 30~/2);
+      startIncreasingAnimation(djangoSkillRating, 74, 300, 45~/2);
+      startIncreasingAnimation(fastApiSkillRating, 86, 400, 25~/2);
       startIncreasingAnimation(problemSolvingSkillRating, 92, 850, 40~/6);
-      startIncreasingAnimation(firebaseSkillRating, 84, 600, 30~/6);
+      startIncreasingAnimation(firebaseSkillRating, 85, 600, 30~/6);
       startIncreasingAnimation(pythonSkillRating, 90, 700, 25~/8);
       startIncreasingAnimation(dsaSkillRating, 86, 750, 35~/8);
-      startIncreasingAnimation(awsSkillRating, 88, 800, 45~/10);
+      startIncreasingAnimation(awsSkillRating, 91, 800, 45~/10);
       startIncreasingAnimation(kotlinSkillRating, 86, 950, 60~/10);
       startIncreasingAnimation(dartSkillRating, 78, 1000, 35~/14);
       startIncreasingAnimation(javaSkillRating, 80, 1150, 25~/16);
-      startIncreasingAnimation(gitSkillRating, 74, 1200, 45~/18);
+      startIncreasingAnimation(gitSkillRating, 82, 1200, 45~/18);
 
 
     });
 
     t13 = Future.delayed(
-        const Duration(seconds: 6), () {
+        const Duration(milliseconds: 6200), () {
+      isEducationOverviewVisible.value = true;
+    });
+
+    t14 = Future.delayed(
+        const Duration(milliseconds: 7200), () {
+        isProjectsOverviewVisible.value = true;
+    });
+
+    t15 = Future.delayed(
+        const Duration(milliseconds: 7500), () {
           isAnimationCompleted.value = true;
     });
 
@@ -262,6 +277,8 @@ class OverviewTabViewModel extends BaseGetXController {
     kpi5Value = 0.obs;
 
     isSkillsVisible = false.obs;
+    isEducationOverviewVisible = false.obs;
+    isProjectsOverviewVisible = false.obs;
   }
 
   @override

@@ -7,6 +7,11 @@ class AssetConstants{
   static const imgBackgroundImage = "$_rootImagesPath/background_1.jpg";
   static const imgProfileImage = "$_rootImagesPath/img_profile.jpeg";
   static const imgPlantonicThumb = "$_rootImagesPath/plantonic_thumb.jpg";
+  static const imgPlantonic1 = "$_rootImagesPath/plantonic_thumb_re.png";
+  static const imgGogThumb = "$_rootImagesPath/gog_thumb.png";
+  static const imgSbigThumb = "$_rootImagesPath/sbig_thumb_1.png";
+  static const imgTekXThumb = "$_rootImagesPath/tekx_thumb.png";
+  static const imgManipalDoctorsThumb = "$_rootImagesPath/manipal_doctors_thumb.png";
 
 
   static const icOverview = "$_rootIconsPath/ic_overview.png";

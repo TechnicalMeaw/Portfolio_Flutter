@@ -274,7 +274,7 @@ class HomePage extends StatelessWidget {
                           gradient: LinearGradient(
                               colors: [
                                 ColorConstants.deepTeal.withAlpha(180),
-                                ColorConstants.lightGlassBlue.withAlpha(130),
+                                ColorConstants.lightGlassBlue.withAlpha(120),
                               ],
                               begin: FractionalOffset(0.0, 0.0),
                               end: FractionalOffset(1.0, 0.0),

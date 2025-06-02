@@ -105,8 +105,10 @@ class HomePageViewModel extends BaseGetXController with GetTickerProviderStateMi
     );
 
     Future.delayed(const Duration(milliseconds: 600), () {
+
       isOverviewBtnHovered.value = true;
-      initialAction = Future.delayed(const Duration(milliseconds: 5200), () {
+
+      initialAction = Future.delayed(Duration(milliseconds: Get.width < 1100 ? 3400 : 350), () {
         if (overviewAnimationController.isAnimating){
           overviewAnimationController.stop(); // Stop animation after 5s
           overviewScaleAnimation.value = null;

@@ -6,6 +6,7 @@ import 'package:portfolio/view_model/tabs/education_tab_view_model.dart';
 import 'package:portfolio/view_model/tabs/experience_tab_view_model.dart';
 import 'package:portfolio/view_model/tabs/overview_tab_view_model.dart';
 import 'package:portfolio/view_model/tabs/projects_tab_view_model.dart';
+import 'dart:js' as js;
 
 abstract class BaseGetXController extends GetxController with GetSingleTickerProviderStateMixin{
 
@@ -113,6 +114,15 @@ abstract class BaseGetXController extends GetxController with GetSingleTickerPro
     ).animate(CurvedAnimation(parent: animationController, curve: Curves.easeInOut));
     super.onInit();
   }
+
+  void trackConversion() {
+    js.context.callMethod('gtag', ['event', 'conversion', {
+      'send_to': 'AW-653545766/PLhyCM3P3J0aEKai0bcC',
+      'value': 1.0,
+      'currency': 'INR'
+    }]);
+  }
+
 
   @override
   void onClose() {

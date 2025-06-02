@@ -225,12 +225,22 @@ class ExperienceTab extends StatelessWidget {
 
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: ColorConstants.white.withOpacity(0.4), width: 0.8),
-                  color: ColorConstants.deepTeal.withOpacity(0.5),
+                  // color: ColorConstants.deepTeal.withOpacity(0.5),
+                  gradient: LinearGradient(
+                      colors: [
+                        ColorConstants.textBlue.withOpacity(0.42),
+                        ColorConstants.deepTextBlue.withOpacity(0.40),
+                      ],
+                      begin: FractionalOffset(0.0, 0.0),
+                      end: FractionalOffset(1.0, 0.0),
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp),
                   image: DecorationImage(
                     image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
+                    // image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                     // image: const NetworkImage("https://static.vecteezy.com/system/resources/previews/006/861/154/non_2x/light-blue-background-gradient-illustration-eps10-vector.jpg"),
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.22), BlendMode.dstATop),
+                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.28), BlendMode.dstATop),
                   )
               ),
               child: ClipRRect(
@@ -264,8 +274,7 @@ class ExperienceTab extends StatelessWidget {
                                     gradient: LinearGradient(
                                         colors: [
                                           ColorConstants.black.withOpacity(0.09),
-
-                                          ColorConstants.black.withOpacity(0.34),
+                                          ColorConstants.deepTextBlue.withOpacity(0.34),
                                         ],
                                         begin: const FractionalOffset(0.0, 0.0),
                                         end: const FractionalOffset(1.0, 0.0),
@@ -328,13 +337,16 @@ class ExperienceTab extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
-                  color: ColorConstants.highlightQueenViolet.withOpacity(0.48),
-                  // gradient: LinearGradient(
-                  //   colors: [
-                  //     ColorConstants.highlightQueenViolet.withOpacity(0.4),
-                  //     ColorConstants.deepQueenViolet.withOpacity(0.6)
-                  //   ]
-                  // ),
+                  // color: ColorConstants.highlightQueenViolet.withOpacity(0.48),
+                  gradient: LinearGradient(
+                      colors: [
+                        ColorConstants.highlightQueenViolet.withOpacity(0.5),
+                        ColorConstants.darkQueenViolet.withOpacity(0.44),
+                      ],
+                      begin: FractionalOffset(0.0, 0.0),
+                      end: FractionalOffset(1.0, 0.0),
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp),
                   image: DecorationImage(
                     image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                     // image: const NetworkImage("https://images.pexels.com/photos/2569997/pexels-photo-2569997.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
@@ -379,7 +391,7 @@ class ExperienceTab extends StatelessWidget {
                                               // ColorConstants.orange.withAlpha(10),
                                               ColorConstants.black.withOpacity(0.09),
 
-                                              ColorConstants.black.withOpacity(0.34),
+                                              ColorConstants.darkQueenViolet.withOpacity(0.34),
                                             ],
                                             begin: const FractionalOffset(0.0, 0.0),
                                             end: const FractionalOffset(1.0, 0.0),
@@ -552,18 +564,25 @@ class ExperienceTab extends StatelessWidget {
                                               fontWeight: companyData.keyResponsibilities[keyIndex].responsibilityTexts[textIndex].textType == TextType.bold ? FontWeight.w500
                                                   // : FontWeight.lerp(FontWeight.w400, FontWeight.w500, 0.5),
                                                   : FontWeight.w400,
-                                            shadows: <Shadow>[
+                                            shadows: const [
                                               Shadow(
-                                                offset: const Offset(0.0, 0.0),
-                                                blurRadius: 0.1,
-                                                color: isFreelancing ? ColorConstants.white : ColorConstants.deepBlue,
-                                              ),
-                                              Shadow(
-                                                offset: Offset(0.0, 0.0),
-                                                blurRadius: 0.5,
-                                                color: isFreelancing ? ColorConstants.queenViolet : ColorConstants.cyanBlue,
-                                              ),
-                                            ],
+                                                  offset: Offset(0.0, 0.0),
+                                                  blurRadius: 0.1,
+                                                  color: ColorConstants.darkGray,
+                                                ),
+                                            ]
+                                            // shadows: <Shadow>[
+                                            //   Shadow(
+                                            //     offset: const Offset(0.0, 0.0),
+                                            //     blurRadius: 0.1,
+                                            //     color: isFreelancing ? ColorConstants.white : ColorConstants.deepBlue,
+                                            //   ),
+                                            //   Shadow(
+                                            //     offset: Offset(0.0, 0.0),
+                                            //     blurRadius: 0.5,
+                                            //     color: isFreelancing ? ColorConstants.queenViolet : ColorConstants.cyanBlue,
+                                            //   ),
+                                            // ],
                                           )))),
                                   ),
                                 ],

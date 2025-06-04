@@ -96,16 +96,17 @@ class HomePageViewModel extends BaseGetXController with GetTickerProviderStateMi
       duration: const Duration(milliseconds: 800),
     )..repeat(reverse: true);
 
-    overviewScaleAnimation.value = Tween<double>(begin: 0.88, end: 1.0).animate(
-      CurvedAnimation(parent: overviewAnimationController, curve: Curves.easeInOut),
-    );
 
-    overviewOpacityAnimation.value = Tween<double>(begin: 0.5, end: 1.0).animate(
-      CurvedAnimation(parent: overviewAnimationController, curve: Curves.easeInOut),
-    );
 
-    Future.delayed(const Duration(milliseconds: 600), () {
 
+    Future.delayed(const Duration(milliseconds: 1050), () {
+      overviewScaleAnimation.value = Tween<double>(begin: 0.88, end: 1.0).animate(
+        CurvedAnimation(parent: overviewAnimationController, curve: Curves.easeInOut),
+      );
+
+      overviewOpacityAnimation.value = Tween<double>(begin: 0.5, end: 1.0).animate(
+        CurvedAnimation(parent: overviewAnimationController, curve: Curves.easeInOut),
+      );
       isOverviewBtnHovered.value = true;
 
       initialAction = Future.delayed(Duration(milliseconds: Get.width < 1100 ? 3400 : 350), () {

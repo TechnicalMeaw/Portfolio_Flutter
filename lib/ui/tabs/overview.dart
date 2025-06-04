@@ -348,6 +348,7 @@ class OverviewTab extends StatelessWidget {
 // Make sure this is within your OverviewTab class in overview.dart
 
 // --- REFINED MODERN PROJECT TILE METHOD ---
+// --- REFINED MODERN PROJECT TILE METHOD ---
   Widget _projectTileModernLook(
       BuildContext context,
       ProjectData project,
@@ -415,7 +416,7 @@ class OverviewTab extends StatelessWidget {
                         scale: isHovered ? 1.08 : 1.0,
                         duration: const Duration(milliseconds: 250),
                         curve: Curves.easeOut,
-                        child: Image.asset(
+                        child: Image.asset( // In a real app, use NetworkImage for URLs or ensure assets are bundled
                           project.imageAsset,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) => Container(
@@ -591,6 +592,8 @@ class OverviewTab extends StatelessWidget {
     );
   }
 
+  // Placeholder for _buildViewAllTextButton
+
   // --- UPDATED _projectsOverviewSection METHOD ---
   Widget _projectsOverviewSection(BuildContext context) {
     // Using the project list and asset constants you provided
@@ -612,40 +615,53 @@ class OverviewTab extends StatelessWidget {
 
             const double tileIdealHeight = 230.0;
             const double tileSpacing = 16.0;
-            const double minTileWidthForCalc = 220.0; // Minimum comfortable width for a tile
+            // const double minTileWidthForCalc = 220.0; // Minimum comfortable width for a tile (used in desktop)
 
-            if (screenWidth <= 650) { // Mobile: Horizontal Scroll
-              int maxMobileTiles = 2; // Can be increased to 3 if preferred
-              double mobileTileWidth = (screenWidth * 0.65).clamp(180.0, 250.0); // Adjusted for better visibility balance
+            if (screenWidth <= 650) { // Mobile: Vertical Column
+              itemsToDisplay.clear(); // Clear any previous items
+              double mobileTileWidth = screenWidth; // Tiles take full available width within the padded section
+              int maxMobileTiles = 2; // Number of project tiles to show before "More Projects" tile
+              // You can adjust this value or show all projects if preferred.
+
+              List<Widget> actualTilesInColumn = [];
 
               for (int i = 0; i < allProjects.length; i++) {
                 if (i < maxMobileTiles) {
-                  itemsToDisplay.add(Padding(
-                    padding: EdgeInsets.only(left: i == 0 ? 0 : tileSpacing),
-                    child: _projectTileModernLook(context, allProjects[i], mobileTileWidth, tileIdealHeight),
-                  ));
+                  actualTilesInColumn.add(
+                    _projectTileModernLook(context, allProjects[i], mobileTileWidth, tileIdealHeight),
+                  );
                 } else {
                   break;
                 }
               }
+
               if (allProjects.length > maxMobileTiles) {
-                itemsToDisplay.add(Padding(
-                  padding: const EdgeInsets.only(left: tileSpacing),
-                  // Make "more" tile slightly narrower or ensure it has touch target
-                  child: _moreProjectsTileModernLook(context, allProjects.length - maxMobileTiles, mobileTileWidth * 0.9, tileIdealHeight),
-                ));
+                actualTilesInColumn.add(
+                  _moreProjectsTileModernLook(context, allProjects.length - maxMobileTiles, mobileTileWidth, tileIdealHeight),
+                );
               }
+
+              // Add padding for vertical spacing in the column
+              for (int i = 0; i < actualTilesInColumn.length; i++) {
+                itemsToDisplay.add(
+                    Padding(
+                      padding: EdgeInsets.only(bottom: (i == actualTilesInColumn.length - 1) ? 0 : tileSpacing),
+                      child: actualTilesInColumn[i],
+                    )
+                );
+              }
+
             } else { // Desktop and Tablet: Dynamically sized Row with Flexible tiles
+              itemsToDisplay.clear(); // Clear any previous items
               int numSlots;
-              // Determine ideal number of slots based on available width and a comfortable minimum tile width
+              // Determine ideal number of slots based on available width
               if (screenWidth > 1200) { // Wider Desktop
-                numSlots = 4; // Max 3 projects + "More", or 4 projects
+                numSlots = 4;
               } else if (screenWidth > 850) { // Standard Desktop / Wide Tablet
-                numSlots = 3; // Max 2 projects + "More", or 3 projects
-              } else { // Tablet / Narrower Desktop
-                numSlots = 2; // Max 1 project + "More", or 2 projects
+                numSlots = 3;
+              } else { // Tablet / Narrower Desktop (but > 650px)
+                numSlots = 2;
               }
-              // Ensure at least 1 slot if screen is very narrow but not mobile
               if (numSlots < 1) numSlots = 1;
 
 
@@ -657,44 +673,36 @@ class OverviewTab extends StatelessWidget {
                 showMoreTile = false;
               } else {
                 projectsDirectlyShown = numSlots - 1;
-                // Ensure at least one project is shown if we intend to show a "more" tile
                 if (projectsDirectlyShown < 1 && numSlots > 0) projectsDirectlyShown = 1;
                 showMoreTile = true;
               }
 
-              // Safety for empty allProjects
               if (allProjects.isEmpty) {
                 projectsDirectlyShown = 0;
                 showMoreTile = false;
               }
 
-
               int totalItemsToDisplayInRow = projectsDirectlyShown + (showMoreTile ? 1 : 0);
 
               if (totalItemsToDisplayInRow > 0) {
-                // This width is more of a hint if using Flexible, but good for aspect ratio calcs within tile
                 double hintTileWidth = (screenWidth - (totalItemsToDisplayInRow - 1) * tileSpacing) / totalItemsToDisplayInRow;
-                // We don't strictly clamp here as Flexible will manage the actual width.
-                // However, you might pass a clamped version to the tile if its internal logic depends on it.
-                // For now, we pass the calculated hint.
 
                 for (int i = 0; i < projectsDirectlyShown; i++) {
-                  if (i < allProjects.length) { // Check array bounds
+                  if (i < allProjects.length) {
                     itemsToDisplay.add(
                         _projectTileModernLook(context, allProjects[i], hintTileWidth, tileIdealHeight)
                     );
                   }
                 }
 
-                if (showMoreTile && (allProjects.length - projectsDirectlyShown > 0 || projectsDirectlyShown == 0) ) {
-                  int remainingCount = (projectsDirectlyShown == 0 && allProjects.isNotEmpty) ? allProjects.length : allProjects.length - projectsDirectlyShown;
+                if (showMoreTile) {
+                  int remainingCount = (projectsDirectlyShown == 0 && allProjects.isNotEmpty)
+                      ? allProjects.length
+                      : allProjects.length - projectsDirectlyShown;
                   if (remainingCount > 0) {
                     itemsToDisplay.add(
                         _moreProjectsTileModernLook(context, remainingCount, hintTileWidth, tileIdealHeight)
                     );
-                  } else if (remainingCount == 0 && allProjects.isNotEmpty && projectsDirectlyShown == 0){
-                    // This case might indicate a logic flaw if we decided to show 'more' but remaining is 0.
-                    // However, the above line `remainingCount > 0` should prevent adding a "+0 more" tile.
                   }
                 }
               }
@@ -715,6 +723,9 @@ class OverviewTab extends StatelessWidget {
                               fontWeight: FontWeight.w600, // Consistent
                               color: ColorConstants.white)),
                       _buildViewAllTextButton(
+                        // For hover state on this button, you'd typically use a ValueNotifier
+                        // or manage state in the parent widget if _buildViewAllTextButton is stateless.
+                        // For this example, using viewModel.projectsViewAllHovered.
                           isHoveredVariable: viewModel.projectsViewAllHovered,
                           onTap: () => viewModel.animateToProjectsTab(),
                           text: "View All"
@@ -728,30 +739,22 @@ class OverviewTab extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 32.0),
                       child: Text(
                         "Fresh projects coming soon!",
-                        style: TextStyle(color: ColorConstants.glassWhite, fontSize: 16), // Matched color
+                        style: TextStyle(color: ColorConstants.glassWhite, fontSize: 16),
                       ),
                     ),
                   )
-                else if (screenWidth <= 650) // Mobile
-                  SizedBox(
-                    height: tileIdealHeight + 8, // Add padding for shadow/hover effects
-                    child: SingleChildScrollView(
-                      clipBehavior: Clip.none,
-                      scrollDirection: Axis.horizontal,
-                      physics: const BouncingScrollPhysics(),
-                      child: Row(children: itemsToDisplay),
-                    ),
+                else if (screenWidth <= 650) // Mobile: Render as a Column
+                  Column(
+                    // The itemsToDisplay list already contains Padding widgets for spacing
+                    children: itemsToDisplay,
                   )
                 else // Desktop/Tablet - Use Flexible children in a Row
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: List.generate(itemsToDisplay.length, (index) {
-                      return Flexible( // Each item is Flexible
-                        fit: FlexFit.tight, // Makes children share width equally
+                      return Flexible(
+                        fit: FlexFit.tight,
                         child: Padding(
-                          // Add spacing between Flexible children using margin or padding
-                          // If using MainAxisAlignment.spaceBetween, this inner padding for spacing might be redundant
-                          // but with FlexFit.tight, it helps create gaps.
                           padding: EdgeInsets.only(
                             right: index == itemsToDisplay.length - 1 ? 0 : tileSpacing,
                           ),
@@ -763,36 +766,23 @@ class OverviewTab extends StatelessWidget {
               ],
             );
 
-            // The section wrapper styling from your code
             return _buildAnimatedSectionWrapper(
               visibilityFlag: viewModel.isProjectsOverviewVisible,
               sectionDecoration: BoxDecoration(
-                  // color: ColorConstants.textBlue.withOpacity(0.5),
-                gradient: LinearGradient(
-                  colors: [
+                  gradient: LinearGradient(
+                    colors: [
                       ColorConstants.darkBlack.withOpacity(0.65),
                       ColorConstants.deepTextBlue.withOpacity(0.75),
                     ],
-                  begin: const FractionalOffset(0.0, 0.0),
-                  end: const FractionalOffset(1.0, 0.0),
-                ),
-                  image: DecorationImage(
+                    begin: const FractionalOffset(0.0, 0.0),
+                    end: const FractionalOffset(1.0, 0.0),
+                  ),
+                  image: DecorationImage( // Ensure this image is accessible or use a placeholder/asset
                     image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                     fit: BoxFit.cover,
                     colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.17), BlendMode.dstATop),
                   )
               ),
-              // BoxDecoration(
-              //   gradient: LinearGradient(
-              //     colors: [
-              //       ColorConstants.glassBlack.withOpacity(0.7),
-              //       ColorConstants.deepTextBlue.withOpacity(0.75),
-              //     ],
-              //     begin: const FractionalOffset(0.0, 0.0),
-              //     end: const FractionalOffset(1.0, 0.0),
-              //   ),
-              //   // borderRadius and border are handled by _buildAnimatedSectionWrapper's defaults if not overridden here
-              // ),
               padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 32.0), // Wrapper's internal padding
               content: projectSectionContent,
             );
@@ -800,7 +790,6 @@ class OverviewTab extends StatelessWidget {
       ),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {

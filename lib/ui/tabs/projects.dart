@@ -12,6 +12,41 @@ class ProjectsTab extends StatelessWidget {
 
   final ProjectsTabViewModel viewModel;
 
+  Widget _buildTopBarButton({
+    required RxBool hoverVariable,
+    required VoidCallback onTap,
+    required Color buttonColor,
+    required IconData iconData,
+    required bool isCloseButton, // To differentiate margin logic
+  }) {
+    return InkWell(
+      onTap: () {
+        onTap();
+        hoverVariable.value = false;
+      },
+      onHover: (isHovered) {
+        hoverVariable.value = isHovered;
+      },
+      child: Obx(
+            () => AnimatedContainer(
+          margin: EdgeInsets.only(
+              left: hoverVariable.value
+                  ? (isCloseButton ? 0 : 4)
+                  : (isCloseButton ? 2 : 3),
+              right: hoverVariable.value ? 0 : (isCloseButton ? 4 : 0)),
+          height: hoverVariable.value ? 12 : 8,
+          width: hoverVariable.value ? 12 : 8,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(7.5), color: buttonColor),
+          duration: const Duration(milliseconds: 125),
+          child: hoverVariable.value
+              ? Center(child: Icon(iconData, size: 10, color: ColorConstants.black.withAlpha(200),))
+              : const SizedBox(height: 8, width: 8),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClipRect(
@@ -40,24 +75,20 @@ class ProjectsTab extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
       child: Row(
         children: [
-          _buildControlButton(
-            isHovered: viewModel.crossBtnHovered,
-            color: ColorConstants.crossRed,
-            icon: Icons.close,
-            onTap: () {
-              viewModel.closeTab(2);
-              viewModel.crossBtnHovered.value = false;
-            },
+          _buildTopBarButton(
+              hoverVariable: viewModel.topBtnHovered,
+              onTap: () => viewModel.closeTab(2),
+              buttonColor: ColorConstants.crossRed,
+              iconData: Icons.close,
+              isCloseButton: true
           ),
-          _buildControlButton(
-            isHovered: viewModel.minimizeBtnHovered,
-            color: ColorConstants.minimizeYellow,
-            icon: Icons.remove,
-            onTap: () {
-              viewModel.minimizeTab(2);
-              viewModel.minimizeBtnHovered.value = false;
-            },
-            leftMargin: 1,
+          // const SizedBox(width: 2,),
+          _buildTopBarButton(
+              hoverVariable: viewModel.topBtnHovered,
+              onTap: () => viewModel.minimizeTab(2),
+              buttonColor: ColorConstants.minimizeYellow,
+              iconData: Icons.remove,
+              isCloseButton: false
           ),
         ],
       ),
@@ -113,7 +144,7 @@ class ProjectsTab extends StatelessWidget {
                   ProjectWidget(
                     viewModel: viewModel,
                     projectData: _getManipalDoctorsData(),
-                    style: ProjectStyle.blue,
+                    style: ProjectStyle.violet,
                     isVisible: viewModel.isProject1Visible,
                     imageVisible: viewModel.isProject1ImageVisible,
                     descVisible: viewModel.isProject1DescVisible,
@@ -127,7 +158,7 @@ class ProjectsTab extends StatelessWidget {
                   ProjectWidget(
                     viewModel: viewModel,
                     projectData: _getSbigData(),
-                    style: ProjectStyle.violet,
+                    style: ProjectStyle.blue,
                     isVisible: viewModel.isProject2Visible,
                     imageVisible: viewModel.isProject2ImageVisible,
                     descVisible: viewModel.isProject2DescVisible,
@@ -141,7 +172,7 @@ class ProjectsTab extends StatelessWidget {
                   ProjectWidget(
                     viewModel: viewModel,
                     projectData: _getPlantonic1Data(),
-                    style: ProjectStyle.blue,
+                    style: ProjectStyle.violet,
                     isVisible: viewModel.isProject3Visible,
                     imageVisible: viewModel.isProject3ImageVisible,
                     descVisible: viewModel.isProject3DescVisible,
@@ -154,7 +185,7 @@ class ProjectsTab extends StatelessWidget {
                   ProjectWidget(
                     viewModel: viewModel,
                     projectData: _getTekXData(),
-                    style: ProjectStyle.violet,
+                    style: ProjectStyle.blue,
                     isVisible: viewModel.isProject4Visible,
                     imageVisible: viewModel.isProject4ImageVisible,
                     descVisible: viewModel.isProject4DescVisible,
@@ -169,7 +200,7 @@ class ProjectsTab extends StatelessWidget {
                   ProjectWidget(
                     viewModel: viewModel,
                     projectData: _getGogData(),
-                    style: ProjectStyle.blue,
+                    style: ProjectStyle.violet,
                     isVisible: viewModel.isProject5Visible,
                     imageVisible: viewModel.isProject5ImageVisible,
                     descVisible: viewModel.isProject5DescVisible,
@@ -279,25 +310,36 @@ class ProjectsTab extends StatelessWidget {
         opacity: viewModel.isComingSoonVisible.value ? 1 : 0,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Container(
-            padding: const EdgeInsets.all(32),
-            decoration: BoxDecoration(
-              color: ColorConstants.glassBlack.withOpacity(0.4),
-              border: Border.all(
-                color: ColorConstants.glassBlack.withOpacity(0.4),
-                width: 0.8,
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(24),
+              child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
+            child: Container(
+              padding: const EdgeInsets.all(32),
+              decoration: BoxDecoration(
+                color: ColorConstants.glassBlack.withOpacity(0.15),
+                border: Border.all(
+                  color: ColorConstants.glassWhite.withOpacity(0.6),
+                  width: 1,
+                ),
+                borderRadius: BorderRadius.circular(24),
               ),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 32),
-                child: Text("More Projects Coming Soon", style: TextStyle(color: ColorConstants.glassWhite),),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 32),
+                  child: Text("More Projects Coming Soon", style: TextStyle(color: ColorConstants.white.withAlpha(200), shadows: [
+                    Shadow(
+                      offset: const Offset(0, 2),
+                      blurRadius: 10,
+                      color: ColorConstants.black.withAlpha(80),
+                    )
+                  ]),),
+                ),
               ),
             ),
           ),
-        ),
-      ),
+                ),
+        ),)
     );
   }
 

@@ -61,16 +61,16 @@ class OverviewTab extends StatelessWidget {
             () => AnimatedContainer(
           margin: EdgeInsets.only(
               left: hoverVariable.value
-                  ? (isCloseButton ? 0 : 1)
+                  ? (isCloseButton ? 0 : 4)
                   : (isCloseButton ? 2 : 3),
-              right: hoverVariable.value ? 0 : (isCloseButton ? 2 : 0)),
+              right: hoverVariable.value ? 0 : (isCloseButton ? 4 : 0)),
           height: hoverVariable.value ? 12 : 8,
           width: hoverVariable.value ? 12 : 8,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(7.5), color: buttonColor),
           duration: const Duration(milliseconds: 125),
           child: hoverVariable.value
-              ? Icon(iconData, size: 10)
+              ? Center(child: Icon(iconData, size: 10, color: ColorConstants.black.withAlpha(230),))
               : const SizedBox(height: 8, width: 8),
         ),
       ),
@@ -97,12 +97,25 @@ class OverviewTab extends StatelessWidget {
           }
         },
         child: Obx(
-              () => Image(
-            height: 18,
-            width: 18,
-            image: AssetImage(assetPath),
-            color: isHoveredVariable.value ? hoverColor : normalColor,
-          ),
+              () => Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: isHoveredVariable.value
+                          ? ColorConstants.white.withOpacity(0.2)
+                          : ColorConstants.black.withOpacity(0.1),
+                      blurRadius: isHoveredVariable.value ? 12 : 6,
+                      spreadRadius: isHoveredVariable.value ? 2 : 1,
+                    ),
+                  ]
+                ),
+                child: Image(
+                            height: 18,
+                            width: 18,
+                            image: AssetImage(assetPath),
+                            color: isHoveredVariable.value ? hoverColor : normalColor,
+                          ),
+              ),
         ),
       ),
     );
@@ -128,14 +141,27 @@ class OverviewTab extends StatelessWidget {
           await Clipboard.setData(const ClipboardData(text: "+918240251373"));
         },
         child: Obx(
-              () => Image(
-            height: 18,
-            width: 18,
-            image: const AssetImage(AssetConstants.icPhone),
-            color: viewModel.isPhoneIconHovered.value
-                ? ColorConstants.white
-                : ColorConstants.glassWhite,
-          ),
+              () => Container(
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: viewModel.isPhoneIconHovered.value
+                            ? ColorConstants.white.withOpacity(0.2)
+                            : ColorConstants.black.withOpacity(0.1),
+                        blurRadius: viewModel.isPhoneIconHovered.value ? 12 : 6,
+                        spreadRadius: viewModel.isPhoneIconHovered.value ? 2 : 1,
+                      ),
+                    ]
+                ),
+                child: Image(
+                            height: 18,
+                            width: 18,
+                            image: const AssetImage(AssetConstants.icPhone),
+                            color: viewModel.isPhoneIconHovered.value
+                  ? ColorConstants.white
+                  : ColorConstants.glassWhite,
+                          ),
+              ),
         ),
       ),
     );
@@ -148,23 +174,25 @@ class OverviewTab extends StatelessWidget {
     required BoxDecoration sectionDecoration,
     EdgeInsets padding = const EdgeInsets.all(32.0), // Default padding
     double blurSigma = 15.0,
+    BoxConstraints? boxConstrains
   }) {
     return Obx(() => AnimatedOpacity(
       duration: const Duration(milliseconds: 700),
       opacity: visibilityFlag.value ? 1 : 0,
       curve: Curves.easeIn,
       child: Container(
+        constraints: boxConstrains,
         decoration: sectionDecoration.copyWith( // Ensure borderRadius is applied consistently
-          borderRadius: sectionDecoration.borderRadius ?? BorderRadius.circular(16),
+          borderRadius: sectionDecoration.borderRadius ?? BorderRadius.circular(24),
           border: sectionDecoration.border ??
               Border.all(
-                  color: ColorConstants.glassWhite.withOpacity(0.4),
-                  width: 0.8),
+                  color: ColorConstants.glassWhite.withOpacity(0.6),
+                  width: 1),
         ),
         child: ClipRRect(
           borderRadius: sectionDecoration.borderRadius != null
               ? (sectionDecoration.borderRadius as BorderRadius)
-              : BorderRadius.circular(16),
+              : BorderRadius.circular(24),
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: blurSigma, sigmaY: blurSigma),
             child: Padding(
@@ -189,6 +217,7 @@ class OverviewTab extends StatelessWidget {
     required List<Color> hoverGradientColors,
     Color textColor = ColorConstants.white,
     Color textHoverColor = ColorConstants.white,
+    required BoxConstraints constraints
   }) {
     return AnimatedOpacity(
       duration: const Duration(milliseconds: 700),
@@ -198,15 +227,16 @@ class OverviewTab extends StatelessWidget {
             () => InkWell(
           onTap: onTap,
           onHover: (hovering) => isHovered.value = hovering,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(24),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             constraints: const BoxConstraints(minWidth: 250),
+            margin: EdgeInsets.symmetric(horizontal: constraints.maxWidth * 0.025),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(24),
               border: Border.all(
-                  color: ColorConstants.glassWhite.withOpacity(0.4),
-                  width: 0.8),
+                  color: isHovered.value ? ColorConstants.white : ColorConstants.glassWhite.withOpacity(0.6),
+                  width: 1),
               gradient: RadialGradient( // Changed to Radial as per original user code for KPI
                 radius: 1, // Ensure this is desired for KPI
                 colors: isHovered.value
@@ -215,47 +245,124 @@ class OverviewTab extends StatelessWidget {
               ),
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(24),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
-                child: Padding(
-                  padding:
-                  const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "${kpiValue.value}$suffix",
-                        style: TextStyle(
-                          fontSize: 36,
-                          fontWeight: FontWeight.w700,
-                          color: isHovered.value ? textHoverColor : textColor,
-                          shadows: const <Shadow>[
-                            Shadow(
-                                offset: Offset(0.0, 0.0),
-                                blurRadius: 15.0,
-                                color: ColorConstants.black),
+                child: Stack(
+                  clipBehavior: Clip.antiAlias,
+                  alignment: Alignment.center,
+                  children: [
+                    AnimatedPositioned(
+                      bottom: isHovered.value ? 24 : 0,
+                      top: 0,
+                      duration: const Duration(milliseconds: 200),
+                      child: Padding(
+                        padding:
+                        const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${kpiValue.value}$suffix",
+                              style: TextStyle(
+                                fontSize: 36,
+                                fontWeight: FontWeight.w700,
+                                color: isHovered.value ? textHoverColor.withAlpha(230) : textColor.withAlpha(230),
+                                shadows: const <Shadow>[
+                                  Shadow(
+                                      offset: Offset(0.0, 0.0),
+                                      blurRadius: 15.0,
+                                      color: ColorConstants.black),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              label,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: isHovered.value ? textHoverColor.withAlpha(230) : textColor.withAlpha(230),
+                                shadows: const <Shadow>[
+                                  Shadow(
+                                      offset: Offset(0.0, 0.0),
+                                      blurRadius: 15.0,
+                                      color: ColorConstants.black),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                      const SizedBox(height: 12),
-                      Text(
-                        label,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: isHovered.value ? textHoverColor : textColor,
-                          shadows: const <Shadow>[
-                            Shadow(
-                                offset: Offset(0.0, 0.0),
-                                blurRadius: 15.0,
-                                color: ColorConstants.black),
-                          ],
-                        ),
+                    ),
+                      // Positioned(
+                      //   top: 16,
+                      //   right: 16,
+                      //   child: AnimatedOpacity(
+                      //     opacity: isHovered.value ? 1 : 0,
+                      //     duration: const Duration(milliseconds: 300),
+                      //     child: Icon(Icons.open_in_new, color: ColorConstants.white, size: 16,)
+                      //     // Text(
+                      //     //   "Learn More",
+                      //     //   textAlign: TextAlign.center,
+                      //     //   style: TextStyle(
+                      //     //     fontSize: 10,
+                      //     //     fontWeight: FontWeight.w400,
+                      //     //     decoration: TextDecoration.underline,
+                      //     //     decorationColor: ColorConstants.white,
+                      //     //     decorationThickness: 1,
+                      //     //     color: isHovered.value ? textHoverColor : textColor,
+                      //     //     shadows: const <Shadow>[
+                      //     //       Shadow(
+                      //     //           offset: Offset(0.0, 0.0),
+                      //     //           blurRadius: 15.0,
+                      //     //           color: ColorConstants.black),
+                      //     //     ],
+                      //     //   ),
+                      //     // ),
+                      //   ),
+                      // ),
+                    AnimatedPositioned(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeOutQuint,
+                      bottom: isHovered.value ? 24 : -40,
+                      child: AnimatedOpacity(
+                        duration: const Duration(milliseconds: 200),
+                        opacity: isHovered.value ? 1.0 : 0.0,
+                        child: Text(
+                                "Learn More",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w400,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: ColorConstants.white,
+                                  decorationThickness: 1,
+                                  color: isHovered.value ? textHoverColor : textColor,
+                                  shadows: const <Shadow>[
+                                    Shadow(
+                                        offset: Offset(0.0, 0.0),
+                                        blurRadius: 15.0,
+                                        color: ColorConstants.black),
+                                  ],
+                                ),
+                              ),
+
+                        // Container(
+                        //   padding: const EdgeInsets.all(8), // Slightly larger padding
+                        //   decoration: BoxDecoration(
+                        //       color: ColorConstants.glassWhite.withOpacity(0.1), // Accent color for icon background
+                        //       shape: BoxShape.circle,
+                        //       border: Border.all(color: ColorConstants.white.withOpacity(0.5), width: 1) // Brighter border for icon
+                        //   ),
+                        //   child: const Icon(Icons.arrow_outward_rounded,
+                        //       color: ColorConstants.white, size: 12), // Slightly larger icon
+                        // ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -314,34 +421,37 @@ class OverviewTab extends StatelessWidget {
     required String url,
     required RxBool isHoveredVariable,
   }) {
-    return Wrap( // Using Wrap for link item to handle potential overflow if linkText is long
-      crossAxisAlignment: WrapCrossAlignment.center,
-      spacing: 4.0,
-      children: [
-        Text(
-          linkText,
-          softWrap: true,
-          style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: ColorConstants.white),
-        ),
-        InkWell(
-            onTap: () async {
-              final Uri parsedUrl = Uri.parse(url);
-              if (!await launchUrl(parsedUrl)) {
-                throw Exception('Could not launch $parsedUrl');
-              }
-            },
-            onHover: (hovering) {
-              isHoveredVariable.value = hovering;
-            },
-            child: Obx(() => Icon(Icons.open_in_new_rounded,
-                size: 12, // Slightly larger for better visibility
-                color: isHoveredVariable.value
-                    ? ColorConstants.orange
-                    : ColorConstants.blue)))
-      ],
+    return InkWell(
+      onTap: () async {
+        final Uri parsedUrl = Uri.parse(url);
+        if (!await launchUrl(parsedUrl)) {
+          throw Exception('Could not launch $parsedUrl');
+        }
+      },
+      onHover: (hovering) {
+        isHoveredVariable.value = hovering;
+      },
+      child: Wrap( // Using Wrap for link item to handle potential overflow if linkText is long
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: 4.0,
+        children: [
+          Obx(
+          ()=> Text(
+              linkText,
+              softWrap: true,
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: isHoveredVariable.value ? ColorConstants.deepBlue : ColorConstants.white.withAlpha(230)),
+            ),
+          ),
+          Obx(() => Icon(Icons.open_in_new_rounded,
+              size: 12, // Slightly larger for better visibility
+              color: isHoveredVariable.value
+                  ? ColorConstants.orange
+                  : ColorConstants.blue))
+        ],
+      ),
     );
   }
 
@@ -378,7 +488,7 @@ class OverviewTab extends StatelessWidget {
               width: tileWidth,
               height: tileHeight,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(24),
                 border: Border.all( // Added border for better definition and hover effect
                   color: isHovered
                       ? ColorConstants.cyanBlue.withOpacity(0.6)
@@ -400,14 +510,14 @@ class OverviewTab extends StatelessWidget {
                 ]
                     : [ // Softer default shadow
                   BoxShadow(
-                    color: ColorConstants.black.withOpacity(0.20),
+                    color: ColorConstants.black.withOpacity(0.10),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   )
                 ],
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(11), // Slightly less than container to ensure border visibility
+                borderRadius: BorderRadius.circular(24), // Slightly less than container to ensure border visibility
                 child: Stack(
                   children: [
                     // Background Image
@@ -462,7 +572,7 @@ class OverviewTab extends StatelessWidget {
                           Text(
                             project.title,
                             style: TextStyle(
-                                color: ColorConstants.white,
+                                color: ColorConstants.white.withAlpha(200),
                                 fontSize: tileWidth < 220 ? 15 : 17, // Slightly adjusted font size logic
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 0.5,
@@ -543,12 +653,12 @@ class OverviewTab extends StatelessWidget {
                 height: tileHeight,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(24),
                   border: Border.all(
-                      color: isHovered ? ColorConstants.cyanBlue.withOpacity(0.7) : ColorConstants.glassWhite.withOpacity(0.3),
+                      color: isHovered ? ColorConstants.cyanBlue.withOpacity(0.5) : ColorConstants.glassWhite.withOpacity(0.3),
                       width: 1.5
                   ),
-                  color: isHovered ? ColorConstants.glassBlue.withOpacity(0.1) : ColorConstants.glassBlack.withOpacity(0.3),
+                  color: isHovered ? ColorConstants.glassBlue.withOpacity(0.1) : ColorConstants.glassBlack.withOpacity(0.1),
                   boxShadow: isHovered ? [
                     BoxShadow(
                       color: ColorConstants.cyanBlue.withOpacity(0.2),
@@ -607,14 +717,14 @@ class OverviewTab extends StatelessWidget {
 
     // This outer padding is for the entire section before it's passed to the wrapper
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
       child: LayoutBuilder(
           builder: (context, constraints) {
             double screenWidth = constraints.maxWidth; // Width available for projectSectionContent
             List<Widget> itemsToDisplay = [];
 
             const double tileIdealHeight = 230.0;
-            const double tileSpacing = 16.0;
+            const double tileSpacing = 32.0;
             // const double minTileWidthForCalc = 220.0; // Minimum comfortable width for a tile (used in desktop)
 
             if (screenWidth <= 650) { // Mobile: Vertical Column
@@ -717,11 +827,11 @@ class OverviewTab extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Text("My Recent Works",
+                      Text("My Recent Works",
                           style: TextStyle(
                               fontSize: 18, // Consistent with other section titles
                               fontWeight: FontWeight.w600, // Consistent
-                              color: ColorConstants.white)),
+                              color: ColorConstants.white.withAlpha(230))),
                       _buildViewAllTextButton(
                         // For hover state on this button, you'd typically use a ValueNotifier
                         // or manage state in the parent widget if _buildViewAllTextButton is stateless.
@@ -734,9 +844,9 @@ class OverviewTab extends StatelessWidget {
                   ),
                 ),
                 if (itemsToDisplay.isEmpty)
-                  Center(
+                  const Center(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 32.0),
+                      padding: EdgeInsets.symmetric(vertical: 32.0),
                       child: Text(
                         "Fresh projects coming soon!",
                         style: TextStyle(color: ColorConstants.glassWhite, fontSize: 16),
@@ -771,8 +881,8 @@ class OverviewTab extends StatelessWidget {
               sectionDecoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      ColorConstants.darkBlack.withOpacity(0.65),
-                      ColorConstants.deepTextBlue.withOpacity(0.75),
+                      ColorConstants.darkBlack.withOpacity(0.15),
+                      ColorConstants.deepTextBlue.withOpacity(0.15),
                     ],
                     begin: const FractionalOffset(0.0, 0.0),
                     end: const FractionalOffset(1.0, 0.0),
@@ -780,7 +890,7 @@ class OverviewTab extends StatelessWidget {
                   image: DecorationImage( // Ensure this image is accessible or use a placeholder/asset
                     image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.17), BlendMode.dstATop),
+                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.01), BlendMode.dstATop),
                   )
               ),
               padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 32.0), // Wrapper's internal padding
@@ -809,14 +919,15 @@ class OverviewTab extends StatelessWidget {
                   child: Row(
                     children: [
                       _buildTopBarButton(
-                          hoverVariable: viewModel.crossBtnHovered,
+                          hoverVariable: viewModel.topBtnHovered,
                           onTap: () => viewModel.closeTab(0),
                           buttonColor: ColorConstants.crossRed,
                           iconData: Icons.close,
                           isCloseButton: true
                       ),
+                      // const SizedBox(width: 2,),
                       _buildTopBarButton(
-                          hoverVariable: viewModel.minimizeBtnHovered,
+                          hoverVariable: viewModel.topBtnHovered,
                           onTap: () => viewModel.minimizeTab(0),
                           buttonColor: ColorConstants.minimizeYellow,
                           iconData: Icons.remove,
@@ -831,7 +942,7 @@ class OverviewTab extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.only(top: 4, bottom: 4),
                         color: ColorConstants.glassBlack.withOpacity(0.1),
-                        child: rootConstrains.maxWidth > 1100
+                        child: rootConstrains.maxWidth > 1230
                             ? SingleChildScrollView(
                           controller: viewModel.scrollController,
                           child: Column(
@@ -856,6 +967,7 @@ class OverviewTab extends StatelessWidget {
                           shrinkWrap: true,
                           children: [
                             _leftColumn(context, rootConstrains),
+                            const SizedBox(height: 8,),
                             _rightColumn(context, rootConstrains, isMobileView: true),
                             _projectsOverviewSection(context),
                             const SizedBox(height: 16,)
@@ -964,7 +1076,8 @@ class OverviewTab extends StatelessWidget {
               Stack(
                 children: [
                   Container(
-                    height: 150,
+                    height: 154,
+                    // margin: const EdgeInsets.only(top: 4),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -975,34 +1088,38 @@ class OverviewTab extends StatelessWidget {
                                 () => AnimatedContainer(
                               duration: const Duration(milliseconds: 640),
                               margin: const EdgeInsets.only(left: 75),
+                              padding: const EdgeInsets.all(2),
                               height: constraints.maxHeight * viewModel.bannerHeight.value,
                               width: (constraints.maxWidth * viewModel.bannerWidth.value) > 75
                                   ? (constraints.maxWidth * viewModel.bannerWidth.value) - 75
                                   : (constraints.maxWidth * viewModel.bannerWidth.value),
                               decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.only(
-                                    topRight: Radius.circular(16),
-                                    bottomRight: Radius.circular(16)),
+                                    topRight: Radius.circular(32),
+                                    bottomRight: Radius.circular(32)),
+                                border: Border.all(
+                                    color: ColorConstants.glassWhite.withOpacity(0.6),
+                                    width: 1),
                                 gradient: LinearGradient(
                                     colors: [
-                                      ColorConstants.glassBlack.withOpacity(0.8),
-                                      ColorConstants.black.withOpacity(0.8),
+                                      ColorConstants.glassBlack.withOpacity(0.2),
+                                      ColorConstants.black.withOpacity(0.25),
                                     ],
-                                    begin: FractionalOffset(0.0, 0.0),
-                                    end: FractionalOffset(1.0, 0.0),
+                                    begin: const FractionalOffset(0.0, 0.0),
+                                    end: const FractionalOffset(1.0, 0.0),
                                     stops: const [0.0, 1.0],
                                     tileMode: TileMode.clamp),
-                                boxShadow: const [
+                                boxShadow: [
                                   BoxShadow(
-                                    color: ColorConstants.glassBlue,
+                                    color: ColorConstants.glassBlue.withAlpha(30),
                                     spreadRadius: 0,
                                     blurRadius: 10,
-                                    offset: Offset(0, 0),
+                                    offset: const Offset(0, 0),
                                   ),
                                 ],
                               ),
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
+                                borderRadius: BorderRadius.circular(24),
                                 child: BackdropFilter(
                                   filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
                                   child: Padding(
@@ -1025,23 +1142,40 @@ class OverviewTab extends StatelessWidget {
                                                     style: TextStyle(
                                                         fontSize: constraints.maxWidth > 500 ? 24 : 16,
                                                         fontWeight: FontWeight.w700,
-                                                        color: ColorConstants.white),
+                                                        color: ColorConstants.white.withAlpha(230),
+                                                      shadows: [
+                                                        Shadow(
+                                                          color: ColorConstants.black.withAlpha(50),
+                                                          offset: const Offset(0, 2),
+                                                          blurRadius: 10,
+                                                        )
+                                                      ]
+                                                    ),
                                                   ),
                                                 ),
+                                                const SizedBox(height: 4),
                                                 Text("Software Engineer",
                                                   style: TextStyle(
                                                       fontSize: constraints.maxWidth > 500 ? 16 : 12,
                                                       fontWeight: FontWeight.w400,
-                                                      color: ColorConstants.white.withOpacity(0.8)),
+                                                      color: ColorConstants.white.withOpacity(0.8),
+                                                      shadows: [
+                                                        Shadow(
+                                                          color: ColorConstants.black.withAlpha(50),
+                                                          offset: const Offset(0, 2),
+                                                          blurRadius: 10,
+                                                        )
+                                                      ]
+                                                  ),
                                                 ),
-                                                const SizedBox(height: 10),
+                                                const SizedBox(height: 12),
                                                 AnimatedContainer(
                                                   width: viewModel.isProfileBannerTitleVisible.value ? (constraints.maxWidth - 75) * 0.4 : 0,
                                                   height: 1,
                                                   color: ColorConstants.white.withOpacity(0.8),
                                                   duration: const Duration(milliseconds: 300),
                                                 ),
-                                                const SizedBox(height: 10),
+                                                const SizedBox(height: 16),
                                                 Padding(
                                                   padding: const EdgeInsets.only(left: 25, right: 25),
                                                   child: Row(
@@ -1070,14 +1204,14 @@ class OverviewTab extends StatelessWidget {
                     ),
                   ),
                   Container(
-                      height: 150,
-                      width: 150,
+                      height: 154,
+                      width: 154,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(75),
-                        border: Border.all(width: 5, color: ColorConstants.white),
-                        boxShadow: const [
+                        borderRadius: BorderRadius.circular(77),
+                        border: Border.all(width: 1, color: ColorConstants.glassWhite),
+                        boxShadow: [
                           BoxShadow(
-                            color: ColorConstants.glassBlue,
+                            color: ColorConstants.glassBlue.withAlpha(30),
                             spreadRadius: 0,
                             blurRadius: 10,
                             offset: Offset(0, 0),
@@ -1087,29 +1221,46 @@ class OverviewTab extends StatelessWidget {
                       child: const CircleAvatar(backgroundImage: AssetImage(AssetConstants.imgProfileImage)))
                 ],
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 32),
               _buildAnimatedSectionWrapper(
                 visibilityFlag: viewModel.isSummaryVisible,
+                boxConstrains: const BoxConstraints(minHeight: 274),
                 sectionDecoration: BoxDecoration(
-                  color: ColorConstants.black.withOpacity(0.65),
+                  color: ColorConstants.darkTextBlue.withOpacity(0.18),
                   image: DecorationImage(
                     image: const NetworkImage("https://images.pexels.com/photos/2569997/pexels-photo-2569997.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.35), BlendMode.dstATop),
+                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.015), BlendMode.dstATop),
                   ),
                 ),
                 content: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text("Summary", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white)),
+                    Text("Summary", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white.withAlpha(230), shadows: [
+                        Shadow(
+                          color: ColorConstants.black.withAlpha(50),
+                          offset: const Offset(0, 2),
+                          blurRadius: 10,
+                        )
+                      ]
+                    )),
                     const SizedBox(height: 16),
-                    const Text(
-                      "Experienced Flutter and Android developer with 4+ years crafting and scaling apps used by over 2M+ users. I specialize in building high-quality, reliable software using Django, FastAPI, Firebase, and AWS — driven to create products that truly stand out.",
+                    Text(
+                      "I'm a seasoned Flutter and Android developer with 4+ years of experience building high-performance mobile apps. From crafting polished apps from scratch to scaling products for millions, I've delivered solutions that now serve 2M+ users globally. Proficient in Django, FastAPI, Firebase, and AWS, I thrive on creating fast, reliable, and scalable software that stands out.",
                       softWrap: true,
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white),
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(230),
+                        shadows: [
+                          Shadow(
+                            color: ColorConstants.black.withAlpha(80),
+                            offset: const Offset(0, 2),
+                            blurRadius: 10,
+                          )
+                        ]
+                      ),
                       overflow: TextOverflow.visible,
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 32),
                     Obx(
                           () => AnimatedOpacity(
                           duration: const Duration(milliseconds: 800),
@@ -1125,14 +1276,14 @@ class OverviewTab extends StatelessWidget {
                                 onHover: (isHovered) { viewModel.isDownloadCvBtnHovered.value = isHovered; },
                                 child: Obx(()=> AnimatedContainer(
                                   duration: const Duration(milliseconds: 200),
-                                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
                                   decoration: BoxDecoration(
                                     color: viewModel.isDownloadCvBtnHovered.value ? ColorConstants.white.withOpacity(0.8) : ColorConstants.black.withOpacity(0.9),
-                                    borderRadius: BorderRadius.circular(24),
+                                    borderRadius: BorderRadius.circular(32),
                                     border: Border.all(width: 1, color: viewModel.isDownloadCvBtnHovered.value ? ColorConstants.black : ColorConstants.white),
                                     boxShadow: [ BoxShadow( color: ColorConstants.glassBlue.withOpacity(0.4), spreadRadius: 1, blurRadius: 5)],
                                   ),
-                                  child: Text( "Download CV", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: viewModel.isDownloadCvBtnHovered.value ? ColorConstants.black : ColorConstants.white),
+                                  child: Text( "Download CV", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: viewModel.isDownloadCvBtnHovered.value ? ColorConstants.black : ColorConstants.white.withAlpha(230)),
                                   ),
                                 )),
                               ),
@@ -1141,8 +1292,32 @@ class OverviewTab extends StatelessWidget {
                                 onTap: () { viewModel.animateToProjectsTab(); },
                                 onHover: (isHovered) { viewModel.isViewProjectsBtnHovered.value = isHovered; },
                                 child: Obx(
-                                      () => Text("View Projects", style: TextStyle(fontSize: 14, fontWeight: viewModel.isViewProjectsBtnHovered.value ? FontWeight.w700 : FontWeight.w500, color:viewModel.isViewProjectsBtnHovered.value ? ColorConstants.white : ColorConstants.white.withOpacity(0.8), decoration: TextDecoration.underline, decorationColor: !viewModel.isViewProjectsBtnHovered.value ? ColorConstants.white : ColorConstants.glassWhite),
-                                  ),
+                                      () => Text(
+                                        "View Projects",
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 0.5,
+                                          color: viewModel.isViewProjectsBtnHovered.value
+                                              ? ColorConstants.white.withOpacity(0.95)
+                                              : ColorConstants.white.withOpacity(0.75),
+                                          decoration: TextDecoration.underline,
+                                          decorationThickness: viewModel.isViewProjectsBtnHovered.value ? 2 : 1.2,
+                                          decorationColor: viewModel.isViewProjectsBtnHovered.value
+                                              ? ColorConstants.glassWhite.withOpacity(0.9)
+                                              : ColorConstants.white.withOpacity(0.6),
+                                          shadows: [
+                                            Shadow(
+                                              color: viewModel.isViewProjectsBtnHovered.value
+                                                  ? ColorConstants.white.withOpacity(0.3)
+                                                  : ColorConstants.black.withOpacity(0.25),
+                                              offset: const Offset(0, 2),
+                                              blurRadius: viewModel.isViewProjectsBtnHovered.value ? 12 : 8,
+                                            ),
+                                          ],
+                                        ),
+                                      )
+
                                 ),
                               )
                             ],
@@ -1151,7 +1326,7 @@ class OverviewTab extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 32),
               LayoutBuilder(
                 builder: (context, constraints) => Obx(
                       () => Container(
@@ -1174,11 +1349,11 @@ class OverviewTab extends StatelessWidget {
                                   viewportFraction: constraints.maxWidth > 700 ? 0.4 : 0.7,
                                   enlargeFactor: constraints.maxWidth > 700 ? 0.17 : 0.2),
                               items: [
-                                _buildKpiCard(kpiValue: viewModel.kpi1Value, label: "Years Experience", isVisible: viewModel.isKPI1Visible, isHovered: viewModel.kpi1KnowMoreHovered, onTap: () => viewModel.animateToExperienceTab(), normalGradientColors: [ColorConstants.blue, ColorConstants.deepTextBlue], hoverGradientColors: [ColorConstants.blue1, ColorConstants.black]),
-                                _buildKpiCard(kpiValue: viewModel.kpi2Value, label: "Handled Projects", isVisible: viewModel.isKPI2Visible, isHovered: viewModel.kpi2KnowMoreHovered, onTap: () => viewModel.animateToProjectsTab(), normalGradientColors: [ColorConstants.grassGreen.withOpacity(0.8), ColorConstants.deepTextBlue], hoverGradientColors: [ColorConstants.grassGreen.withOpacity(0.7), ColorConstants.black]),
-                                _buildKpiCard(kpiValue: viewModel.kpi3Value, label: "Finished Apps", isVisible: viewModel.isKPI3Visible, isHovered: viewModel.kpi3KnowMoreHovered, onTap: () => viewModel.animateToProjectsTab(), normalGradientColors: [ColorConstants.deepTeal.withOpacity(0.7), ColorConstants.deepTextBlue], hoverGradientColors: [ColorConstants.deepTeal.withOpacity(0.8), ColorConstants.black]),
-                                _buildKpiCard(kpiValue: viewModel.kpi4Value, label: "Architected Apps", isVisible: viewModel.isKPI4Visible, isHovered: viewModel.kpi4KnowMoreHovered, onTap: () => viewModel.animateToProjectsTab(), normalGradientColors: [ColorConstants.teal.withOpacity(0.8), ColorConstants.deepTextBlue], hoverGradientColors: [ColorConstants.teal.withOpacity(0.8), ColorConstants.black]),
-                                _buildKpiCard(kpiValue: viewModel.kpi5Value, label: "Lines of Code", suffix: "k+", isVisible: viewModel.isKPI5Visible, isHovered: viewModel.kpi5KnowMoreHovered, onTap: () => viewModel.animateToExperienceTab(), normalGradientColors: [ColorConstants.cyanBlue.withOpacity(0.8), ColorConstants.deepTextBlue], hoverGradientColors: [ColorConstants.cyanBlue1, ColorConstants.black]),
+                                _buildKpiCard(kpiValue: viewModel.kpi1Value, label: "Years Experience", isVisible: viewModel.isKPI1Visible, isHovered: viewModel.kpi1KnowMoreHovered, onTap: () => viewModel.animateToExperienceTab(), normalGradientColors: [ColorConstants.blue, ColorConstants.deepTextBlue], hoverGradientColors: [ColorConstants.blue1, ColorConstants.black], constraints: constraints),
+                                _buildKpiCard(kpiValue: viewModel.kpi2Value, label: "Handled Projects", isVisible: viewModel.isKPI2Visible, isHovered: viewModel.kpi2KnowMoreHovered, onTap: () => viewModel.animateToProjectsTab(), normalGradientColors: [ColorConstants.grassGreen.withOpacity(0.8), ColorConstants.deepTextBlue], hoverGradientColors: [ColorConstants.grassGreen.withOpacity(0.7), ColorConstants.black], constraints: constraints),
+                                _buildKpiCard(kpiValue: viewModel.kpi3Value, label: "Finished Apps", isVisible: viewModel.isKPI3Visible, isHovered: viewModel.kpi3KnowMoreHovered, onTap: () => viewModel.animateToProjectsTab(), normalGradientColors: [ColorConstants.deepTeal.withOpacity(0.7), ColorConstants.deepTextBlue], hoverGradientColors: [ColorConstants.deepTeal.withOpacity(0.8), ColorConstants.black], constraints: constraints),
+                                _buildKpiCard(kpiValue: viewModel.kpi4Value, label: "Architected Apps", isVisible: viewModel.isKPI4Visible, isHovered: viewModel.kpi4KnowMoreHovered, onTap: () => viewModel.animateToProjectsTab(), normalGradientColors: [ColorConstants.teal.withOpacity(0.8), ColorConstants.deepTextBlue], hoverGradientColors: [ColorConstants.teal.withOpacity(0.8), ColorConstants.black],constraints: constraints),
+                                _buildKpiCard(kpiValue: viewModel.kpi5Value, label: "Lines of Code", suffix: "k+", isVisible: viewModel.isKPI5Visible, isHovered: viewModel.kpi5KnowMoreHovered, onTap: () => viewModel.animateToExperienceTab(), normalGradientColors: [ColorConstants.cyanBlue.withOpacity(0.8), ColorConstants.deepTextBlue], hoverGradientColors: [ColorConstants.cyanBlue1, ColorConstants.black],constraints: constraints),
                               ]),
                         ),
                       ],
@@ -1186,11 +1361,11 @@ class OverviewTab extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 32),
               _buildAnimatedSectionWrapper(
                 visibilityFlag: viewModel.isEducationOverviewVisible,
                 sectionDecoration: BoxDecoration(
-                  color: ColorConstants.darkTextBlue.withAlpha(225),
+                  color: ColorConstants.darkTextBlue.withAlpha(50),
                 ),
                 content: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1198,17 +1373,51 @@ class OverviewTab extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text("Education", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white)),
+                        Text("Education", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white.withAlpha(230),
+                        shadows: [
+                            Shadow(
+                              color: ColorConstants.black.withAlpha(50),
+                              offset: const Offset(0, 2),
+                              blurRadius: 10,
+                            )
+                          ]
+                        )),
                         _buildViewAllTextButton(isHoveredVariable: viewModel.educationViewAllHovered, onTap: () => viewModel.animateToExperienceTab()),
                       ],
                     ),
                     const SizedBox(height: 16),
-                    const Wrap(children: [ Text("Bachelor of Technology, Computer Science & Engineering", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: ColorConstants.white))]),
-                    const Text("Dream Institute of Technology", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.white)),
+                    Wrap(children: [ Text("Bachelor of Technology, Computer Science & Engineering",
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: ColorConstants.white.withAlpha(230),
+                          shadows: [
+                            Shadow(
+                              color: ColorConstants.black.withAlpha(50),
+                              offset: const Offset(0, 2),
+                              blurRadius: 10,
+                            )
+                          ]
+                        ))]),
+                    Text("Dream Institute of Technology",
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(230),
+                          shadows: [
+                            Shadow(
+                              color: ColorConstants.black.withAlpha(80),
+                              offset: const Offset(0, 2),
+                              blurRadius: 10,
+                            )
+                          ]
+                        )),
                     const SizedBox(height: 2),
-                    const Text("2018 - 2022", style: TextStyle(fontSize: 10, color: ColorConstants.cyanBlue, fontWeight: FontWeight.w400)),
+                    Text("2018 - 2022", style: TextStyle(fontSize: 10, color: ColorConstants.cyanBlue.withAlpha(230), fontWeight: FontWeight.w400)),
                     const SizedBox(height: 6),
-                    const Text("CGPA: 9.04", style: TextStyle(fontSize: 12, color: ColorConstants.white, fontWeight: FontWeight.w500)),
+                    Text("CGPA: 9.04", style: TextStyle(fontSize: 12, color: ColorConstants.white.withAlpha(230), fontWeight: FontWeight.w500,
+                      shadows: [
+                        Shadow(
+                          color: ColorConstants.black.withAlpha(80),
+                          offset: const Offset(0, 2),
+                          blurRadius: 10,
+                        )
+                      ]
+                    )),
                   ],
                 ),
               ),
@@ -1229,11 +1438,11 @@ class OverviewTab extends StatelessWidget {
           child: _buildAnimatedSectionWrapper(
             visibilityFlag: viewModel.isSkillsVisible,
             sectionDecoration: BoxDecoration(
-                color: ColorConstants.textBlue.withOpacity(0.5),
+                color: ColorConstants.deepTextBlue.withOpacity(0.1),
                 image: DecorationImage(
                   image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                   fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.6), BlendMode.dstATop),
+                  colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.035), BlendMode.dstATop),
                 )
             ),
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
@@ -1244,43 +1453,50 @@ class OverviewTab extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text("Skills", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white)),
+                    Text("Skills", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white.withAlpha(230), shadows: [
+                        Shadow(
+                          color: ColorConstants.black.withAlpha(50),
+                          offset: const Offset(0, 2),
+                          blurRadius: 10,
+                        )
+                      ]
+                    )),
                     _buildViewAllTextButton( isHoveredVariable: viewModel.skillsViewAllHovered,
                         onTap: () => viewModel.animateToExperienceTab()),
                   ],
                 ),
                 const SizedBox(height: 16),
                 Obx(()=> skillRatingWidget(skillName: "Flutter", rating: viewModel.flutterSkillRating.value)),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
                 Obx(()=> skillRatingWidget(skillName: "Android development", rating: viewModel.androidSkillRating.value)),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
                 Obx(()=> skillRatingWidget(skillName: "Django", rating: viewModel.djangoSkillRating.value)),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
                 Obx(()=> skillRatingWidget(skillName: "FastApi", rating: viewModel.fastApiSkillRating.value)),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
                 Obx(()=> skillRatingWidget(skillName: "Problem Solving", rating: viewModel.problemSolvingSkillRating.value)),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
                 Obx(()=> skillRatingWidget(skillName: "Firebase", rating: viewModel.firebaseSkillRating.value)),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
                 Obx(()=> skillRatingWidget(skillName: "Python", rating: viewModel.pythonSkillRating.value)),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
                 Obx(()=> skillRatingWidget(skillName: "DSA", rating: viewModel.dsaSkillRating.value)),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
                 Obx(()=> skillRatingWidget(skillName: "AWS", rating: viewModel.awsSkillRating.value)),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
                 Obx(()=> skillRatingWidget(skillName: "Kotlin", rating: viewModel.kotlinSkillRating.value)),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
                 Obx(()=> skillRatingWidget(skillName: "Dart", rating: viewModel.dartSkillRating.value)),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
                 Obx(()=> skillRatingWidget(skillName: "Java", rating: viewModel.javaSkillRating.value)),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
                 Obx(()=> skillRatingWidget(skillName: "Git", rating: viewModel.gitSkillRating.value)),
-                const SizedBox(height: 32),
+                const SizedBox(height: 40),
               ],
             ),
           ),
         ),
-        SizedBox(height: isMobileView ? 16 : 8),
+        SizedBox(height: isMobileView ? 24 : 16),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: _buildAnimatedSectionWrapper(
@@ -1354,7 +1570,16 @@ class OverviewTab extends StatelessWidget {
                             padding: const EdgeInsets.only(bottom: 2, right: 10),
                             child: Text("$rating%",
                                 softWrap: true,
-                                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white),
+                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(230), shadows: [
+                                  Shadow(
+                                      offset: const Offset(0.0, 2.0),
+                                      blurRadius: 15.0,
+                                      color: ColorConstants.textBlue.withAlpha(150)),
+                                  Shadow(
+                                      offset: const Offset(0.0, 2.0),
+                                      blurRadius: 15.0,
+                                      color: ColorConstants.black.withAlpha(150))
+                                ]),
                                 overflow: TextOverflow.visible),
                           ),
                         ],
@@ -1392,19 +1617,19 @@ class OverviewTab extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 6),
                 child: Text(skillName,
                     softWrap: true,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
-                        color: ColorConstants.white,
+                        color: ColorConstants.white.withAlpha(230),
                         shadows: <Shadow>[
                           Shadow(
-                              offset: Offset(0.0, 0.0),
+                              offset: const Offset(0.0, 2.0),
                               blurRadius: 15.0,
-                              color: ColorConstants.textBlue),
+                              color: ColorConstants.textBlue.withAlpha(150)),
                           Shadow(
-                              offset: Offset(0.0, 0.0),
+                              offset: const Offset(0.0, 2.0),
                               blurRadius: 15.0,
-                              color: ColorConstants.black)
+                              color: ColorConstants.black.withAlpha(150))
                         ]),
                     overflow: TextOverflow.visible),
               ),

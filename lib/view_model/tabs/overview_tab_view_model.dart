@@ -12,8 +12,7 @@ class OverviewTabViewModel extends BaseGetXController {
   ScrollController scrollController = ScrollController();
 
 
-  RxBool crossBtnHovered = false.obs;
-  RxBool minimizeBtnHovered = false.obs;
+  RxBool topBtnHovered = false.obs;
 
   RxBool isAnimationCompleted = true.obs;
 

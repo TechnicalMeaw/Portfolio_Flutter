@@ -448,7 +448,7 @@ class OverviewTab extends StatelessWidget {
           Obx(() => Icon(Icons.open_in_new_rounded,
               size: 12, // Slightly larger for better visibility
               color: isHoveredVariable.value
-                  ? ColorConstants.orange
+                  ? ColorConstants.white.withAlpha(230)
                   : ColorConstants.blue))
         ],
       ),

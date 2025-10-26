@@ -10,8 +10,8 @@ class ExperienceTabViewModel extends BaseGetXController {
   RxDouble scrollProgress = 0.0.obs;
   ScrollController scrollController = ScrollController();
 
-  RxBool crossBtnHovered = false.obs;
-  RxBool minimizeBtnHovered = false.obs;
+  RxBool topBtnHovered = false.obs;
+
   RxBool isAnimationCompleted = true.obs;
 
   RxBool isProExperienceVisible = false.obs;

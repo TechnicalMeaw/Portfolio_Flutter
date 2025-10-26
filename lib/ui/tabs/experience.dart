@@ -19,6 +19,41 @@ class ExperienceTab extends StatelessWidget {
 
   final ExperienceTabViewModel viewModel;
 
+  Widget _buildTopBarButton({
+    required RxBool hoverVariable,
+    required VoidCallback onTap,
+    required Color buttonColor,
+    required IconData iconData,
+    required bool isCloseButton, // To differentiate margin logic
+  }) {
+    return InkWell(
+      onTap: () {
+        onTap();
+        hoverVariable.value = false;
+      },
+      onHover: (isHovered) {
+        hoverVariable.value = isHovered;
+      },
+      child: Obx(
+            () => AnimatedContainer(
+          margin: EdgeInsets.only(
+              left: hoverVariable.value
+                  ? (isCloseButton ? 0 : 4)
+                  : (isCloseButton ? 2 : 3),
+              right: hoverVariable.value ? 0 : (isCloseButton ? 4 : 0)),
+          height: hoverVariable.value ? 12 : 8,
+          width: hoverVariable.value ? 12 : 8,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(7.5), color: buttonColor),
+          duration: const Duration(milliseconds: 125),
+          child: hoverVariable.value
+              ? Center(child: Icon(iconData, size: 10, color: ColorConstants.black.withAlpha(230),))
+              : const SizedBox(height: 8, width: 8),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClipRect(
@@ -39,42 +74,20 @@ class ExperienceTab extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                     child: Row(
                       children: [
-                        InkWell(
-                          onTap: (){
-                            viewModel.closeTab(1);
-                            viewModel.crossBtnHovered.value = false;
-                          },
-                          onHover: (isHovered){
-                            viewModel.crossBtnHovered.value = isHovered;
-                          },
-                          child: Obx(
-                                ()=> AnimatedContainer(
-                                margin: EdgeInsets.only(left: viewModel.crossBtnHovered.value ? 0 : 2, right: viewModel.crossBtnHovered.value? 0: 2),
-                                height: viewModel.crossBtnHovered.value ? 12 : 8,
-                                width: viewModel.crossBtnHovered.value ? 12 : 8,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(7.5), color: ColorConstants.crossRed),
-                                duration: const Duration(milliseconds: 125),
-                                child: viewModel.crossBtnHovered.value ? const Icon(Icons.close, size: 10,) : const SizedBox(height: 8, width: 8,)),
-                          ),
+                        _buildTopBarButton(
+                            hoverVariable: viewModel.topBtnHovered,
+                            onTap: () => viewModel.closeTab(1),
+                            buttonColor: ColorConstants.crossRed,
+                            iconData: Icons.close,
+                            isCloseButton: true
                         ),
-
-                        InkWell(
-                          onTap: (){
-                            viewModel.minimizeTab(1);
-                            viewModel.minimizeBtnHovered.value = false;
-                          },
-                          onHover: (isHovered){
-                            viewModel.minimizeBtnHovered.value = isHovered;
-                          },
-                          child: Obx(
-                                ()=> AnimatedContainer(
-                                margin: EdgeInsets.only(left: viewModel.minimizeBtnHovered.value ? 1 : 3),
-                                height: viewModel.minimizeBtnHovered.value ? 12 : 8,
-                                width: viewModel.minimizeBtnHovered.value ? 12 : 8,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(7.5), color: ColorConstants.minimizeYellow),
-                                duration: const Duration(milliseconds: 125),
-                                child: viewModel.minimizeBtnHovered.value ? const Icon(Icons.remove, size: 10,) : const SizedBox(height: 8, width: 8,)),
-                          ),
+                        // const SizedBox(width: 2,),
+                        _buildTopBarButton(
+                            hoverVariable: viewModel.topBtnHovered,
+                            onTap: () => viewModel.minimizeTab(1),
+                            buttonColor: ColorConstants.minimizeYellow,
+                            iconData: Icons.remove,
+                            isCloseButton: false
                         ),
                       ],
                     ),
@@ -223,13 +236,15 @@ class ExperienceTab extends StatelessWidget {
           opacity: viewModel.isProExperienceVisible.value == true ? 1 : 0,
           child: Container(
 
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: ColorConstants.white.withOpacity(0.4), width: 0.8),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),
+                  border: Border.all(color: ColorConstants.white.withOpacity(0.6), width: 1),
                   // color: ColorConstants.deepTeal.withOpacity(0.5),
                   gradient: LinearGradient(
                       colors: [
-                        ColorConstants.textBlue.withOpacity(0.42),
-                        ColorConstants.deepTextBlue.withOpacity(0.40),
+                        // ColorConstants.textBlue.withOpacity(0.42),
+                        // ColorConstants.deepTextBlue.withOpacity(0.40),
+                        ColorConstants.textBlue.withOpacity(0.15),
+                        ColorConstants.deepTextBlue.withOpacity(0.15),
                       ],
                       begin: FractionalOffset(0.0, 0.0),
                       end: FractionalOffset(1.0, 0.0),
@@ -240,11 +255,11 @@ class ExperienceTab extends StatelessWidget {
                     // image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                     // image: const NetworkImage("https://static.vecteezy.com/system/resources/previews/006/861/154/non_2x/light-blue-background-gradient-illustration-eps10-vector.jpg"),
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.28), BlendMode.dstATop),
+                    colorFilter: ColorFilter.mode(ColorConstants.black.withOpacity(0.05), BlendMode.dstATop),
                   )
               ),
               child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(24),
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
                     child: Padding(
@@ -252,11 +267,17 @@ class ExperienceTab extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text("Professional Experience", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white),),
+                              Text("Professional Experience", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white.withAlpha(230), shadows: [
+                                Shadow(
+                                  color: ColorConstants.black.withAlpha(50),
+                                  offset: const Offset(0, 2),
+                                  blurRadius: 10,
+                                )
+                              ]),),
                               // Text("Know More", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.black, decoration: TextDecoration.underline),),
                             ],
                           ),
@@ -266,27 +287,27 @@ class ExperienceTab extends StatelessWidget {
                           Column(
                             children: [
                               if(index != 0)
-                                const SizedBox(height: 16,),
+                                const SizedBox(height: 32,),
                               Container(
                                 decoration: BoxDecoration(
                                     color: ColorConstants.lightCyanBlue.withOpacity(0.4),
-                                    border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+                                    border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.6), width: 1),
                                     gradient: LinearGradient(
                                         colors: [
                                           ColorConstants.black.withOpacity(0.09),
-                                          ColorConstants.deepTextBlue.withOpacity(0.34),
+                                          ColorConstants.deepTextBlue.withOpacity(0.14),
                                         ],
                                         begin: const FractionalOffset(0.0, 0.0),
                                         end: const FractionalOffset(1.0, 0.0),
                                         stops: const [0.0, 1.0],
                                         tileMode: TileMode.clamp),
-                                    borderRadius: BorderRadius.circular(16)),
-                                padding: const EdgeInsets.all(16),
+                                    borderRadius: BorderRadius.circular(24)),
+                                padding: const EdgeInsets.all(8),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     ClipRRect(
-                                      borderRadius: BorderRadius.circular(16),
+                                      borderRadius: BorderRadius.circular(24),
                                       child: BackdropFilter(
                                         filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
                                         child: _companyWidget(
@@ -335,28 +356,31 @@ class ExperienceTab extends StatelessWidget {
         duration: const Duration(milliseconds: 800),
         child: Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.6), width: 1),
                   // color: ColorConstants.highlightQueenViolet.withOpacity(0.48),
                   gradient: LinearGradient(
                       colors: [
-                        ColorConstants.highlightQueenViolet.withOpacity(0.5),
-                        ColorConstants.darkQueenViolet.withOpacity(0.44),
+                        // ColorConstants.highlightQueenViolet.withOpacity(0.5),
+                        // ColorConstants.darkQueenViolet.withOpacity(0.44),
+                        ColorConstants.textBlue.withOpacity(0.15),
+                        ColorConstants.cyanBlue.withOpacity(0.05),
+
                       ],
-                      begin: FractionalOffset(0.0, 0.0),
-                      end: FractionalOffset(1.0, 0.0),
-                      stops: [0.0, 1.0],
+                      begin: const FractionalOffset(0.0, 0.0),
+                      end: const FractionalOffset(1.0, 0.0),
+                      stops: const [0.0, 1.0],
                       tileMode: TileMode.clamp),
                   image: DecorationImage(
                     image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                     // image: const NetworkImage("https://images.pexels.com/photos/2569997/pexels-photo-2569997.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
                     // image: const NetworkImage("https://static.vecteezy.com/system/resources/previews/006/861/154/non_2x/light-blue-background-gradient-illustration-eps10-vector.jpg"),
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.24), BlendMode.dstATop),
+                    colorFilter: ColorFilter.mode(ColorConstants.black.withOpacity(0.082), BlendMode.dstATop),
                   )
               ),
               child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(24),
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
                     child: Padding(
@@ -364,11 +388,17 @@ class ExperienceTab extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text("Freelancing Experience", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white),),
+                              Text("Freelancing Experience", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white.withAlpha(230), shadows: [
+                                Shadow(
+                                  color: ColorConstants.black.withAlpha(50),
+                                  offset: const Offset(0, 2),
+                                  blurRadius: 10,
+                                )
+                              ]),),
                               // Text("Know More", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.black, decoration: TextDecoration.underline),),
                             ],
                           ),
@@ -382,25 +412,26 @@ class ExperienceTab extends StatelessWidget {
                                   Container(
                                     decoration: BoxDecoration(
                                         color: ColorConstants.glassWhite.withOpacity(0.4),
-                                        border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+                                        border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.6), width: 1),
                                         gradient: LinearGradient(
                                             colors: [
                                               // ColorConstants.glassWhite.withAlpha(60),
                                               // ColorConstants.glassWhite.withOpacity(0.2),
                                               // ColorConstants.glassWhite.withOpacity(0.7),
                                               // ColorConstants.orange.withAlpha(10),
-                                              ColorConstants.black.withOpacity(0.09),
 
-                                              ColorConstants.darkQueenViolet.withOpacity(0.34),
+
+                                              ColorConstants.darkTextBlue.withOpacity(0.12),
+                                              ColorConstants.black.withOpacity(0.18),
                                             ],
                                             begin: const FractionalOffset(0.0, 0.0),
                                             end: const FractionalOffset(1.0, 0.0),
                                             stops: const [0.0, 1.0],
                                             tileMode: TileMode.clamp),
-                                        borderRadius: BorderRadius.circular(16)),
-                                    padding: const EdgeInsets.all(16),
+                                        borderRadius: BorderRadius.circular(24)),
+                                    padding: const EdgeInsets.all(8),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(16),
+                                      borderRadius: BorderRadius.circular(24),
                                       child: BackdropFilter(
                                         filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
                                         child: _companyWidget(
@@ -452,187 +483,204 @@ class ExperienceTab extends StatelessWidget {
     isFreelancing = false
   }) {
     return IntrinsicHeight(
-      child: Row(
-        children: [
-          Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              // if(index != 0)
-              //   Container(
-              //     height: 16,
-              //     width: 1.5, color: ColorConstants.black,),
-              // if()
-              //   SizedBox(height: index == 0 ? 5.5 : 29.5,),
-                SizedBox(height: 5.5,),
-              Container(
-                height: 12,
-                width: 12,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(6),
-                    border: Border.all(width: 1.5, color: isFreelancing? ColorConstants.white: ColorConstants.white)),
-              ),
-              Expanded(
-                child: Container(
-                  width: 1.5, color: isFreelancing? ColorConstants.glassWhite: ColorConstants.glassWhite,),
-              ),
-              const SizedBox(height: 8),
-            ],
-          ),
-          const SizedBox(width: 12,),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              // direction: Axis.vertical,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+        child: Row(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 // if(index != 0)
-                //   const SizedBox(height: 24,),
-                Text(companyData.jobTitle, style: TextStyle(fontSize: 16,
-                    fontWeight: FontWeight.w400, color: isFreelancing ? ColorConstants.white : ColorConstants.white,
-                  shadows: <Shadow>[
-                    Shadow(
-                      offset: const Offset(0.0, 0.0),
-                      blurRadius: 0.1,
-                      color: isFreelancing ? ColorConstants.darkQueenViolet : ColorConstants.deepBlue,
-                    ),
-                    const Shadow(
-                      offset: Offset(0.0, 0.0),
-                      blurRadius: 0.5,
-                      color: ColorConstants.cyanBlue,
-                    ),
-                  ],
-                ),),
-                if (companyData.companyName != "")
-                Text(companyData.companyName, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.white,
-                  shadows: <Shadow>[
-                    Shadow(
-                      offset: const Offset(0.0, 0.0),
-                      blurRadius: 0.1,
-                      color: isFreelancing ? ColorConstants.queenViolet : ColorConstants.deepBlue,
-                    ),
-                    const Shadow(
-                      offset: Offset(0.0, 0.0),
-                      blurRadius: 0.5,
-                      color: ColorConstants.cyanBlue,
-                    ),
-                  ],
-                )),
-                const SizedBox(height: 2,),
-                Text(companyData.jobDuration, style: TextStyle(fontSize: 10, color: isFreelancing ? ColorConstants.glassWhite : ColorConstants.glassWhite, fontWeight: FontWeight.w400,
-                  shadows: <Shadow>[
-                    Shadow(
-                      offset: const Offset(0.0, 0.0),
-                      blurRadius: 0.1,
-                      color: isFreelancing ? ColorConstants.darkQueenViolet : ColorConstants.deepBlue,
-                    ),
-                    const Shadow(
-                      offset: Offset(0.0, 0.0),
-                      blurRadius: 0.5,
-                      color: ColorConstants.cyanBlue,
-                    ),
-                  ],
-                )),
-                const SizedBox(height: 10,),
-                ...List.generate(companyData.keyResponsibilities.length, (keyIndex) =>
-                    Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(width: 4,),
-                              Container(
-                                margin: const EdgeInsets.only(top: 8),
-                                height: 5,
-                                width: 5,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(4),
-                                  border: Border.all(width: 1.5, color: isFreelancing ? ColorConstants.glassWhite : ColorConstants.glassWhite),
-                                color: isFreelancing ? ColorConstants.black : ColorConstants.white
-                                ),
-                              ),
-                              const SizedBox(width: 10,),
-                              Flexible(child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  if(companyData.keyResponsibilities[keyIndex].title != "")
-                                    Text(companyData.keyResponsibilities[keyIndex].title, style: const TextStyle(fontSize: 14, color: ColorConstants.white,
-                                        fontWeight: FontWeight.w400)),
-                                  if(companyData.keyResponsibilities[keyIndex].title != "")
-                                    const SizedBox(height: 2,),
-                                  Text.rich(TextSpan(
-                                      children: List.generate(companyData.keyResponsibilities[keyIndex].responsibilityTexts.length, (textIndex) =>
-                                      TextSpan(text: companyData.keyResponsibilities[keyIndex].responsibilityTexts[textIndex].text,
-                                          style: TextStyle(fontSize: 14, color: isFreelancing ? ColorConstants.white : ColorConstants.white,
-                                              fontWeight: companyData.keyResponsibilities[keyIndex].responsibilityTexts[textIndex].textType == TextType.bold ? FontWeight.w500
-                                                  // : FontWeight.lerp(FontWeight.w400, FontWeight.w500, 0.5),
-                                                  : FontWeight.w400,
-                                            shadows: const [
-                                              Shadow(
-                                                  offset: Offset(0.0, 0.0),
-                                                  blurRadius: 0.1,
-                                                  color: ColorConstants.darkGray,
-                                                ),
-                                            ]
-                                            // shadows: <Shadow>[
-                                            //   Shadow(
-                                            //     offset: const Offset(0.0, 0.0),
-                                            //     blurRadius: 0.1,
-                                            //     color: isFreelancing ? ColorConstants.white : ColorConstants.deepBlue,
-                                            //   ),
-                                            //   Shadow(
-                                            //     offset: Offset(0.0, 0.0),
-                                            //     blurRadius: 0.5,
-                                            //     color: isFreelancing ? ColorConstants.queenViolet : ColorConstants.cyanBlue,
-                                            //   ),
-                                            // ],
-                                          )))),
-                                  ),
-                                ],
-                              )
-                                  ),
-                                                          ],
-                        ),
-                        if (keyIndex != companyData.keyResponsibilities.length)
-                          const SizedBox(height: 16,)
-                      ],
-                    ),
-                  ),
-                if (companyData.projects.isNotEmpty)
-                Text("Contributed to",
-                  style: TextStyle(color: isFreelancing ? ColorConstants.white : ColorConstants.white, fontWeight: FontWeight.w500, fontSize: 14),),
-                if (companyData.projects.isNotEmpty)
-                  const SizedBox(height: 8,),
-                if (companyData.projects.isNotEmpty)
-                Wrap(
-                  runSpacing: 8,
-                  spacing: 8,
-                  alignment: WrapAlignment.start,
-                  children: List.generate(companyData.projects.length, (index){
-                    return  Container(
-                      constraints: const BoxConstraints(maxWidth: 96),
-                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        // color: ColorConstants.glassBlack.withOpacity(0.1),
-                        // border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 2),
-                      ),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                              height: 64,
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(companyData.projects[index].logoUrl ?? "", height: 64, width: 64, fit: BoxFit.cover))),
-
-                          const SizedBox(height: 4,),
-                          Text(companyData.projects[index].title,
-                            style: const TextStyle(fontSize: 12, color: ColorConstants.white), overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, maxLines: 2,),
-                        ],
-                      ),
-                    );
-                  }),)
+                //   Container(
+                //     height: 16,
+                //     width: 1.5, color: ColorConstants.black,),
+                // if()
+                //   SizedBox(height: index == 0 ? 5.5 : 29.5,),
+                  SizedBox(height: 5.5,),
+                Container(
+                  height: 12,
+                  width: 12,
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(6),
+                      border: Border.all(width: 1.5, color: isFreelancing? ColorConstants.white: ColorConstants.white)),
+                ),
+                Expanded(
+                  child: Container(
+                    width: 1.5, color: isFreelancing? ColorConstants.glassWhite: ColorConstants.glassWhite,),
+                ),
+                const SizedBox(height: 8),
               ],
             ),
-          )
-        ],
+            const SizedBox(width: 12,),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                // direction: Axis.vertical,
+                children: [
+                  // if(index != 0)
+                  //   const SizedBox(height: 24,),
+                  Text(companyData.jobTitle, style: TextStyle(fontSize: 16,
+                      fontWeight: FontWeight.w400, color: isFreelancing ? ColorConstants.white.withAlpha(230) : ColorConstants.white.withAlpha(230),
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: const Offset(0.0, 0.0),
+                        blurRadius: 0.1,
+                        color: isFreelancing ? ColorConstants.deepBlue : ColorConstants.deepBlue,
+                      ),
+                      const Shadow(
+                        offset: Offset(0.0, 0.0),
+                        blurRadius: 0.5,
+                        color: ColorConstants.cyanBlue,
+                      ),
+                    ],
+                  ),),
+                  if (companyData.companyName != "")
+                  Text(companyData.companyName, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(230),
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: const Offset(0.0, 0.0),
+                        blurRadius: 0.1,
+                        color: isFreelancing ? ColorConstants.deepBlue.withAlpha(230) : ColorConstants.deepBlue.withAlpha(230),
+                      ),
+                      const Shadow(
+                        offset: Offset(0.0, 0.0),
+                        blurRadius: 0.5,
+                        color: ColorConstants.cyanBlue,
+                      ),
+                    ],
+                  )),
+                  const SizedBox(height: 2,),
+                  Text(companyData.jobDuration, style: TextStyle(fontSize: 10, color: isFreelancing ? ColorConstants.glassWhite : ColorConstants.glassWhite, fontWeight: FontWeight.w400,
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: const Offset(0.0, 0.0),
+                        blurRadius: 0.1,
+                        color: isFreelancing ? ColorConstants.deepBlue : ColorConstants.deepBlue,
+                      ),
+                      const Shadow(
+                        offset: Offset(0.0, 0.0),
+                        blurRadius: 0.5,
+                        color: ColorConstants.cyanBlue,
+                      ),
+                    ],
+                  )),
+                  const SizedBox(height: 16,),
+                  ...List.generate(companyData.keyResponsibilities.length, (keyIndex) =>
+                      Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(width: 4,),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 8),
+                                  height: 5,
+                                  width: 5,
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(4),
+                                    border: Border.all(width: 1.5, color: isFreelancing ? ColorConstants.glassWhite : ColorConstants.glassWhite),
+                                  color: isFreelancing ? ColorConstants.white : ColorConstants.white
+                                  ),
+                                ),
+                                const SizedBox(width: 10,),
+                                Flexible(child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    if(companyData.keyResponsibilities[keyIndex].title != "")
+                                      Text(companyData.keyResponsibilities[keyIndex].title, style: const TextStyle(fontSize: 14, color: ColorConstants.white,
+                                          fontWeight: FontWeight.w400)),
+                                    if(companyData.keyResponsibilities[keyIndex].title != "")
+                                      const SizedBox(height: 2,),
+                                    Text.rich(TextSpan(
+                                        children: List.generate(companyData.keyResponsibilities[keyIndex].responsibilityTexts.length, (textIndex) =>
+                                        TextSpan(text: companyData.keyResponsibilities[keyIndex].responsibilityTexts[textIndex].text,
+                                            style: TextStyle(fontSize: 14, color: companyData.keyResponsibilities[keyIndex].responsibilityTexts[textIndex].textType == TextType.bold ?
+                                              (isFreelancing ? ColorConstants.cyanBlue.withAlpha(218) : ColorConstants.cyanBlue.withAlpha(218)) : ColorConstants.white.withAlpha(230),
+                                                fontWeight: companyData.keyResponsibilities[keyIndex].responsibilityTexts[textIndex].textType == TextType.bold ? FontWeight.w300
+                                                    // : FontWeight.lerp(FontWeight.w400, FontWeight.w500, 0.5),
+                                                    : FontWeight.w400,
+                                              shadows: [
+                                                // Shadow(
+                                                //     offset: const Offset(0.0, 0.0),
+                                                //     blurRadius: 8,
+                                                //     color: ColorConstants.darkGray.withAlpha(120),
+                                                //   ),
+                                                Shadow(
+                                                  color: ColorConstants.black.withAlpha(80),
+                                                  offset: const Offset(0, 2),
+                                                  blurRadius: 10,
+                                                ),
+                                              //   if (companyData.keyResponsibilities[keyIndex].responsibilityTexts[textIndex].textType == TextType.bold)
+                                              //     Shadow(
+                                              //       color: ColorConstants.darkTextBlue.withAlpha(100),
+                                              //       offset: const Offset(0, 2),
+                                              //       blurRadius: 1,
+                                              //     ),
+                                              ]
+                                              // shadows: <Shadow>[
+                                              //   Shadow(
+                                              //     offset: const Offset(0.0, 0.0),
+                                              //     blurRadius: 0.1,
+                                              //     color: isFreelancing ? ColorConstants.white : ColorConstants.deepBlue,
+                                              //   ),
+                                              //   Shadow(
+                                              //     offset: Offset(0.0, 0.0),
+                                              //     blurRadius: 0.5,
+                                              //     color: isFreelancing ? ColorConstants.queenViolet : ColorConstants.cyanBlue,
+                                              //   ),
+                                              // ],
+                                            )))),
+                                    ),
+                                  ],
+                                )
+                                    ),
+                                                            ],
+                          ),
+                          if (keyIndex != companyData.keyResponsibilities.length)
+                            const SizedBox(height: 16,)
+                        ],
+                      ),
+                    ),
+                  if (companyData.projects.isNotEmpty)
+                    const SizedBox(height: 16,),
+                  if (companyData.projects.isNotEmpty)
+                  Text("Contributed to",
+                    style: TextStyle(color: isFreelancing ? ColorConstants.white.withAlpha(230) : ColorConstants.white.withAlpha(230), fontWeight: FontWeight.w500, fontSize: 14),),
+                  if (companyData.projects.isNotEmpty)
+                    const SizedBox(height: 8,),
+                  if (companyData.projects.isNotEmpty)
+                  Wrap(
+                    runSpacing: 8,
+                    spacing: 8,
+                    alignment: WrapAlignment.start,
+                    children: List.generate(companyData.projects.length, (index){
+                      return  Container(
+                        constraints: const BoxConstraints(maxWidth: 96),
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          // color: ColorConstants.glassBlack.withOpacity(0.1),
+                          // border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 2),
+                        ),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                                height: 64,
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(companyData.projects[index].logoUrl ?? "", height: 64, width: 64, fit: BoxFit.cover))),
+
+                            const SizedBox(height: 4,),
+                            Text(companyData.projects[index].title,
+                              style: TextStyle(fontSize: 12, color: ColorConstants.white.withAlpha(230)), overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, maxLines: 2,),
+                          ],
+                        ),
+                      );
+                    }),)
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -646,18 +694,18 @@ class ExperienceTab extends StatelessWidget {
         duration: const Duration(milliseconds: 800),
         opacity: viewModel.isTechStackVisible.value ? 1 : 0,
         child: Container(
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),
                   // color: ColorConstants.glassBlack.withOpacity(0.65),
                 gradient: LinearGradient(
                     colors: [
-                      ColorConstants.darkTextBlue.withOpacity(0.6),
-                      ColorConstants.darkTextBlue.withOpacity(0.8),
+                      ColorConstants.darkTextBlue.withOpacity(0.12),
+                      ColorConstants.darkTextBlue.withOpacity(0.24),
                     ],
                     begin: FractionalOffset(0.0, 0.0),
                     end: FractionalOffset(1.0, 0.0),
                     stops: [0.0, 1.0],
                     tileMode: TileMode.clamp),
-                  border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+                  border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.6), width: 1),
 
                   image: DecorationImage(
                     image: const NetworkImage("https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg"),
@@ -665,11 +713,11 @@ class ExperienceTab extends StatelessWidget {
 
                     // image: const NetworkImage("https://img.freepik.com/premium-photo/beautiful-colorful-background-vector-gradation-set-wallpaper-printable-template_515653-42.jpg"),
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(ColorConstants.black.withOpacity(0.15), BlendMode.dstATop),
+                    colorFilter: ColorFilter.mode(ColorConstants.black.withOpacity(0.05), BlendMode.dstATop),
                   )
               ),
               child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(24),
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
                     child: Padding(
@@ -677,11 +725,18 @@ class ExperienceTab extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text("Technology Stack", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white),),
+                              Text("Technology Stack", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white.withAlpha(230),
+                              shadows: [
+                                Shadow(
+                                  color: ColorConstants.black.withAlpha(50),
+                                  offset: const Offset(0, 2),
+                                  blurRadius: 10,
+                                )
+                              ]),),
                               // Text("Know More", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.black, decoration: TextDecoration.underline),),
                             ],
                           ),
@@ -698,7 +753,7 @@ class ExperienceTab extends StatelessWidget {
                                 //     end: const FractionalOffset(1.0, 0.0),
                                 //     stops: const [0.0, 1.0],
                                 //     tileMode: TileMode.clamp),
-                                borderRadius: BorderRadius.circular(16)),
+                                borderRadius: BorderRadius.circular(24)),
                             // padding: const EdgeInsets.symmetric(vertical: 16),
                             child: LayoutBuilder(
                               builder: (context, constraints) {
@@ -814,7 +869,7 @@ class ExperienceTab extends StatelessWidget {
             return Container(
               height: constraints.maxWidth/1.6,
               padding: const EdgeInsets.symmetric(vertical: 16),
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),
                 // color: ColorConstants.glassWhite,
               ),
               child: Row(
@@ -851,7 +906,7 @@ class ExperienceTab extends StatelessWidget {
                               ),
                               const SizedBox(width: 16,),
                               Text(viewModel.technologyStackList[index].title, style:
-                              const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: ColorConstants.white),)
+                                TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: ColorConstants.white.withAlpha(230)),)
                             ],),
                         )
                     ),
@@ -932,7 +987,7 @@ class ExperienceTab extends StatelessWidget {
                   ),
                   const SizedBox(width: 12,),
                   Text(viewModel.technologyStackList[index].title, style:
-                  const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white),)
+                    TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(230)),)
                 ],),
           ),
         ),
@@ -947,29 +1002,29 @@ class ExperienceTab extends StatelessWidget {
           duration: const Duration(milliseconds: 800),
           opacity: viewModel.isLangVisible.value ? 1 : 0,
           child: Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),
                 // color: ColorConstants.glassWhite.withOpacity(0.6),
                 gradient: LinearGradient(
                     colors: [
-                      ColorConstants.darkTextBlue.withOpacity(0.6),
-                      ColorConstants.darkTextBlue.withOpacity(0.8),
+                      ColorConstants.darkTextBlue.withOpacity(0.16),
+                      ColorConstants.darkTextBlue.withOpacity(0.32),
                     ],
                     begin: FractionalOffset(0.0, 0.0),
                     end: FractionalOffset(1.0, 0.0),
                     stops: [0.0, 1.0],
                     tileMode: TileMode.clamp),
-                border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+                border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.6), width: 1),
                 image: DecorationImage(
                   // image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
 
                   image: const NetworkImage("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjkwNC1udW5ueS0wMTIteC1qb2I1OTguanBn.jpg"),
                   fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.15), BlendMode.dstATop),
+                  colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.05), BlendMode.dstATop),
                 )
             ),
             child:
             ClipRRect(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(24),
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
                   child: Padding(
@@ -977,7 +1032,13 @@ class ExperienceTab extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Programming Languages", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white),),
+                        Text("Programming Languages", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white.withAlpha(230), shadows: [
+                          Shadow(
+                            color: ColorConstants.black.withAlpha(50),
+                            offset: const Offset(0, 2),
+                            blurRadius: 10,
+                          )
+                        ]),),
                         const SizedBox(height: 64,),
                         Container(
                           width: constraints.maxWidth,
@@ -1033,7 +1094,7 @@ class ExperienceTab extends StatelessWidget {
                                     ),
                                     const SizedBox(width: 12,),
                                     Text(viewModel.programmingLanguageList[index].title, style:
-                                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white),)
+                                      TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(230)),)
                                   ],),
                             ),
                           ),
@@ -1054,30 +1115,30 @@ class ExperienceTab extends StatelessWidget {
           opacity: viewModel.isDomainVisible.value ? 1 : 0,
           child: Container(
 
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),
                 // color: ColorConstants.glassWhite.withOpacity(0.6),
                 gradient: LinearGradient(
                     colors: [
-                      ColorConstants.deepTextBlue.withOpacity(0.38),
-                      ColorConstants.deepTextBlue.withOpacity(0.45),
+                      ColorConstants.deepTextBlue.withOpacity(0.08),
+                      ColorConstants.deepTextBlue.withOpacity(0.15),
                     ],
                     begin: FractionalOffset(0.0, 0.0),
                     end: FractionalOffset(1.0, 0.0),
                     stops: [0.0, 1.0],
                     tileMode: TileMode.clamp),
-                border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 0.8),
+                border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.6), width: 1),
                 image: DecorationImage(
                   // image: const NetworkImage("https://img.freepik.com/premium-photo/beautiful-colorful-background-vector-gradation-set-wallpaper-printable-template_515653-42.jpg"),
                   image: const NetworkImage("https://images.pexels.com/photos/4915606/pexels-photo-4915606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
 
                   // image: const NetworkImage("https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg"),
                   fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.1), BlendMode.dstATop),
+                  colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.05), BlendMode.dstATop),
                 )
             ),
             child:
             ClipRRect(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(24),
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
                   child: Padding(
@@ -1085,7 +1146,14 @@ class ExperienceTab extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Domain Knowledge", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white),),
+                        Text("Domain Knowledge", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white.withAlpha(230),
+                        shadows: [
+                          Shadow(
+                            color: ColorConstants.black.withAlpha(50),
+                            offset: const Offset(0, 2),
+                            blurRadius: 10,
+                          )
+                        ]),),
                         const SizedBox(height: 64,),
                         Container(
                           width: constraints.maxWidth,
@@ -1141,7 +1209,7 @@ class ExperienceTab extends StatelessWidget {
                                     ),
                                     const SizedBox(width: 12,),
                                     Text(viewModel.domainKnowledgeList[index].title, style:
-                                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white),)
+                                      TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(230)),)
                                   ],),
                             ),
                           ),

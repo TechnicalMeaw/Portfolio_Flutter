@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/ui/tabs/experience.dart';
-import 'package:portfolio/ui/tabs/overview.dart';
 import 'package:portfolio/view_model/tabs/education_tab_view_model.dart';
 import 'package:portfolio/view_model/tabs/experience_tab_view_model.dart';
 import 'package:portfolio/view_model/tabs/overview_tab_view_model.dart';

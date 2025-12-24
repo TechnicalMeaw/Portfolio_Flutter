@@ -59,11 +59,11 @@ class ProjectWidget extends StatelessWidget {
         opacity: isVisible.value ? 1 : 0,
         duration: const Duration(milliseconds: 800),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Container(
             decoration: _getContainerDecoration(),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(32),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
                 child: Padding(
@@ -127,7 +127,7 @@ class ProjectWidget extends StatelessWidget {
         color: ColorConstants.glassWhite.withOpacity(0.6),
         width: 1,
       ),
-      borderRadius: BorderRadius.circular(24),
+      borderRadius: BorderRadius.circular(32),
     );
 
     if (style == ProjectStyle.violet) {
@@ -137,7 +137,7 @@ class ProjectWidget extends StatelessWidget {
               // ColorConstants.highlightQueenViolet.withOpacity(0.30),
               // ColorConstants.darkQueenViolet.withOpacity(0.24),
               ColorConstants.textBlue.withOpacity(0.15),
-              ColorConstants.cyanBlue.withOpacity(0.05),
+              ColorConstants.indicatorHighlight.withOpacity(0.05),
             ],
             begin: const FractionalOffset(0.0, 0.0),
             end: const FractionalOffset(1.0, 0.0),
@@ -245,7 +245,7 @@ class ProjectWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w600,
-            color: ColorConstants.white.withAlpha(230),
+            color: ColorConstants.white.withAlpha(236),
             shadows: [
               Shadow(
                 offset: const Offset(0.0, 2.0),
@@ -262,7 +262,7 @@ class ProjectWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: ColorConstants.white.withAlpha(230),
+            color: ColorConstants.white.withAlpha(236),
             shadows: [
               Shadow(
                 offset: const Offset(0.0, 2.0),
@@ -279,7 +279,7 @@ class ProjectWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w400,
-            color: ColorConstants.cyanBlue.withAlpha(230),
+            color: ColorConstants.cyanBlue.withAlpha(236),
             shadows: [
               Shadow(
                 offset: const Offset(0.0, 2.0),
@@ -310,15 +310,15 @@ class ProjectWidget extends StatelessWidget {
   BoxDecoration _getDescriptionDecoration() {
     return BoxDecoration(
       color: ColorConstants.glassWhite.withOpacity(0.56),
-      borderRadius: BorderRadius.circular(24),
+      borderRadius: BorderRadius.circular(32),
       border: Border.all(
-        color: ColorConstants.glassWhite.withOpacity(0.6),
+        color: ColorConstants.glassWhite.withOpacity(0.2),
         width: 1,
       ),
       gradient: LinearGradient(
         colors: [
           style == ProjectStyle.violet
-              ? ColorConstants.darkTextBlue.withOpacity(0.12)
+              ? ColorConstants.darkTextBlue.withOpacity(0.14)
               : ColorConstants.black.withOpacity(0.09),
           style == ProjectStyle.violet
               ? ColorConstants.black.withOpacity(0.16)
@@ -354,7 +354,7 @@ class ProjectWidget extends StatelessWidget {
             title,
             style: TextStyle(
               fontSize: 14,
-              color: ColorConstants.white.withAlpha(230),
+              color: ColorConstants.white.withAlpha(236),
                 shadows: [
                   Shadow(
                     offset: const Offset(0.0, 2.0),
@@ -418,7 +418,7 @@ class ProjectWidget extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       color: buttonHovered.value
                           ? ColorConstants.black
-                          : ColorConstants.white.withAlpha(230),
+                          : ColorConstants.white.withAlpha(236),
                     ),
                   ),
                 ],
@@ -430,7 +430,7 @@ class ProjectWidget extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 color: buttonHovered.value
                     ? ColorConstants.black
-                    : ColorConstants.white.withAlpha(230),
+                    : ColorConstants.white.withAlpha(236),
               ),
             ),
           ),

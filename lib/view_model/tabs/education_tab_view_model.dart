@@ -3,8 +3,7 @@ import 'package:portfolio/view_model/base_controller.dart';
 
 class EducationTabViewModel extends BaseGetXController {
 
-  RxBool crossBtnHovered = false.obs;
-  RxBool minimizeBtnHovered = false.obs;
+  RxBool topBtnHovered = false.obs;
 
   RxBool isProject1KnowMoreBtnHovered = false.obs;
 

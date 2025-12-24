@@ -51,11 +51,11 @@ class ProjectsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRect(
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+        filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: ColorConstants.glassWhite.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(16),
+            color: ColorConstants.glassWhite.withOpacity(0.04),
             border: Border.all(color: ColorConstants.glassWhite, width: 1),
           ),
           child: Column(
@@ -132,8 +132,14 @@ class ProjectsTab extends StatelessWidget {
         builder: (context, constraints) => Stack(
           children: [
             Container(
-              padding: const EdgeInsets.only(top: 4, bottom: 4),
-              color: ColorConstants.glassBlack.withOpacity(0.1),
+              padding: const EdgeInsets.all(1.5),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  color: ColorConstants.glassBlack.withOpacity(0.1),
+                  border: Border.all(
+                      color: ColorConstants.glassWhite.withOpacity(0.2),
+                      width: 1)
+              ),
               child: ListView(
                 controller: viewModel.scrollController,
                 shrinkWrap: true,
@@ -152,7 +158,7 @@ class ProjectsTab extends StatelessWidget {
                     projectAlignment: ProjectAlignment.leftThumb,
                   ),
 
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 16),
 
                   // Blue Project
                   ProjectWidget(
@@ -166,7 +172,7 @@ class ProjectsTab extends StatelessWidget {
                     projectAlignment: ProjectAlignment.rightThumb,
                   ),
 
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 16),
 
                   // Violet Project
                   ProjectWidget(
@@ -180,7 +186,7 @@ class ProjectsTab extends StatelessWidget {
                     projectAlignment: ProjectAlignment.leftThumb,
                   ),
 
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 16),
                   // Blue Project
                   ProjectWidget(
                     viewModel: viewModel,
@@ -194,7 +200,7 @@ class ProjectsTab extends StatelessWidget {
                   ),
 
 
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 16),
 
                   // Blue Project
                   ProjectWidget(
@@ -209,12 +215,12 @@ class ProjectsTab extends StatelessWidget {
                   ),
 
 
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 16),
 
                   // Coming Soon
                   _buildComingSoonWidget(),
 
-                  const SizedBox(height: 100),
+                  const SizedBox(height: 16),
                 ],
               ),
             ),
@@ -309,9 +315,9 @@ class ProjectsTab extends StatelessWidget {
         duration: const Duration(milliseconds: 800),
         opacity: viewModel.isComingSoonVisible.value ? 1 : 0,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: ClipRRect(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(32),
               child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
             child: Container(
@@ -322,7 +328,7 @@ class ProjectsTab extends StatelessWidget {
                   color: ColorConstants.glassWhite.withOpacity(0.6),
                   width: 1,
                 ),
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: BorderRadius.circular(32),
               ),
               child: Center(
                 child: Padding(

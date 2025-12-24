@@ -8,7 +8,7 @@ class ColorConstants{
   static const black = Color(0xff000000);
   static const vsBlack = Color(0xff312f2f);
   static const darkGray = Color(0xff333333);
-  static Color glassWhite = white.withAlpha(150);
+  static const Color glassWhite = Color(0x96ffffff);
   static const blue = Color(0xFF41C4FF);
   static const blue1 = Color(0xFF21C1FF);
   static const deepBlue = Color(0xFF00E3CC);

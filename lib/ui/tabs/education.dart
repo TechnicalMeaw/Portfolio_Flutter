@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:portfolio/resources/color_constants.dart';
 import 'package:portfolio/view_model/tabs/education_tab_view_model.dart';
@@ -10,6 +11,41 @@ class EducationTab extends StatelessWidget {
   const EducationTab({super.key, required this.viewModel});
 
   final EducationTabViewModel viewModel;
+
+  Widget _buildTopBarButton({
+    required RxBool hoverVariable,
+    required VoidCallback onTap,
+    required Color buttonColor,
+    required IconData iconData,
+    required bool isCloseButton, // To differentiate margin logic
+  }) {
+    return InkWell(
+      onTap: () {
+        onTap();
+        hoverVariable.value = false;
+      },
+      onHover: (isHovered) {
+        hoverVariable.value = isHovered;
+      },
+      child: Obx(
+            () => AnimatedContainer(
+          margin: EdgeInsets.only(
+              left: hoverVariable.value
+                  ? (isCloseButton ? 0 : 4)
+                  : (isCloseButton ? 2 : 3),
+              right: hoverVariable.value ? 0 : (isCloseButton ? 4 : 0)),
+          height: hoverVariable.value ? 12 : 8,
+          width: hoverVariable.value ? 12 : 8,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(7.5), color: buttonColor),
+          duration: const Duration(milliseconds: 125),
+          child: hoverVariable.value
+              ? Center(child: Icon(iconData, size: 10, color: ColorConstants.black.withAlpha(200),))
+              : const SizedBox(height: 8, width: 8),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,71 +66,20 @@ class EducationTab extends StatelessWidget {
                         horizontal: 8, vertical: 5),
                     child: Row(
                       children: [
-                        InkWell(
-                          onTap: () {
-                            viewModel.closeTab(3);
-                            viewModel.crossBtnHovered.value = false;
-                          },
-                          onHover: (isHovered) {
-                            viewModel.crossBtnHovered.value = isHovered;
-                          },
-                          child: Obx(
-                                () =>
-                                AnimatedContainer(
-                                    margin: EdgeInsets.only(
-                                        left: viewModel.crossBtnHovered.value
-                                            ? 0
-                                            : 2,
-                                        right: viewModel.crossBtnHovered.value
-                                            ? 0
-                                            : 2),
-                                    height: viewModel.crossBtnHovered.value
-                                        ? 12
-                                        : 8,
-                                    width: viewModel.crossBtnHovered.value
-                                        ? 12
-                                        : 8,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            7.5),
-                                        color: ColorConstants.crossRed),
-                                    duration: const Duration(milliseconds: 125),
-                                    child: viewModel.crossBtnHovered.value
-                                        ? const Icon(Icons.close, size: 10,)
-                                        : const SizedBox(height: 8, width: 8,)),
-                          ),
+                        _buildTopBarButton(
+                            hoverVariable: viewModel.topBtnHovered,
+                            onTap: () => viewModel.closeTab(3),
+                            buttonColor: ColorConstants.crossRed,
+                            iconData: Icons.close,
+                            isCloseButton: true
                         ),
-
-                        InkWell(
-                          onTap: () {
-                            viewModel.minimizeTab(3);
-                            viewModel.minimizeBtnHovered.value = false;
-                          },
-                          onHover: (isHovered) {
-                            viewModel.minimizeBtnHovered.value = isHovered;
-                          },
-                          child: Obx(
-                                () =>
-                                AnimatedContainer(
-                                    margin: EdgeInsets.only(
-                                        left: viewModel.minimizeBtnHovered.value
-                                            ? 1
-                                            : 3),
-                                    height: viewModel.minimizeBtnHovered.value
-                                        ? 12
-                                        : 8,
-                                    width: viewModel.minimizeBtnHovered.value
-                                        ? 12
-                                        : 8,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            7.5),
-                                        color: ColorConstants.minimizeYellow),
-                                    duration: const Duration(milliseconds: 125),
-                                    child: viewModel.minimizeBtnHovered.value
-                                        ? const Icon(Icons.remove, size: 10,)
-                                        : const SizedBox(height: 8, width: 8,)),
-                          ),
+                        // const SizedBox(width: 2,),
+                        _buildTopBarButton(
+                            hoverVariable: viewModel.topBtnHovered,
+                            onTap: () => viewModel.minimizeTab(3),
+                            buttonColor: ColorConstants.minimizeYellow,
+                            iconData: Icons.remove,
+                            isCloseButton: false
                         ),
                       ],
                     ),

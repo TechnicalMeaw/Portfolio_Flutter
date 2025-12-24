@@ -16,6 +16,7 @@ import 'package:get/get.dart';
 
 import 'package:portfolio/resources/asset_constants.dart';
 import 'package:portfolio/resources/color_constants.dart';
+import 'package:portfolio/utils.dart';
 import 'package:portfolio/view_model/tabs/overview_tab_view_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -35,6 +36,7 @@ class ProjectData {
     this.projectUrl,
   });
 }
+
 
 class OverviewTab extends StatelessWidget {
   final OverviewTabViewModel viewModel;
@@ -67,10 +69,10 @@ class OverviewTab extends StatelessWidget {
           height: hoverVariable.value ? 12 : 8,
           width: hoverVariable.value ? 12 : 8,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(7.5), color: buttonColor),
+                borderRadius: BorderRadius.circular(7.5), color: buttonColor),
           duration: const Duration(milliseconds: 125),
           child: hoverVariable.value
-              ? Center(child: Icon(iconData, size: 10, color: ColorConstants.black.withAlpha(230),))
+              ? Center(child: Icon(iconData, size: 10, color: ColorConstants.black.withAlpha(236),))
               : const SizedBox(height: 8, width: 8),
         ),
       ),
@@ -183,7 +185,7 @@ class OverviewTab extends StatelessWidget {
       child: Container(
         constraints: boxConstrains,
         decoration: sectionDecoration.copyWith( // Ensure borderRadius is applied consistently
-          borderRadius: sectionDecoration.borderRadius ?? BorderRadius.circular(24),
+          borderRadius: sectionDecoration.borderRadius ?? BorderRadius.circular(32),
           border: sectionDecoration.border ??
               Border.all(
                   color: ColorConstants.glassWhite.withOpacity(0.6),
@@ -192,7 +194,7 @@ class OverviewTab extends StatelessWidget {
         child: ClipRRect(
           borderRadius: sectionDecoration.borderRadius != null
               ? (sectionDecoration.borderRadius as BorderRadius)
-              : BorderRadius.circular(24),
+              : BorderRadius.circular(32),
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: blurSigma, sigmaY: blurSigma),
             child: Padding(
@@ -227,13 +229,13 @@ class OverviewTab extends StatelessWidget {
             () => InkWell(
           onTap: onTap,
           onHover: (hovering) => isHovered.value = hovering,
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(32),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             constraints: const BoxConstraints(minWidth: 250),
-            margin: EdgeInsets.symmetric(horizontal: constraints.maxWidth * 0.025),
+            margin: EdgeInsets.symmetric(horizontal: 8),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(32),
               border: Border.all(
                   color: isHovered.value ? ColorConstants.white : ColorConstants.glassWhite.withOpacity(0.6),
                   width: 1),
@@ -245,7 +247,7 @@ class OverviewTab extends StatelessWidget {
               ),
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(32),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
                 child: Stack(
@@ -268,7 +270,7 @@ class OverviewTab extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 36,
                                 fontWeight: FontWeight.w700,
-                                color: isHovered.value ? textHoverColor.withAlpha(230) : textColor.withAlpha(230),
+                                color: isHovered.value ? textHoverColor.withAlpha(236) : textColor.withAlpha(236),
                                 shadows: const <Shadow>[
                                   Shadow(
                                       offset: Offset(0.0, 0.0),
@@ -284,7 +286,7 @@ class OverviewTab extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                                color: isHovered.value ? textHoverColor.withAlpha(230) : textColor.withAlpha(230),
+                                color: isHovered.value ? textHoverColor.withAlpha(236) : textColor.withAlpha(236),
                                 shadows: const <Shadow>[
                                   Shadow(
                                       offset: Offset(0.0, 0.0),
@@ -442,13 +444,13 @@ class OverviewTab extends StatelessWidget {
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  color: isHoveredVariable.value ? ColorConstants.deepBlue : ColorConstants.white.withAlpha(230)),
+                  color: isHoveredVariable.value ? ColorConstants.deepBlue : ColorConstants.white.withAlpha(236)),
             ),
           ),
           Obx(() => Icon(Icons.open_in_new_rounded,
               size: 12, // Slightly larger for better visibility
               color: isHoveredVariable.value
-                  ? ColorConstants.white.withAlpha(230)
+                  ? ColorConstants.deepBlue
                   : ColorConstants.blue))
         ],
       ),
@@ -488,7 +490,7 @@ class OverviewTab extends StatelessWidget {
               width: tileWidth,
               height: tileHeight,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: BorderRadius.circular(32),
                 border: Border.all( // Added border for better definition and hover effect
                   color: isHovered
                       ? ColorConstants.cyanBlue.withOpacity(0.6)
@@ -517,7 +519,7 @@ class OverviewTab extends StatelessWidget {
                 ],
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(24), // Slightly less than container to ensure border visibility
+                borderRadius: BorderRadius.circular(32), // Slightly less than container to ensure border visibility
                 child: Stack(
                   children: [
                     // Background Image
@@ -528,7 +530,7 @@ class OverviewTab extends StatelessWidget {
                         curve: Curves.easeOut,
                         child: Image.asset( // In a real app, use NetworkImage for URLs or ensure assets are bundled
                           project.imageAsset,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.contain,
                           errorBuilder: (context, error, stackTrace) => Container(
                             color: ColorConstants.glassWhite.withOpacity(0.05),
                             child: Center(
@@ -653,7 +655,7 @@ class OverviewTab extends StatelessWidget {
                 height: tileHeight,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
+                  borderRadius: BorderRadius.circular(32),
                   border: Border.all(
                       color: isHovered ? ColorConstants.cyanBlue.withOpacity(0.5) : ColorConstants.glassWhite.withOpacity(0.3),
                       width: 1.5
@@ -717,14 +719,14 @@ class OverviewTab extends StatelessWidget {
 
     // This outer padding is for the entire section before it's passed to the wrapper
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0),
       child: LayoutBuilder(
           builder: (context, constraints) {
             double screenWidth = constraints.maxWidth; // Width available for projectSectionContent
             List<Widget> itemsToDisplay = [];
 
             const double tileIdealHeight = 230.0;
-            const double tileSpacing = 32.0;
+            const double tileSpacing = 16.0;
             // const double minTileWidthForCalc = 220.0; // Minimum comfortable width for a tile (used in desktop)
 
             if (screenWidth <= 650) { // Mobile: Vertical Column
@@ -831,7 +833,7 @@ class OverviewTab extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 18, // Consistent with other section titles
                               fontWeight: FontWeight.w600, // Consistent
-                              color: ColorConstants.white.withAlpha(230))),
+                              color: ColorConstants.white.withAlpha(236))),
                       _buildViewAllTextButton(
                         // For hover state on this button, you'd typically use a ValueNotifier
                         // or manage state in the parent widget if _buildViewAllTextButton is stateless.
@@ -905,17 +907,17 @@ class OverviewTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRect(
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+          filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
           child: Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: ColorConstants.glassWhite.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(16),
+                color: ColorConstants.glassWhite.withOpacity(0.04),
                 border: Border.all(color: ColorConstants.glassWhite, width: 1)),
             child: Column(
               children: [
                 Container(
                   height: 12,
-                  margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                  margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                   child: Row(
                     children: [
                       _buildTopBarButton(
@@ -940,8 +942,14 @@ class OverviewTab extends StatelessWidget {
                   builder: (context, rootConstrains) => Stack(
                     children: [
                       Container(
-                        padding: const EdgeInsets.only(top: 4, bottom: 4),
-                        color: ColorConstants.glassBlack.withOpacity(0.1),
+                        padding: const EdgeInsets.all(1.5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: ColorConstants.glassBlack.withOpacity(0.1),
+                          border: Border.all(
+                              color: ColorConstants.glassWhite.withOpacity(0.2),
+                              width: 1)
+                        ),
                         child: rootConstrains.maxWidth > 1230
                             ? SingleChildScrollView(
                           controller: viewModel.scrollController,
@@ -958,7 +966,7 @@ class OverviewTab extends StatelessWidget {
                               ),
                               // const SizedBox(height: 8,),
                               _projectsOverviewSection(context),
-                              const SizedBox(height: 32,)
+                              const SizedBox(height: 16,)
                             ],
                           ),
                         )
@@ -967,7 +975,7 @@ class OverviewTab extends StatelessWidget {
                           shrinkWrap: true,
                           children: [
                             _leftColumn(context, rootConstrains),
-                            const SizedBox(height: 8,),
+                            // const SizedBox(height: 8,),
                             _rightColumn(context, rootConstrains, isMobileView: true),
                             _projectsOverviewSection(context),
                             const SizedBox(height: 16,)
@@ -1069,7 +1077,7 @@ class OverviewTab extends StatelessWidget {
       children: [
         const SizedBox(height: 16),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -1142,7 +1150,7 @@ class OverviewTab extends StatelessWidget {
                                                     style: TextStyle(
                                                         fontSize: constraints.maxWidth > 500 ? 24 : 16,
                                                         fontWeight: FontWeight.w700,
-                                                        color: ColorConstants.white.withAlpha(230),
+                                                        color: ColorConstants.white.withAlpha(236),
                                                       shadows: [
                                                         Shadow(
                                                           color: ColorConstants.black.withAlpha(50),
@@ -1221,7 +1229,7 @@ class OverviewTab extends StatelessWidget {
                       child: const CircleAvatar(backgroundImage: AssetImage(AssetConstants.imgProfileImage)))
                 ],
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 16),
               _buildAnimatedSectionWrapper(
                 visibilityFlag: viewModel.isSummaryVisible,
                 boxConstrains: const BoxConstraints(minHeight: 274),
@@ -1237,7 +1245,7 @@ class OverviewTab extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Summary", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white.withAlpha(230), shadows: [
+                    Text("Summary", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white.withAlpha(236), shadows: [
                         Shadow(
                           color: ColorConstants.black.withAlpha(50),
                           offset: const Offset(0, 2),
@@ -1247,9 +1255,9 @@ class OverviewTab extends StatelessWidget {
                     )),
                     const SizedBox(height: 16),
                     Text(
-                      "I'm a seasoned Flutter and Android developer with 4+ years of experience building high-performance mobile apps. From crafting polished apps from scratch to scaling products for millions, I've delivered solutions that now serve 2M+ users globally. Proficient in Django, FastAPI, Firebase, and AWS, I thrive on creating fast, reliable, and scalable software that stands out.",
+                      "A results-driven Flutter and mobile engineer with a proven track record of shipping scalable, production-grade apps used by 3M+ users worldwide. I’ve helped brands modernize their tech, optimize performance, and launch features that directly improve conversions and customer experience. I work across the full stack—mobile, backend, cloud, automation—ensuring every part of the product aligns with business objectives and delivers long-term value.",
                       softWrap: true,
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(230),
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(236),
                         shadows: [
                           Shadow(
                             color: ColorConstants.black.withAlpha(80),
@@ -1270,8 +1278,9 @@ class OverviewTab extends StatelessWidget {
                             children: [
                               InkWell(
                                 onTap: () async {
-                                  final Uri url = Uri.parse('https://1drv.ms/b/c/676896353223dc87/ESCxAKK0Ip9DnuywRVuSX7oBpgXcbo2N4AOQPfgLMRFRyA?e=MvOLa1');
-                                  if (!await launchUrl(url)) { throw Exception('Could not launch $url'); }
+                                  await Utils.openResumePopup(context);
+                                  // final Uri url = Uri.parse('https://1drv.ms/b/c/676896353223dc87/ESCxAKK0Ip9DnuywRVuSX7oBpgXcbo2N4AOQPfgLMRFRyA?e=MvOLa1');
+                                  // if (!await launchUrl(url)) { throw Exception('Could not launch $url'); }
                                 },
                                 onHover: (isHovered) { viewModel.isDownloadCvBtnHovered.value = isHovered; },
                                 child: Obx(()=> AnimatedContainer(
@@ -1283,7 +1292,7 @@ class OverviewTab extends StatelessWidget {
                                     border: Border.all(width: 1, color: viewModel.isDownloadCvBtnHovered.value ? ColorConstants.black : ColorConstants.white),
                                     boxShadow: [ BoxShadow( color: ColorConstants.glassBlue.withOpacity(0.4), spreadRadius: 1, blurRadius: 5)],
                                   ),
-                                  child: Text( "Download CV", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: viewModel.isDownloadCvBtnHovered.value ? ColorConstants.black : ColorConstants.white.withAlpha(230)),
+                                  child: Text( "View Resume", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: viewModel.isDownloadCvBtnHovered.value ? ColorConstants.black : ColorConstants.white.withAlpha(236)),
                                   ),
                                 )),
                               ),
@@ -1326,7 +1335,7 @@ class OverviewTab extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 16),
               LayoutBuilder(
                 builder: (context, constraints) => Obx(
                       () => Container(
@@ -1338,7 +1347,7 @@ class OverviewTab extends StatelessWidget {
                           width: constraints.maxWidth,
                           child: CarouselSlider(
                               options: CarouselOptions(
-                                  height: 180.0,
+                                  height: 212.0,
                                   animateToClosest: true,
                                   enlargeCenterPage: true,
                                   autoPlay: true,
@@ -1361,7 +1370,7 @@ class OverviewTab extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 16),
               _buildAnimatedSectionWrapper(
                 visibilityFlag: viewModel.isEducationOverviewVisible,
                 sectionDecoration: BoxDecoration(
@@ -1373,7 +1382,7 @@ class OverviewTab extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Education", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white.withAlpha(230),
+                        Text("Education", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white.withAlpha(236),
                         shadows: [
                             Shadow(
                               color: ColorConstants.black.withAlpha(50),
@@ -1387,7 +1396,7 @@ class OverviewTab extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     Wrap(children: [ Text("Bachelor of Technology, Computer Science & Engineering",
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: ColorConstants.white.withAlpha(230),
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: ColorConstants.white.withAlpha(236),
                           shadows: [
                             Shadow(
                               color: ColorConstants.black.withAlpha(50),
@@ -1397,7 +1406,7 @@ class OverviewTab extends StatelessWidget {
                           ]
                         ))]),
                     Text("Dream Institute of Technology",
-                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(230),
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(236),
                           shadows: [
                             Shadow(
                               color: ColorConstants.black.withAlpha(80),
@@ -1407,9 +1416,9 @@ class OverviewTab extends StatelessWidget {
                           ]
                         )),
                     const SizedBox(height: 2),
-                    Text("2018 - 2022", style: TextStyle(fontSize: 10, color: ColorConstants.cyanBlue.withAlpha(230), fontWeight: FontWeight.w400)),
+                    Text("2018 - 2022", style: TextStyle(fontSize: 10, color: ColorConstants.cyanBlue.withAlpha(236), fontWeight: FontWeight.w400)),
                     const SizedBox(height: 6),
-                    Text("CGPA: 9.04", style: TextStyle(fontSize: 12, color: ColorConstants.white.withAlpha(230), fontWeight: FontWeight.w500,
+                    Text("CGPA: 9.04", style: TextStyle(fontSize: 12, color: ColorConstants.white.withAlpha(236), fontWeight: FontWeight.w500,
                       shadows: [
                         Shadow(
                           color: ColorConstants.black.withAlpha(80),
@@ -1433,8 +1442,10 @@ class OverviewTab extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        if (!isMobileView)
+        const SizedBox(height: 8,),
         Padding(
-          padding: isMobileView ? const EdgeInsets.symmetric(horizontal: 16, vertical: 8) : const EdgeInsets.all(16.0),
+          padding: isMobileView ? const EdgeInsets.symmetric(horizontal: 8, vertical: 8) : const EdgeInsets.all(8.0),
           child: _buildAnimatedSectionWrapper(
             visibilityFlag: viewModel.isSkillsVisible,
             sectionDecoration: BoxDecoration(
@@ -1453,7 +1464,7 @@ class OverviewTab extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Skills", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white.withAlpha(230), shadows: [
+                    Text("Skills", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white.withAlpha(236), shadows: [
                         Shadow(
                           color: ColorConstants.black.withAlpha(50),
                           offset: const Offset(0, 2),
@@ -1496,9 +1507,9 @@ class OverviewTab extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: isMobileView ? 24 : 16),
+        SizedBox(height: isMobileView ? 16 : 8),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: _buildAnimatedSectionWrapper(
             visibilityFlag: viewModel.isKPI1Visible,
             sectionDecoration: BoxDecoration(
@@ -1519,9 +1530,9 @@ class OverviewTab extends StatelessWidget {
                 const Text("Links", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white)),
                 const SizedBox(height: 16),
                 _buildLinkItem(linkText: "SBI General Insurance", url: 'https://play.google.com/store/apps/details?id=com.sbig.insurance', isHoveredVariable: viewModel.link1Hovered),
-                _buildLinkItem(linkText: "Manipal Doctors", url: 'https://apps.apple.com/in/app/manipal-doctors/id6474142341', isHoveredVariable: viewModel.link2Hovered),
+                _buildLinkItem(linkText: "Manipal Doctors", url: 'https://apps.apple.com/in/app/manipal-doctors/id6741423418', isHoveredVariable: viewModel.link2Hovered),
                 _buildLinkItem(linkText: "Care Health Insurance", url: 'https://play.google.com/store/apps/details?id=com.religare.healthinsurance', isHoveredVariable: viewModel.link3Hovered),
-                _buildLinkItem(linkText: "https://blaze.solar", url: 'https://blaze.solar', isHoveredVariable: viewModel.link4Hovered),
+                _buildLinkItem(linkText: "Canara HSBC Life Insurance", url: 'https://play.google.com/store/apps/details?id=com.choiceapp.genius&hl=en_IN', isHoveredVariable: viewModel.link4Hovered),
               ],
             ),
           ),
@@ -1570,7 +1581,7 @@ class OverviewTab extends StatelessWidget {
                             padding: const EdgeInsets.only(bottom: 2, right: 10),
                             child: Text("$rating%",
                                 softWrap: true,
-                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(230), shadows: [
+                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(236), shadows: [
                                   Shadow(
                                       offset: const Offset(0.0, 2.0),
                                       blurRadius: 15.0,
@@ -1620,7 +1631,7 @@ class OverviewTab extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
-                        color: ColorConstants.white.withAlpha(230),
+                        color: ColorConstants.white.withAlpha(236),
                         shadows: <Shadow>[
                           Shadow(
                               offset: const Offset(0.0, 2.0),

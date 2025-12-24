@@ -109,7 +109,7 @@ class HomePageViewModel extends BaseGetXController with GetTickerProviderStateMi
       );
       isOverviewBtnHovered.value = true;
 
-      initialAction = Future.delayed(Duration(milliseconds: Get.width < 1100 ? 3400 : 350), () {
+      initialAction = Future.delayed(Duration(milliseconds: Get.width < 850 ? 3400 : 350), () {
         if (overviewAnimationController.isAnimating){
           overviewAnimationController.stop(); // Stop animation after 5s
           overviewScaleAnimation.value = null;

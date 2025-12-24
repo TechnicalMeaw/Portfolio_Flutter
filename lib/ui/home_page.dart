@@ -9,10 +9,12 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:portfolio/resources/asset_constants.dart';
 import 'package:portfolio/resources/color_constants.dart';
+import 'package:portfolio/utils.dart';
 
 import 'package:portfolio/view_model/base_controller.dart';
 import 'package:portfolio/view_model/home/home_page_view_model.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -40,14 +42,14 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Text("Hey,", style: TextStyle(color: ColorConstants.glassWhite, fontSize: 16),),
-                  Text("Welcome to my portfolio!", textAlign: TextAlign.center, style: TextStyle(color: ColorConstants.glassBlack, fontSize: 16, fontWeight: FontWeight.w700),),
+                  Text("Welcome to my portfolio!", textAlign: TextAlign.center, style: TextStyle(color: ColorConstants.glassWhite, fontSize: 16, fontWeight: FontWeight.w700),),
                   SizedBox(height: 4,),
-                  Text("Consider using desktop for better experience.", textAlign: TextAlign.center, style: TextStyle(color: ColorConstants.glassBlack, fontSize: 14, fontWeight: FontWeight.w600),),
-                  // const SizedBox(height: 2,),
-                  Text("This is a simulation of Linux based Operating System, feel free to explore!", textAlign: TextAlign.center, style: TextStyle(color: ColorConstants.glassBlack, fontSize: 12),),
+                  Text("Consider using desktop for better experience.", textAlign: TextAlign.center, style: TextStyle(color: ColorConstants.glassWhite, fontSize: 14, fontWeight: FontWeight.w600),),
+                  const SizedBox(height: 2,),
+                  Text("This is a simulation of Linux based Operating System, feel free to explore!", textAlign: TextAlign.center, style: TextStyle(color: ColorConstants.glassWhite, fontSize: 12),),
                   SizedBox(height: 10,),
 
-                  Text("Created with 💗 by Santanu.", textAlign: TextAlign.center, style: TextStyle(color: ColorConstants.glassBlack, fontSize: 12),),
+                  Text("Created with 💗 by Santanu.", textAlign: TextAlign.center, style: TextStyle(color: ColorConstants.glassWhite, fontSize: 12),),
                 ],
               ),
             ),
@@ -72,24 +74,24 @@ class HomePage extends StatelessWidget {
     return Align(
         alignment: Alignment.topCenter,
         child:
-        ClipRect(
+        ClipRRect(
+          borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12),),
             child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
-              child:
-              Container(
-                height: 25,
+              filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+              child: Container(
+                height: 24,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
                         colors: [
-                          ColorConstants.deepBlue.withOpacity(0.5),
-                          ColorConstants.textBlue,
+                          ColorConstants.black.withAlpha(140),
+                          ColorConstants.transparent,
                         ],
                         begin: FractionalOffset(0.0, 0.0),
-                        end: FractionalOffset(1.0, 0.0),
+                        end: FractionalOffset(0.0, 1.2),
                         stops: [0.0, 1.0],
                         tileMode: TileMode.clamp),
-                    borderRadius: BorderRadius.circular(2),
+                    borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12),),
                     color: ColorConstants.darkBlack),
                 child: LayoutBuilder(
                   builder: (context, constrains) => Row(
@@ -99,6 +101,9 @@ class HomePage extends StatelessWidget {
                       constrains.maxWidth > 500
                           ? Obx(
                             ()=> Row(children: [
+                              const SizedBox(
+                                width: 5,
+                              ),
                           InkWell(
                             onHover: (isHovered){
                               _viewModel.isOptionsGithubHovered.value = isHovered;
@@ -111,17 +116,17 @@ class HomePage extends StatelessWidget {
                             },
                             child: Text(
                               "GitHub",
-                              style: TextStyle(color: _viewModel.isOptionsGithubHovered.value ? ColorConstants.black : ColorConstants.darkGray, fontWeight: FontWeight.w400, fontSize: 12),
+                              style: TextStyle(color: _viewModel.isOptionsGithubHovered.value ? ColorConstants.white : ColorConstants.glassWhite, fontWeight: FontWeight.w400, fontSize: 12),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
-                          Text(
+                          const Text(
                             "|",
-                            style: TextStyle(color: ColorConstants.glassWhite, fontWeight: FontWeight.w100, fontSize: 12),
+                            style: TextStyle(color: ColorConstants.glassBlack, fontWeight: FontWeight.w100, fontSize: 12),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           InkWell(
@@ -136,17 +141,17 @@ class HomePage extends StatelessWidget {
                             },
                             child: Text(
                               "LinkedIn",
-                              style: TextStyle(color: _viewModel.isOptionsLinkedInHovered.value ? ColorConstants.black : ColorConstants.darkGray,  fontWeight: FontWeight.w400, fontSize: 12),
+                              style: TextStyle(color: _viewModel.isOptionsLinkedInHovered.value ? ColorConstants.white : ColorConstants.glassWhite,  fontWeight: FontWeight.w400, fontSize: 12),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
-                          Text(
+                          const Text(
                             "|",
-                            style: TextStyle(color: ColorConstants.glassWhite,  fontWeight: FontWeight.w100, fontSize: 12),
+                            style: TextStyle(color: ColorConstants.glassBlack,  fontWeight: FontWeight.w100, fontSize: 12),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           InkWell(
@@ -154,24 +159,24 @@ class HomePage extends StatelessWidget {
                               _viewModel.isOptionsEmailHovered.value = isHovered;
                             },
                             onTap: () async {
-                              final Uri url = Uri.parse('mailto:santanumukherjeebh@gmail.com');
+                              final Uri url = Uri.parse('mailto:hello@santanumukherjee.com');
                               if (!await launchUrl(url)) {
                                 throw Exception('Could not launch $url');
                               }
                             },
                             child: Text(
                               "Email",
-                              style: TextStyle(color: _viewModel.isOptionsEmailHovered.value ? ColorConstants.black : ColorConstants.darkGray, fontWeight: FontWeight.w400, fontSize: 12),
+                              style: TextStyle(color: _viewModel.isOptionsEmailHovered.value ? ColorConstants.white : ColorConstants.glassWhite, fontWeight: FontWeight.w400, fontSize: 12),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
-                          Text(
+                          const Text(
                             "|",
-                            style: TextStyle(color: ColorConstants.glassWhite,  fontWeight: FontWeight.w100, fontSize: 12),
+                            style: TextStyle(color: ColorConstants.glassBlack,  fontWeight: FontWeight.w100, fontSize: 12),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           InkWell(
@@ -196,17 +201,17 @@ class HomePage extends StatelessWidget {
                             },
                             child: Text(
                               "Phone",
-                              style: TextStyle(color: _viewModel.isOptionsPhoneHovered.value ? ColorConstants.black : ColorConstants.darkGray,  fontWeight: FontWeight.w400, fontSize: 12),
+                              style: TextStyle(color: _viewModel.isOptionsPhoneHovered.value ? ColorConstants.white : ColorConstants.glassWhite,  fontWeight: FontWeight.w400, fontSize: 12),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
-                          Text(
+                          const Text(
                             "|",
-                            style: TextStyle(color: ColorConstants.glassWhite, fontWeight: FontWeight.w100, fontSize: 12),
+                            style: TextStyle(color: ColorConstants.glassBlack, fontWeight: FontWeight.w100, fontSize: 12),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           InkWell(
@@ -214,14 +219,16 @@ class HomePage extends StatelessWidget {
                               _viewModel.isOptionsDownloadCVHovered.value = isHovered;
                             },
                             onTap: () async {
-                              final Uri url = Uri.parse('https://1drv.ms/b/c/676896353223dc87/ESCxAKK0Ip9DnuywRVuSX7oBpgXcbo2N4AOQPfgLMRFRyA?e=MvOLa1');
-                              if (!await launchUrl(url)) {
-                                throw Exception('Could not launch $url');
-                              }
+                              await Utils.openResumePopup(context);
+
+                              // final Uri url = Uri.parse('https://1drv.ms/b/c/676896353223dc87/ESCxAKK0Ip9DnuywRVuSX7oBpgXcbo2N4AOQPfgLMRFRyA?e=MvOLa1');
+                              // if (!await launchUrl(url)) {
+                              //   throw Exception('Could not launch $url');
+                              // }
                             },
                             child: Text(
-                              "Download Resume",
-                              style: TextStyle(color: _viewModel.isOptionsDownloadCVHovered.value ? ColorConstants.black : ColorConstants.darkGray, fontWeight: FontWeight.w400, fontSize: 12),
+                              "View Resume",
+                              style: TextStyle(color: _viewModel.isOptionsDownloadCVHovered.value ? ColorConstants.white : ColorConstants.glassWhite, fontWeight: FontWeight.w400, fontSize: 12),
                             ),
                           ),
                         ],
@@ -232,24 +239,36 @@ class HomePage extends StatelessWidget {
                           _viewModel.isOptionsDownloadCVHovered.value = isHovered;
                         },
                         onTap: () async {
-                          final Uri url = Uri.parse('https://1drv.ms/b/s!AofcIzI1lmhnhLlwwjJGyPUD6OicEg?e=vUoFsM');
-                          if (!await launchUrl(url)) {
-                            throw Exception('Could not launch $url');
-                          }
+                          // final Uri url = Uri.parse('https://1drv.ms/b/s!AofcIzI1lmhnhLlwwjJGyPUD6OicEg?e=vUoFsM');
+                          // if (!await launchUrl(url)) {
+                          //   throw Exception('Could not launch $url');
+                          // }
+                          await Utils.openResumePopup(context);
                         },
-                        child: Text(
-                          "Download Resume",
-                          style: TextStyle(color: _viewModel.isOptionsDownloadCVHovered.value ? ColorConstants.black : ColorConstants.darkGray, fontWeight: FontWeight.w400, fontSize: 12),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                          child: Text(
+                            "Learn More",
+                            style: TextStyle(color: _viewModel.isOptionsDownloadCVHovered.value ? ColorConstants.white : ColorConstants.glassWhite, fontWeight: FontWeight.w400, fontSize: 12),
+                          ),
                         ),
                       ),
-                      Obx(
-                            () => Text(currentTime.value,
-                            style: const TextStyle(color: ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12)),
-                      )
+                      Row(
+                        children: [
+                          Obx(
+                                () => Text(currentTime.value,
+                                style: const TextStyle(color: ColorConstants.white, fontWeight: FontWeight.w400, fontSize: 12)),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
-              ),))
+              ),
+            ))
     );
   }
 
@@ -258,43 +277,38 @@ class HomePage extends StatelessWidget {
       alignment: MediaQuery.of(context).size.width < 700 ? Alignment.bottomCenter : Alignment.centerLeft,
       child: Padding(
         padding: EdgeInsets.only(left: MediaQuery.of(context).size.width < 700 ? 0 : 5.0, bottom: MediaQuery.of(context).size.width < 700 ? 5 : 0),
-        child: Row(
-          mainAxisAlignment: MediaQuery.of(context).size.width < 700 ? MainAxisAlignment.center : MainAxisAlignment.start,
-          children: [
-            ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
-                    child:Container(
-                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                      // margin: const EdgeInsets.only(left: 5),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: ColorConstants.glassWhite),
-                          // color: ColorConstants.lightGlassBlue,
-                          gradient: LinearGradient(
-                              colors: [
-                                ColorConstants.deepTeal.withAlpha(180),
-                                ColorConstants.lightGlassBlue.withAlpha(120),
-                              ],
-                              begin: FractionalOffset(0.0, 0.0),
-                              end: FractionalOffset(1.0, 0.0),
-                              stops: [0.0, 1.0],
-                              tileMode: TileMode.clamp),
-                          borderRadius: BorderRadius.circular(8)),
-                      child: MediaQuery.of(context).size.width < 700 ?
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: menuItems(viewModel, context),
-                      ) :
-                      Column(
-                        // crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: menuItems(viewModel, context),
-                      ),
-                    )))
-          ],
-        ),
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
+                child:Container(
+                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                  // margin: const EdgeInsets.only(left: 5),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: ColorConstants.glassWhite),
+                      // color: ColorConstants.lightGlassBlue,
+                      gradient: LinearGradient(
+                          colors: [
+                            ColorConstants.deepTeal.withAlpha(40),
+                            ColorConstants.darkTextBlue.withAlpha(16),
+                          ],
+                          begin: const FractionalOffset(0.0, 0.0),
+                          end: const FractionalOffset(1.0, 0.0),
+                          stops: const [0.0, 1.0],
+                          tileMode: TileMode.clamp),
+                      borderRadius: BorderRadius.circular(24)),
+                  child: MediaQuery.of(context).size.width < 700 ?
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: menuItems(viewModel, context),
+                  ) :
+                  Column(
+                    // crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: menuItems(viewModel, context),
+                  ),
+                ))),
       ),
     );
   }
@@ -408,7 +422,7 @@ class HomePage extends StatelessWidget {
               curve: Curves.easeIn,
               height: isHovered.value ? 62 : 56,
               width: isHovered.value ? 59 : 55,
-              padding: EdgeInsets.all(2),
+              padding: const EdgeInsets.all(2),
               margin: isHovered.value
                   ? const EdgeInsets.symmetric(horizontal: 4.5)
                   : EdgeInsets.zero,
@@ -416,8 +430,8 @@ class HomePage extends StatelessWidget {
                 color: isHovered.value
                     ? ColorConstants.glassBlack
                     : ColorConstants.glassBlack.withAlpha(50),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.5), width: 0.8),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.2), width: 1),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -435,7 +449,7 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 2.0),
                     child: Text(
                       toolTipText,
-                      style: const TextStyle(fontSize: 9.5, color: ColorConstants.white, fontWeight: FontWeight.w200),
+                      style: TextStyle(fontSize: 9.5, color: ColorConstants.white.withAlpha(230), fontWeight: FontWeight.w200),
                     ),
                   )
                       : Offstage(),

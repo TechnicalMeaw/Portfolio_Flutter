@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   gradient: RadialGradient(
-                    radius: 1.5,
+                    radius: (MediaQuery.of(context).size.width * (MediaQuery.of(context).size.width < 650 ? 2  : 1) + MediaQuery.of(context).size.height)/2 * 0.00115,
                       colors: _viewModel.getBgGradient(BaseGetXController.currentTab.value)),
                 ),
               ),

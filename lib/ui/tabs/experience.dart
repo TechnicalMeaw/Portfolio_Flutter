@@ -5,8 +5,9 @@ import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:portfolio/model/experience_company_data_model.dart';
 import 'package:portfolio/resources/color_constants.dart';
+import 'package:portfolio/ui/widgets/experience/hoverable_project_card.dart';
 import 'package:portfolio/view_model/tabs/experience_tab_view_model.dart';
-import 'package:portfolio/view_model/widget/pie_chart_widget.dart';
+import 'package:portfolio/view_model/widget/pie_chart_widget_v1.dart';
 
 class ExperienceTab extends StatelessWidget {
   const ExperienceTab({super.key, required this.viewModel});
@@ -656,34 +657,21 @@ class ExperienceTab extends StatelessWidget {
                   if (companyData.projects.isNotEmpty)
                     const SizedBox(height: 8,),
                   if (companyData.projects.isNotEmpty)
-                  Wrap(
-                    runSpacing: 8,
-                    spacing: 8,
-                    alignment: WrapAlignment.start,
-                    children: List.generate(companyData.projects.length, (index){
-                      return  Container(
-                        constraints: const BoxConstraints(maxWidth: 96),
-                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          // color: ColorConstants.glassBlack.withOpacity(0.1),
-                          // border: Border.all(color: ColorConstants.glassWhite.withOpacity(0.4), width: 2),
-                        ),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                                height: 64,
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.network(companyData.projects[index].logoUrl ?? "", height: 64, width: 64, fit: BoxFit.cover))),
+                    Wrap(
+                      runSpacing: 8,
+                      spacing: 8,
+                      alignment: WrapAlignment.start,
+                      children: List.generate(companyData.projects.length, (pIndex) {
+                        final project = companyData.projects[pIndex];
+                        final hasRedirect =
+                            project.redirectUrl != null && project.redirectUrl!.trim().isNotEmpty;
 
-                            const SizedBox(height: 4,),
-                            Text(companyData.projects[index].title,
-                              style: TextStyle(fontSize: 12, color: ColorConstants.white.withAlpha(236)), overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, maxLines: 2,),
-                          ],
-                        ),
-                      );
-                    }),)
+                        return HoverableProjectCard(
+                          project: project,
+                          enabled: hasRedirect,
+                        );
+                      }),
+                    )
                 ],
               ),
             ),

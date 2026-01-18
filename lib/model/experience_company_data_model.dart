@@ -31,8 +31,9 @@ class CompanyResponsibilityText{
 class Project{
   String title;
   String? logoUrl;
+  String? redirectUrl;
 
-  Project({required this.title, this.logoUrl});
+  Project({required this.title, this.logoUrl, this.redirectUrl});
 }
 
 enum TextType{

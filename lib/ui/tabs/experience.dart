@@ -1,15 +1,9 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/state_manager.dart';
 import 'package:portfolio/model/experience_company_data_model.dart';
-import 'package:portfolio/model/pie_chart_data_model.dart';
 import 'package:portfolio/resources/color_constants.dart';
 import 'package:portfolio/view_model/tabs/experience_tab_view_model.dart';
 import 'package:portfolio/view_model/widget/pie_chart_widget.dart';
@@ -57,6 +51,7 @@ class ExperienceTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRect(
+        // borderRadius: BorderRadius.circular(16),
         child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
             child:
@@ -607,7 +602,7 @@ class ExperienceTab extends StatelessWidget {
                                         children: List.generate(companyData.keyResponsibilities[keyIndex].responsibilityTexts.length, (textIndex) =>
                                         TextSpan(text: companyData.keyResponsibilities[keyIndex].responsibilityTexts[textIndex].text,
                                             style: TextStyle(fontSize: 14, color: companyData.keyResponsibilities[keyIndex].responsibilityTexts[textIndex].textType == TextType.bold ?
-                                              (isFreelancing ? ColorConstants.cyanBlue.withAlpha(218) : ColorConstants.cyanBlue.withAlpha(218)) : ColorConstants.white.withAlpha(236),
+                                              (isFreelancing ? ColorConstants.lightYellow.withAlpha(218) : ColorConstants.lightYellow.withAlpha(218)) : ColorConstants.white.withAlpha(236),
                                                 fontWeight: companyData.keyResponsibilities[keyIndex].responsibilityTexts[textIndex].textType == TextType.bold ? FontWeight.w300
                                                     // : FontWeight.lerp(FontWeight.w400, FontWeight.w500, 0.5),
                                                     : FontWeight.w400,

@@ -50,6 +50,7 @@ class ProjectsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRect(
+      // borderRadius: BorderRadius.circular(16),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
         child: Container(

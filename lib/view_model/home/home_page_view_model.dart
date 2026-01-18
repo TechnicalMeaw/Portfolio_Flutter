@@ -145,6 +145,39 @@ class HomePageViewModel extends BaseGetXController with GetTickerProviderStateMi
     currentTime.value = DateFormat('hh:mm a').format(now);
   }
 
+  List<Color> getBgGradient(int index) {
+    switch(index) {
+      case 0:
+        return [
+          ColorConstants.cyanBlue.withAlpha(70),
+          ColorConstants.deepTextBlue.withAlpha(20),
+        ];
+      case 1:
+        return [
+          ColorConstants.indicatorHighlight.withAlpha(100),
+          ColorConstants.grassGreen.withAlpha(10),
+          ColorConstants.deepTextBlue.withAlpha(40),
+        ];
+      case 2:
+        return [
+          ColorConstants.indicatorHighlight.withAlpha(100),
+          ColorConstants.lightYellow.withAlpha(10),
+          ColorConstants.deepTextBlue.withAlpha(40),
+        ];
+      case 3:
+        return [
+          ColorConstants.deepBlue.withAlpha(60),
+          ColorConstants.black.withAlpha(40),
+          ColorConstants.deepTextBlue.withAlpha(20),
+        ];
+      default:
+        return [
+          ColorConstants.deepTextBlue.withAlpha(100),
+          ColorConstants.deepTextBlue.withAlpha(20),
+        ];
+    }
+  }
+
   @override
   void onClose() {
     overviewAnimationController.dispose();

@@ -473,7 +473,8 @@ class ExperienceTabViewModel extends BaseGetXController {
             Project(title: "Plantonic", logoUrl: "https://play-lh.googleusercontent.com/xVgqu1sLpSt6iPPwCIB09rkSgkmsroDq91UuwMElTXDCAjw_ccfsJrRJlBShveuuGLU=w240-h480-rw"),
             Project(title: "Gangs of Greenpur", logoUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxg2VdN56bgPRq9D0_Ih6mJDPrWGnkOnCbWYBfg9tflBq1p4KZzlXeXq1e67aIpGltVZdEn3hxqxQe3VAuns4b3GZaNVbJ5qM4uhNzkRTYAGW4AbuPCkD6mf55t9Dy-EEtR26W4bcyiDx9pRX-iWQHh7lFEBgFVO19N51e_I0Pn2CZg2kRRq96yJbtcgQ/s320/gog_logo.png"),
             Project(title: "95 Club", logoUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEijbnCSKWmDGgrhFQ8yNqzq0esRwr6_9T_K7tyAPEtWtuKS73O8d8AznU_w_CHIyOGEFtbv-ycC-M9eoKbHO35CTIKBrBOwTd5NYpXmW-J5SRz4qomVTrmhyphenhyphenFL3A8BMvwfAsgjKeL3ewAQ_pCe_Pc6gEI8BqUeSSuw1rbXd0ZdubYCZaXJrCJOZT2Q1VhQ/s1024/app_logo.jpg"),
-            Project(title: "Bhumi Technocare", logoUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh1oYj4l5Ty26T5fPGESet3aynoGMC2eSbPNe1FnOAEB_XG4ATZ1Ovnd4wv48qa92mcESymqrgtjk-ugDhr56yOPa3lNFg5A2L8JbnAOg09ZR2mH7ns2XNPXi4RXLJDQanTSsr7naPS8asAtft3y0MzcgFnBFsqpuqOgmuW2bEWk0fYeXE2yrLM7TZGjn8/s562/bhumi_logo.jpg")
+            Project(title: "Bhumi Technocare", logoUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh1oYj4l5Ty26T5fPGESet3aynoGMC2eSbPNe1FnOAEB_XG4ATZ1Ovnd4wv48qa92mcESymqrgtjk-ugDhr56yOPa3lNFg5A2L8JbnAOg09ZR2mH7ns2XNPXi4RXLJDQanTSsr7naPS8asAtft3y0MzcgFnBFsqpuqOgmuW2bEWk0fYeXE2yrLM7TZGjn8/s562/bhumi_logo.jpg"),
+            Project(title: "The Laundry lounge", logoUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhrIttNsBm7mBISxUTEo0C7ne3-VPQMfoiJ9l3vBAaOZVQZ9YD3vwFRd3MB1H6AhuTF2ibK3Mtu9110O-f7brwFIXvZ0sc8A7obOZCdPJdjtlbLtXq_3sApHn1lCaqa6YiiX243gnVZNXL_YEDtsCdTzeuddiqWtn6I5Ks5I5Z5XAaE2sbUB3RWhWfiwzA/s320/tll_logo.jpg")
 
           ]
         )

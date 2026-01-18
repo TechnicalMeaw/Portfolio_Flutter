@@ -31,9 +31,36 @@ class HomePage extends StatelessWidget {
             child: Image.asset(
               AssetConstants.imgBackgroundImage,
               fit: BoxFit.cover,
+              // color: ColorConstants.glassBlack,
             ),
           ),
-
+          Obx(()=>
+              AnimatedOpacity(
+              duration: const Duration(milliseconds: 800),
+              opacity: BaseGetXController.currentTab.value != 100 ? 0.05 : 0.2,
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Image.asset(
+                  AssetConstants.imgInitialBackgroundImage,
+                  fit: BoxFit.cover,
+                  // color: ColorConstants.glassBlack,
+                ),
+              ),
+            ),
+          ),
+          Obx(()=>
+              AnimatedContainer(
+                duration: Duration(milliseconds: BaseGetXController.currentTab.value == 100 ? 800 : 1000),
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  gradient: RadialGradient(
+                    radius: 1.5,
+                      colors: _viewModel.getBgGradient(BaseGetXController.currentTab.value)),
+                ),
+              ),
+          ),
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Align(alignment: Alignment.center,

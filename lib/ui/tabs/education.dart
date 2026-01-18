@@ -49,13 +49,14 @@ class EducationTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRect(
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(16),
         child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+            filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
             child:
             Container(
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),
-                  color: ColorConstants.glassWhite.withOpacity(0.1),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+                  color: ColorConstants.glassWhite.withOpacity(0.04),
                   border: Border.all(color: ColorConstants.glassWhite, width: 1)              ),
               child: Column(
                 children: [
@@ -88,9 +89,16 @@ class EducationTab extends StatelessWidget {
                   // Main Content
                   Expanded(
                     child: Container(
-                      color: ColorConstants.glassBlack.withOpacity(0.1),
-                      child: Center(
-                        child:  Text("Coming Soon"),
+                      padding: const EdgeInsets.all(1.5),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: ColorConstants.glassBlack.withOpacity(0.1),
+                          border: Border.all(
+                              color: ColorConstants.glassWhite.withOpacity(0.2),
+                              width: 1)
+                      ),
+                      child: const Center(
+                        child:  Text("Coming Soon", style: TextStyle(color: ColorConstants.glassWhite),),
                       ),
                     ),
                   )

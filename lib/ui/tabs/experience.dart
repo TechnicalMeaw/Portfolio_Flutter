@@ -847,11 +847,11 @@ class ExperienceTab extends StatelessWidget {
               return Center(child:
               PieChart(
                   size: Size(constraints.maxWidth/2.8, constraints.maxWidth/2.8),
-                  textDistance: 15,
-                  textGap: 15,
-                  isLabelVisible: false,
+                  textDistance: 12,
+                  textGap: 24,
+                  isLabelVisible: true,
                   stroke: 1.3,
-                  textCenterAdjustmentOffset: const Offset(-10, -8),
+                  textCenterAdjustmentOffset: const Offset(-14, -6),
                   dataList: viewModel.technologyStackList
               ));
             },
@@ -902,8 +902,8 @@ class ExperienceTab extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(width: 16,),
-                              Text(viewModel.technologyStackList[index].title, style:
-                                TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: ColorConstants.white.withAlpha(236)),)
+                              Text("${viewModel.technologyStackList[index].title} (${viewModel.technologyStackList[index].percentage}%)", style:
+                                TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: ColorConstants.white.withAlpha(236)),)
                             ],),
                         )
                     ),
@@ -938,11 +938,11 @@ class ExperienceTab extends StatelessWidget {
           PieChart(
               size: Size(constraints.maxWidth/1.65 > 200 ? 200 : constraints.maxWidth/1.9 < 180 ? constraints.maxWidth/2.1 : constraints.maxWidth/1.75,
                   constraints.maxWidth/1.65 > 200 ? 200 : constraints.maxWidth/1.9 < 180 ? constraints.maxWidth/2.1 : constraints.maxWidth/1.75),
-              textDistance: 10,
-              textGap: 20,
-              isLabelVisible: false,
+              textDistance: 12,
+              textGap: 24,
+              isLabelVisible: true,
               stroke: 1.3,
-              textCenterAdjustmentOffset: const Offset(-14, -10),
+              textCenterAdjustmentOffset: const Offset(-14, -6),
               dataList: viewModel.technologyStackList
           ),
         ),
@@ -983,8 +983,8 @@ class ExperienceTab extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 12,),
-                  Text(viewModel.technologyStackList[index].title, style:
-                    TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(236)),)
+                  Text("${viewModel.technologyStackList[index].title} (${viewModel.technologyStackList[index].percentage}%)", style:
+                    TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(236)),)
                 ],),
           ),
         ),
@@ -1045,11 +1045,11 @@ class ExperienceTab extends StatelessWidget {
                             child:
                             PieChart(
                                 size: Size(constraints.maxWidth/1.9 > 150 ? 150 : constraints.maxWidth/1.9, constraints.maxWidth/1.9 > 150 ? 150 : constraints.maxWidth/1.9),
-                                textDistance: 10,
-                                textGap: 20,
-                                isLabelVisible: false,
+                                textDistance: 12,
+                                textGap: 24,
+                                isLabelVisible: true,
                                 stroke: 1,
-                                textCenterAdjustmentOffset: const Offset(-14, -10),
+                                textCenterAdjustmentOffset: const Offset(-8, -6),
                                 dataList: viewModel.programmingLanguageList
                             ),
                           ),
@@ -1090,8 +1090,8 @@ class ExperienceTab extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(width: 12,),
-                                    Text(viewModel.programmingLanguageList[index].title, style:
-                                      TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(236)),)
+                                    Text("${viewModel.technologyStackList[index].title} (${viewModel.technologyStackList[index].percentage}%)", style:
+                                      TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(236)),)
                                   ],),
                             ),
                           ),
@@ -1160,11 +1160,11 @@ class ExperienceTab extends StatelessWidget {
                             child:
                             PieChart(
                                 size: Size(constraints.maxWidth/1.9 > 150 ? 150 : constraints.maxWidth/1.9, constraints.maxWidth/1.9 > 150 ? 150 : constraints.maxWidth/1.9),
-                                textDistance: 10,
-                                textGap: 20,
-                                isLabelVisible: false,
+                                textDistance: 12,
+                                textGap: 24,
+                                isLabelVisible: true,
                                 stroke: 1,
-                                textCenterAdjustmentOffset: const Offset(-14, -10),
+                                textCenterAdjustmentOffset: const Offset(-14, -6),
                                 dataList: viewModel.domainKnowledgeList
                             ),
                           ),
@@ -1205,8 +1205,8 @@ class ExperienceTab extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(width: 12,),
-                                    Text(viewModel.domainKnowledgeList[index].title, style:
-                                      TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(236)),)
+                                    Text("${viewModel.technologyStackList[index].title} (${viewModel.technologyStackList[index].percentage}%)", style:
+                                      TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(236)),)
                                   ],),
                             ),
                           ),

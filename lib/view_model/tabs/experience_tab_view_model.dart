@@ -565,15 +565,17 @@ class ExperienceTabViewModel extends BaseGetXController {
 
   void addTechnologyStackData(){
     technologyStackList = [
-      PieChartDataModel(title: "Android Development", color: ColorConstants.textBlue, percentage: 16),
-      PieChartDataModel(title: "Flutter", color: ColorConstants.blue, percentage: 25),
-      PieChartDataModel(title: "FastAPI", color: ColorConstants.darkQueenViolet.withOpacity(0.85), percentage: 18),
+      PieChartDataModel(title: "Flutter", color: ColorConstants.blue1, percentage: 25),
+      PieChartDataModel(title: "FastAPI", color: ColorConstants.grassGreen, percentage: 18),
       PieChartDataModel(title: "AWS", color: ColorConstants.minimizeYellow, percentage: 13),
-      PieChartDataModel(title: "Django", color: ColorConstants.grassGreen, percentage: 8),
+
+      PieChartDataModel(title: "Django", color: ColorConstants.darkQueenViolet.withOpacity(0.85), percentage: 8),
+
+      PieChartDataModel(title: "Android Development", color: ColorConstants.textBlue, percentage: 16),
+      PieChartDataModel(title: "Firebase", color: ColorConstants.orange, percentage: 8),
 
       PieChartDataModel(title: "PostgresQL", color: ColorConstants.cyanBlue, percentage: 5),
-      PieChartDataModel(title: "Unity 2D", color: ColorConstants.queenViolet, percentage: 3),
-      PieChartDataModel(title: "Firebase", color: ColorConstants.orange, percentage: 8),
+      PieChartDataModel(title: "Unity 2D", color: ColorConstants.deepQueenViolet, percentage: 3),
 
       PieChartDataModel(title: "Docker", color: ColorConstants.teal, percentage: 2),
       PieChartDataModel(title: "Amplify", color: ColorConstants.deepTeal.withOpacity(0.7), percentage: 2),
@@ -602,8 +604,8 @@ class ExperienceTabViewModel extends BaseGetXController {
       PieChartDataModel(title: "Cyber Security", color: ColorConstants.queenViolet, percentage: 12),
 
       PieChartDataModel(title: "Product Development", color: ColorConstants.grassGreen, percentage: 9),
-      PieChartDataModel(title: "DBMS", color: ColorConstants.lightYellow, percentage: 7),
-      PieChartDataModel(title: "Leadership", color: ColorConstants.darkQueenViolet, percentage: 6),
+      PieChartDataModel(title: "Leadership", color: ColorConstants.lightYellow, percentage: 6),
+      PieChartDataModel(title: "DBMS", color: ColorConstants.darkQueenViolet, percentage: 7),
       PieChartDataModel(title: "CI/CD", color: ColorConstants.blue1, percentage: 4),
       // PieChartDataModel(title: "Game Development", color: ColorConstants.minimizeYellow, percentage: 4),
 

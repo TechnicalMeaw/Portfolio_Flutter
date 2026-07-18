@@ -29,6 +29,7 @@ class ColorConstants{
   static const cyanBlue1 = Color(0xFF00F7FF);
   static const lightCyanBlue = Color(0xFF77FFFF);
   static const lightYellow = Color(0xFFFFEA00);
+  static const yoloYellow = Color(0xCCDCAA00);
 
 
   static const grassGreen = Color(0xFF00a62f);
@@ -38,6 +39,7 @@ class ColorConstants{
   static const highlightQueenViolet = Color(0xff5e00b5);
   static const darkQueenViolet = Color(0xff350048);
   static const orange = Color(0xffff8800);
+  static const deepOrange = Color(0xffff7200);
   static const teal = Color(0xff20d6a0);
 
   static const tealAccent = Color(0xff00f7ff);

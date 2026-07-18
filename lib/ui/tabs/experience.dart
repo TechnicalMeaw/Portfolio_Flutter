@@ -1205,7 +1205,7 @@ class ExperienceTab extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(width: 12,),
-                                    Text("${viewModel.technologyStackList[index].title} (${viewModel.technologyStackList[index].percentage}%)", style:
+                                    Text("${viewModel.domainKnowledgeList[index].title} (${viewModel.domainKnowledgeList[index].percentage}%)", style:
                                       TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: ColorConstants.white.withAlpha(236)),)
                                   ],),
                             ),

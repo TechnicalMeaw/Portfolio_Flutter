@@ -5,14 +5,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+
+  <!-- Primary SEO -->
   <title>Santanu Mukherjee | Flutter, FastAPI & AWS Developer Portfolio</title>
+  <meta name="description" content="Santanu Mukherjee – Flutter Developer & Backend Engineer specializing in FastAPI, AWS, and scalable full-stack apps with Python, Kotlin, Dart, and PostgreSQL." />
+  <meta name="keywords" content="Santanu Mukherjee, Flutter Developer, FastAPI Developer, AWS Developer, Backend Engineer, Python, Dart, Kotlin, PostgreSQL, Mobile App Developer, Portfolio, Technical Blog" />
+  <meta name="author" content="Santanu Mukherjee" />
+  <link rel="canonical" href="https://santanumukherjee.com/" />
 
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Santanu Mukherjee – Flutter Developer & Backend Engineer specializing in FastAPI, AWS, and scalable full-stack apps with Python, Kotlin, Dart, and PostgreSQL. Hire for modern mobile/web app development.">
-  <meta name="keywords" content="Flutter Developer, FastAPI, AWS Developer, Backend Engineer, Python, Dart, Kotlin, PostgreSQL, Supabase, Django, Mobile App Developer, Android, Java, Go, Gin, Full Stack Developer, Santanu Mukherjee, Freelance Developer, Hire Flutter Developer, API Developer, AWS Lambda, Cloud Functions, Firebase, Software Engineer Portfolio">
-  <meta name="author" content="Santanu Mukherjee">
-
-  <!-- Open Graph / Facebook -->
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
   <meta property="og:title" content="Santanu Mukherjee | Flutter, FastAPI & AWS Developer Portfolio" />
   <meta property="og:description" content="Explore Santanu Mukherjee's full-stack projects using Flutter, FastAPI, AWS, and Python. Build scalable apps from UI to backend infrastructure." />
   <meta property="og:image" content="https://santanumukherjee.com/preview.png" />
@@ -20,10 +22,34 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Santanu Mukherjee | Flutter & Backend Engineer" />
+  <meta name="twitter:description" content="Portfolio and technical blog of Santanu Mukherjee – Flutter, FastAPI & AWS Engineer." />
+  <meta name="twitter:image" content="https://santanumukherjee.com/preview.png" />
 
+  <!-- Icons -->
   <link rel="icon" href="favicon.png" />
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
   <link rel="manifest" href="manifest.json">
+
+  <!-- Cross-site identity -->
+  <link rel="me" href="https://blog.santanumukherjee.com" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Santanu Mukherjee",
+      "url": "https://santanumukherjee.com",
+      "sameAs": [
+        "https://blog.santanumukherjee.com",
+        "https://github.com/technicalmeaw",
+        "https://www.linkedin.com/in/mukherjee-santanu/",
+        "https://x.com/SantanuM_",
+        "https://www.instagram.com/santanu.mukherjee_"
+      ]
+    }
+  </script>
 
   <script>const serviceWorkerVersion = null;</script>
   <script src="flutter.js" defer></script>
@@ -277,6 +303,24 @@
       margin-right: 8px;
     }
 
+    .blog-link {
+      margin-top: 6px;
+      font-size: 12px;
+      color: rgba(148, 163, 184, 0.6);
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards 0.9s; /* appears after subtitle */
+    }
+
+    .blog-link a {
+      color: rgba(59, 130, 246, 0.7);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .blog-link a:hover {
+      color: #3b82f6;
+    }
+
     @keyframes fadeInUp {
       to {
         opacity: 1;
@@ -317,7 +361,15 @@
 <!-- SEO Content for Google -->
 <div style="position: absolute; left: -9999px; visibility: hidden;">
   <h1>Santanu Mukherjee – Flutter, FastAPI & Cloud App Developer</h1>
-  <p>I specialize in building production-grade mobile and web apps using Flutter and backend APIs using FastAPI, Python, and AWS. With deep experience in Dart, Kotlin, PostgreSQL, Supabase, Django, and scalable cloud architectures, I help startups, agencies, and businesses bring full-stack solutions to life — from UI to deployment.</p>
+  <p>
+    I specialize in building production-grade mobile and web apps using Flutter and backend APIs
+    using FastAPI, Python, and AWS. With deep experience in Dart, Kotlin, PostgreSQL, Supabase,
+    Django, and scalable cloud architectures, I help startups and businesses build full-stack solutions.
+  </p>
+  <p>
+    Read my technical blog at
+    <a href="https://blog.santanumukherjee.com">https://blog.santanumukherjee.com</a>
+  </p>
 </div>
 
 <div id="boot-loader">
@@ -330,7 +382,14 @@
           <div class="role">Software Engineer</div>
         </div>
       </div>
-      <div class="subtitle">Initializing portfolio experience</div>
+      <div class="subtitle">
+        Initializing portfolio experience
+      </div>
+      <div class="blog-link">
+        Reading notes at
+        <a href="https://blog.santanumukherjee.com">blog.santanumukherjee.com</a>
+      </div>
+
     </div>
 
     <div class="loading-section">

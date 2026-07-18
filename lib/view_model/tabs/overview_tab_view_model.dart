@@ -63,6 +63,7 @@ class OverviewTabViewModel extends BaseGetXController {
   RxBool link2Hovered = false.obs;
   RxBool link3Hovered = false.obs;
   RxBool link4Hovered = false.obs;
+  RxBool link5Hovered = false.obs;
 
   RxBool isSkillsVisible = false.obs;
 

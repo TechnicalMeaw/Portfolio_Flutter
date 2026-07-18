@@ -109,7 +109,7 @@ class OverviewTab extends StatelessWidget {
                       blurRadius: isHoveredVariable.value ? 12 : 6,
                       spreadRadius: isHoveredVariable.value ? 2 : 1,
                     ),
-                  ]
+                  ],
                 ),
                 child: Image(
                             height: 18,
@@ -174,7 +174,7 @@ class OverviewTab extends StatelessWidget {
     required RxBool visibilityFlag,
     required Widget content,
     required BoxDecoration sectionDecoration,
-    EdgeInsets padding = const EdgeInsets.all(32.0), // Default padding
+    EdgeInsets padding = const EdgeInsets.all(48.0), // Default padding
     double blurSigma = 15.0,
     BoxConstraints? boxConstrains
   }) {
@@ -185,7 +185,7 @@ class OverviewTab extends StatelessWidget {
       child: Container(
         constraints: boxConstrains,
         decoration: sectionDecoration.copyWith( // Ensure borderRadius is applied consistently
-          borderRadius: sectionDecoration.borderRadius ?? BorderRadius.circular(32),
+          borderRadius: sectionDecoration.borderRadius ?? BorderRadius.circular(56),
           border: sectionDecoration.border ??
               Border.all(
                   color: ColorConstants.glassWhite.withOpacity(0.6),
@@ -194,7 +194,7 @@ class OverviewTab extends StatelessWidget {
         child: ClipRRect(
           borderRadius: sectionDecoration.borderRadius != null
               ? (sectionDecoration.borderRadius as BorderRadius)
-              : BorderRadius.circular(32),
+              : BorderRadius.circular(56),
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: blurSigma, sigmaY: blurSigma),
             child: Padding(
@@ -229,13 +229,13 @@ class OverviewTab extends StatelessWidget {
             () => InkWell(
           onTap: onTap,
           onHover: (hovering) => isHovered.value = hovering,
-          borderRadius: BorderRadius.circular(32),
+          borderRadius: BorderRadius.circular(56),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             constraints: const BoxConstraints(minWidth: 250),
-            margin: EdgeInsets.symmetric(horizontal: 8),
+            margin: EdgeInsets.symmetric(horizontal: 6),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(32),
+              borderRadius: BorderRadius.circular(56),
               border: Border.all(
                   color: isHovered.value ? ColorConstants.white : ColorConstants.glassWhite.withOpacity(0.6),
                   width: 1),
@@ -247,7 +247,7 @@ class OverviewTab extends StatelessWidget {
               ),
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(32),
+              borderRadius: BorderRadius.circular(56),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
                 child: Stack(
@@ -268,7 +268,7 @@ class OverviewTab extends StatelessWidget {
                             Text(
                               "${kpiValue.value}$suffix",
                               style: TextStyle(
-                                fontSize: 36,
+                                fontSize: 34,
                                 fontWeight: FontWeight.w700,
                                 color: isHovered.value ? textHoverColor.withAlpha(236) : textColor.withAlpha(236),
                                 shadows: const <Shadow>[
@@ -490,7 +490,7 @@ class OverviewTab extends StatelessWidget {
               width: tileWidth,
               height: tileHeight,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(32),
+                borderRadius: BorderRadius.circular(48),
                 border: Border.all( // Added border for better definition and hover effect
                   color: isHovered
                       ? ColorConstants.cyanBlue.withOpacity(0.6)
@@ -519,7 +519,7 @@ class OverviewTab extends StatelessWidget {
                 ],
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(32), // Slightly less than container to ensure border visibility
+                borderRadius: BorderRadius.circular(48), // Slightly less than container to ensure border visibility
                 child: Stack(
                   children: [
                     // Background Image
@@ -655,7 +655,7 @@ class OverviewTab extends StatelessWidget {
                 height: tileHeight,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(32),
+                  borderRadius: BorderRadius.circular(48),
                   border: Border.all(
                       color: isHovered ? ColorConstants.cyanBlue.withOpacity(0.5) : ColorConstants.glassWhite.withOpacity(0.3),
                       width: 1.5
@@ -895,7 +895,7 @@ class OverviewTab extends StatelessWidget {
                     colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.01), BlendMode.dstATop),
                   )
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 32.0), // Wrapper's internal padding
+              padding: const EdgeInsets.symmetric(horizontal: 48.0, vertical: 48.0), // Wrapper's internal padding
               content: projectSectionContent,
             );
           }
@@ -1008,7 +1008,7 @@ class OverviewTab extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   color: Colors.white.withOpacity(0.2),
                                   borderRadius:
-                                  BorderRadius.circular(isAtBottom ? 16 : 16),
+                                  BorderRadius.circular(isAtBottom ? 20 : 20),
                                   border: Border.all(
                                       color: ColorConstants.glassWhite
                                           .withOpacity(0.4),
@@ -1026,7 +1026,7 @@ class OverviewTab extends StatelessWidget {
                                         color: ColorConstants.indicatorHighlight
                                             .withOpacity(scrollProgress),
                                         borderRadius: BorderRadius.circular(
-                                            isAtBottom ? 16 : 16),
+                                            isAtBottom ? 18 : 20),
                                       ),
                                     ),
                                     isAtBottom
@@ -1085,7 +1085,7 @@ class OverviewTab extends StatelessWidget {
               Stack(
                 children: [
                   Container(
-                    height: 154,
+                    height: 172,
                     // margin: const EdgeInsets.only(top: 4),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
@@ -1104,8 +1104,8 @@ class OverviewTab extends StatelessWidget {
                                   : (constraints.maxWidth * viewModel.bannerWidth.value),
                               decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.only(
-                                    topRight: Radius.circular(32),
-                                    bottomRight: Radius.circular(32)),
+                                    topRight: Radius.circular(48),
+                                    bottomRight: Radius.circular(48)),
                                 border: Border.all(
                                     color: ColorConstants.glassWhite.withOpacity(0.6),
                                     width: 1),
@@ -1128,7 +1128,7 @@ class OverviewTab extends StatelessWidget {
                                 ],
                               ),
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(24),
+                                borderRadius: BorderRadius.circular(44),
                                 child: BackdropFilter(
                                   filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
                                   child: Padding(
@@ -1213,10 +1213,10 @@ class OverviewTab extends StatelessWidget {
                     ),
                   ),
                   Container(
-                      height: 154,
-                      width: 154,
+                      height: 172,
+                      width: 172,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(77),
+                        borderRadius: BorderRadius.circular(86),
                         border: Border.all(width: 1, color: ColorConstants.glassWhite),
                         boxShadow: [
                           BoxShadow(
@@ -1348,7 +1348,7 @@ class OverviewTab extends StatelessWidget {
                           width: constraints.maxWidth,
                           child: CarouselSlider(
                               options: CarouselOptions(
-                                  height: 212.0,
+                                  height: 200.0,
                                   animateToClosest: true,
                                   enlargeCenterPage: true,
                                   autoPlay: true,
@@ -1446,7 +1446,7 @@ class OverviewTab extends StatelessWidget {
         if (!isMobileView)
         const SizedBox(height: 8,),
         Padding(
-          padding: isMobileView ? const EdgeInsets.symmetric(horizontal: 8, vertical: 8) : const EdgeInsets.all(8.0),
+          padding: isMobileView ? const EdgeInsets.symmetric(horizontal: 8, vertical: 8) : const EdgeInsets.only(right: 8.0, top: 8, bottom: 8, left: 4),
           child: _buildAnimatedSectionWrapper(
             visibilityFlag: viewModel.isSkillsVisible,
             sectionDecoration: BoxDecoration(
@@ -1457,7 +1457,7 @@ class OverviewTab extends StatelessWidget {
                   colorFilter: ColorFilter.mode(ColorConstants.white.withOpacity(0.035), BlendMode.dstATop),
                 )
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            padding: const EdgeInsets.symmetric(horizontal: 48.0, vertical: 16),
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -1510,7 +1510,7 @@ class OverviewTab extends StatelessWidget {
         ),
         SizedBox(height: isMobileView ? 16 : 8),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: isMobileView ? const EdgeInsets.symmetric(horizontal: 8.0) : const EdgeInsets.only(left: 4, right: 8),
           child: _buildAnimatedSectionWrapper(
             visibilityFlag: viewModel.isKPI1Visible,
             sectionDecoration: BoxDecoration(
@@ -1524,12 +1524,13 @@ class OverviewTab extends StatelessWidget {
                   stops: const [0.0, 1.0],
                   tileMode: TileMode.clamp),
             ),
-            padding: const EdgeInsets.all(32),
+            padding: const EdgeInsets.all(48),
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Text("Links", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: ColorConstants.white)),
                 const SizedBox(height: 16),
+                // _buildLinkItem(linkText: "Blog", url: 'https://blog.santanumukherjee.com', isHoveredVariable: viewModel.link5Hovered),
                 _buildLinkItem(linkText: "SBI General Insurance", url: 'https://play.google.com/store/apps/details?id=com.sbig.insurance', isHoveredVariable: viewModel.link1Hovered),
                 _buildLinkItem(linkText: "Manipal Doctors", url: 'https://apps.apple.com/in/app/manipal-doctors/id6741423418', isHoveredVariable: viewModel.link2Hovered),
                 _buildLinkItem(linkText: "Care Health Insurance", url: 'https://play.google.com/store/apps/details?id=com.religare.healthinsurance', isHoveredVariable: viewModel.link3Hovered),
@@ -1543,7 +1544,7 @@ class OverviewTab extends StatelessWidget {
     );
   }
 
-  Widget skillRatingWidget({required String skillName, required int rating}) {
+  Widget skillRatingWidget({required String skillName, required int rating, String? logo}) {
     return LayoutBuilder(
       builder: (context, constraints) => SizedBox(
         width: constraints.maxWidth,
@@ -1627,23 +1628,31 @@ class OverviewTab extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 6),
-                child: Text(skillName,
-                    softWrap: true,
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: ColorConstants.white.withAlpha(236),
-                        shadows: <Shadow>[
-                          Shadow(
-                              offset: const Offset(0.0, 2.0),
-                              blurRadius: 15.0,
-                              color: ColorConstants.textBlue.withAlpha(150)),
-                          Shadow(
-                              offset: const Offset(0.0, 2.0),
-                              blurRadius: 15.0,
-                              color: ColorConstants.black.withAlpha(150))
-                        ]),
-                    overflow: TextOverflow.visible),
+                child: Row(
+                  children: [
+                    if (logo != null && logo.isNotEmpty)
+                      ...[Image.asset(logo),
+                        const SizedBox(width: 6,)
+                      ],
+                    Text(skillName,
+                        softWrap: true,
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: ColorConstants.white.withAlpha(236),
+                            shadows: <Shadow>[
+                              Shadow(
+                                  offset: const Offset(0.0, 2.0),
+                                  blurRadius: 15.0,
+                                  color: ColorConstants.textBlue.withAlpha(150)),
+                              Shadow(
+                                  offset: const Offset(0.0, 2.0),
+                                  blurRadius: 15.0,
+                                  color: ColorConstants.black.withAlpha(150))
+                            ]),
+                        overflow: TextOverflow.visible),
+                  ],
+                ),
               ),
             ),
           ],

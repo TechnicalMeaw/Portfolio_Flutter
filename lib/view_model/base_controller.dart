@@ -5,7 +5,7 @@ import 'package:portfolio/view_model/tabs/education_tab_view_model.dart';
 import 'package:portfolio/view_model/tabs/experience_tab_view_model.dart';
 import 'package:portfolio/view_model/tabs/overview_tab_view_model.dart';
 import 'package:portfolio/view_model/tabs/projects_tab_view_model.dart';
-import 'dart:js' as js;
+import 'package:url_launcher/url_launcher.dart';
 
 abstract class BaseGetXController extends GetxController with GetSingleTickerProviderStateMixin{
 
@@ -62,15 +62,16 @@ abstract class BaseGetXController extends GetxController with GetSingleTickerPro
     tabController.animateTo(2);
   }
 
-  void animateToEducationTab(){
-    educationTabViewModel.animateToEducationTab();
-    _allTabsStackStatus[3].value = true;
-    _backgroundTabsStackStatus[3].value = false;
-    if(currentTab.value <4 ) {
-      _backgroundTabsStackStatus[currentTab.value].value = true;
-    }
-    currentTab.value = 3;
-    tabController.animateTo(3);
+  void animateToBlog(){
+    // educationTabViewModel.animateToEducationTab();
+    // _allTabsStackStatus[3].value = true;
+    // _backgroundTabsStackStatus[3].value = false;
+    // if(currentTab.value <4 ) {
+    //   _backgroundTabsStackStatus[currentTab.value].value = true;
+    // }
+    // currentTab.value = 3;
+    // tabController.animateTo(3);
+    launchUrl(Uri.parse("https://blog.santanumukherjee.com"));
   }
 
 
@@ -114,13 +115,13 @@ abstract class BaseGetXController extends GetxController with GetSingleTickerPro
     super.onInit();
   }
 
-  void trackConversion() {
-    js.context.callMethod('gtag', ['event', 'conversion', {
-      'send_to': 'AW-653545766/PLhyCM3P3J0aEKai0bcC',
-      'value': 1.0,
-      'currency': 'INR'
-    }]);
-  }
+  // void trackConversion() {
+  //   js.context.callMethod('gtag', ['event', 'conversion', {
+  //     'send_to': 'AW-653545766/PLhyCM3P3J0aEKai0bcC',
+  //     'value': 1.0,
+  //     'currency': 'INR'
+  //   }]);
+  // }
 
 
   @override

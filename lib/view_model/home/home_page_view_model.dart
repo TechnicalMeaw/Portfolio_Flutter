@@ -149,8 +149,8 @@ class HomePageViewModel extends BaseGetXController with GetTickerProviderStateMi
     switch(index) {
       case 0:
         return [
-          ColorConstants.cyanBlue.withAlpha(70),
-          ColorConstants.deepTextBlue.withAlpha(20),
+          ColorConstants.cyanBlue.withAlpha(80),
+          ColorConstants.deepTextBlue.withAlpha(60),
         ];
       case 1:
         return [

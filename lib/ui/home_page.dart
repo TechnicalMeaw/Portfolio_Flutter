@@ -399,7 +399,7 @@ class HomePage extends StatelessWidget {
     ),
     _mainTabWidget(
       onClick: () {
-        viewModel.animateToEducationTab();
+        viewModel.animateToBlog();
         _viewModel.overviewAnimationController.stop(); // Stop animation on user tap
         _viewModel.overviewScaleAnimation.value = null; // scale to default
         _viewModel.overviewOpacityAnimation.value = null;
@@ -407,7 +407,7 @@ class HomePage extends StatelessWidget {
       },
       logo: AssetConstants.icEducation,
       isHovered: viewModel.isEducationBtnHovered,
-      toolTipText: "Education",
+      toolTipText: "Blog",
       isInMemoryStack: viewModel.isTabInMemoryStack(3),
       currentTab: BaseGetXController.currentTab,
       index: 3,

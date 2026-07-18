@@ -238,7 +238,7 @@ class ProjectsTab extends StatelessWidget {
                   opacity: viewModel.isProject2Visible.value ? 1: 0,
                   curve: Curves.easeIn,
                   child: InkWell(
-                    onTap: isAtBottom ? () => viewModel.animateToEducationTab() :
+                    onTap: isAtBottom ? () => viewModel.animateToBlog() :
                         ()=> viewModel.scrollController.animateTo(viewModel.scrollController.offset + constraints.maxHeight/1.5, duration: const Duration(milliseconds: 1000), curve: Curves.easeInOut),
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 300),

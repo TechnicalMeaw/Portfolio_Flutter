@@ -1,9 +1,9 @@
 import 'dart:ui';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portfolio/bloc/projects_cubit.dart';
 import 'package:portfolio/resources/color_constants.dart';
-import 'package:portfolio/view_model/tabs/projects_tab_view_model.dart';
 
 enum ProjectStyle { violet, blue }
 enum ProjectAlignment { leftThumb, rightThumb }
@@ -31,60 +31,102 @@ class ProjectData {
 }
 
 class ProjectWidget extends StatelessWidget {
-  final ProjectsTabViewModel viewModel;
+  final int projectIndex;
   final ProjectData projectData;
   final ProjectStyle style;
   final ProjectAlignment projectAlignment;
-  final RxBool isVisible;
-  final RxBool imageVisible;
-  final RxBool descVisible;
-  final RxBool buttonHovered;
 
   const ProjectWidget({
     super.key,
-    required this.viewModel,
+    required this.projectIndex,
     required this.projectData,
     required this.style,
     required this.projectAlignment,
-    required this.isVisible,
-    required this.imageVisible,
-    required this.descVisible,
-    required this.buttonHovered,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-          () => AnimatedOpacity(
-        opacity: isVisible.value ? 1 : 0,
-        duration: const Duration(milliseconds: 800),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Container(
-            decoration: _getContainerDecoration(),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(32),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
-                child: Padding(
-                  padding: const EdgeInsets.all(32),
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return constraints.maxWidth > 800
-                          ? _buildDesktopLayout()
-                          : _buildMobileLayout(constraints);
-                    },
+    return BlocBuilder<ProjectsCubit, ProjectsState>(
+      builder: (context, state) {
+        final isVisible = _getVisibility(state);
+        final imageVisible = _getImageVisibility(state);
+        final descVisible = _getDescVisibility(state);
+        final buttonHovered = _getButtonHovered(state);
+
+        return AnimatedOpacity(
+          opacity: isVisible ? 1 : 0,
+          duration: const Duration(milliseconds: 800),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Container(
+              decoration: _getContainerDecoration(),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(32),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(32),
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return constraints.maxWidth > 800
+                            ? _buildDesktopLayout()
+                            : _buildMobileLayout(constraints);
+                      },
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
-  // Desktop Layout - Horizontal arrangement
+  bool _getVisibility(ProjectsState state) {
+    switch (projectIndex) {
+      case 1: return state.isProject1Visible;
+      case 2: return state.isProject2Visible;
+      case 3: return state.isProject3Visible;
+      case 4: return state.isProject4Visible;
+      case 5: return state.isProject5Visible;
+      default: return false;
+    }
+  }
+
+  bool _getImageVisibility(ProjectsState state) {
+    switch (projectIndex) {
+      case 1: return state.isProject1ImageVisible;
+      case 2: return state.isProject2ImageVisible;
+      case 3: return state.isProject3ImageVisible;
+      case 4: return state.isProject4ImageVisible;
+      case 5: return state.isProject5ImageVisible;
+      default: return false;
+    }
+  }
+
+  bool _getDescVisibility(ProjectsState state) {
+    switch (projectIndex) {
+      case 1: return state.isProject1DescVisible;
+      case 2: return state.isProject2DescVisible;
+      case 3: return state.isProject3DescVisible;
+      case 4: return state.isProject4DescVisible;
+      case 5: return state.isProject5DescVisible;
+      default: return false;
+    }
+  }
+
+  bool _getButtonHovered(ProjectsState state) {
+    switch (projectIndex) {
+      case 1: return state.isProject1KnowMoreBtnHovered;
+      case 2: return state.isProject2KnowMoreBtnHovered;
+      case 3: return state.isProject3KnowMoreBtnHovered;
+      case 4: return state.isProject4KnowMoreBtnHovered;
+      case 5: return state.isProject5KnowMoreBtnHovered;
+      default: return false;
+    }
+  }
+
   Widget _buildDesktopLayout() {
     if (projectAlignment == ProjectAlignment.leftThumb) {
       return Row(
@@ -109,7 +151,6 @@ class ProjectWidget extends StatelessWidget {
     }
   }
 
-  // Mobile Layout - Vertical arrangement
   Widget _buildMobileLayout(BoxConstraints constraints) {
     return Column(
       children: [
@@ -120,7 +161,6 @@ class ProjectWidget extends StatelessWidget {
     );
   }
 
-  // Container decoration based on project style
   BoxDecoration _getContainerDecoration() {
     final baseDecoration = BoxDecoration(
       border: Border.all(
@@ -134,8 +174,6 @@ class ProjectWidget extends StatelessWidget {
       return baseDecoration.copyWith(
           gradient: LinearGradient(
             colors: [
-              // ColorConstants.highlightQueenViolet.withOpacity(0.30),
-              // ColorConstants.darkQueenViolet.withOpacity(0.24),
               ColorConstants.textBlue.withOpacity(0.15),
               ColorConstants.indicatorHighlight.withOpacity(0.05),
             ],
@@ -160,8 +198,6 @@ class ProjectWidget extends StatelessWidget {
         color: ColorConstants.darkGray,
         gradient: LinearGradient(
           colors: [
-            // ColorConstants.textBlue.withOpacity(0.20),
-            // ColorConstants.deepTextBlue.withOpacity(0.18),
             ColorConstants.textBlue.withOpacity(0.1),
             ColorConstants.deepTextBlue.withOpacity(0.06),
           ],
@@ -184,56 +220,57 @@ class ProjectWidget extends StatelessWidget {
     }
   }
 
-  // Project image widget
   Widget _buildProjectImage(BoxConstraints constraints) {
-    return Obx(
-          () => AnimatedOpacity(
-        duration: const Duration(milliseconds: 700),
-        opacity: imageVisible.value ? 1 : 0,
-        child: Container(
-          width: constraints.maxWidth,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
+    return BlocBuilder<ProjectsCubit, ProjectsState>(
+      builder: (context, state) {
+        return AnimatedOpacity(
+          duration: const Duration(milliseconds: 700),
+          opacity: _getImageVisibility(state) ? 1 : 0,
+          child: Container(
+            width: constraints.maxWidth,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.asset(projectData.imageAsset),
+            ),
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Image.asset(projectData.imageAsset),
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 
-  // Project description widget
   Widget _buildProjectDescription({bool isMobile = false}) {
     final isRightAligned = false;
 
-    return Obx(
-          () => AnimatedOpacity(
-        opacity: descVisible.value ? 1 : 0,
-        duration: const Duration(milliseconds: 800),
-        child: Container(
-          decoration: _getDescriptionDecoration(),
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: isRightAligned
-                ? CrossAxisAlignment.end
-                : CrossAxisAlignment.start,
-            children: [
-              _buildProjectHeader(isRightAligned),
-              const SizedBox(height: 24),
-              _buildBulletPoints(isRightAligned, isMobile),
-              const SizedBox(height: 32),
-              _buildActionButton(isMobile)
-            ],
+    return BlocBuilder<ProjectsCubit, ProjectsState>(
+      builder: (context, state) {
+        return AnimatedOpacity(
+          opacity: _getDescVisibility(state) ? 1 : 0,
+          duration: const Duration(milliseconds: 800),
+          child: Container(
+            decoration: _getDescriptionDecoration(),
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: isRightAligned
+                  ? CrossAxisAlignment.end
+                  : CrossAxisAlignment.start,
+              children: [
+                _buildProjectHeader(isRightAligned),
+                const SizedBox(height: 24),
+                _buildBulletPoints(isRightAligned, isMobile),
+                const SizedBox(height: 32),
+                _buildActionButton(context, isMobile)
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
-  // Project header (title, subtitle, year)
   Widget _buildProjectHeader(bool isRightAligned) {
     return Column(
       crossAxisAlignment: isRightAligned
@@ -294,7 +331,6 @@ class ProjectWidget extends StatelessWidget {
     );
   }
 
-  // Bullet points list
   Widget _buildBulletPoints(bool isRightAligned, bool isMobile) {
     return Column(
       children: projectData.bulletPoints
@@ -306,7 +342,6 @@ class ProjectWidget extends StatelessWidget {
     );
   }
 
-  // Description decoration
   BoxDecoration _getDescriptionDecoration() {
     return BoxDecoration(
       color: ColorConstants.glassWhite.withOpacity(0.56),
@@ -332,7 +367,6 @@ class ProjectWidget extends StatelessWidget {
     );
   }
 
-  // Individual bullet point
   Widget _buildBulletPoint(String title, bool isRightAligned) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -370,8 +404,7 @@ class ProjectWidget extends StatelessWidget {
     );
   }
 
-  // Action button
-  Widget _buildActionButton(bool isMobile) {
+  Widget _buildActionButton(BuildContext context, bool isMobile) {
     return Align(
       alignment: isMobile ? Alignment.center : Alignment.centerLeft,
       child: InkWell(
@@ -381,59 +414,63 @@ class ProjectWidget extends StatelessWidget {
             throw Exception('Could not launch $url');
           }
         },
-        onHover: (isHovered) => buttonHovered.value = isHovered,
-        child: Obx(
-              () => AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-            decoration: BoxDecoration(
-              color: buttonHovered.value
-                  ? ColorConstants.white.withOpacity(0.8)
-                  : ColorConstants.black.withOpacity(0.9),
-              borderRadius: BorderRadius.circular(32),
-              border: Border.all(
-                width: 1,
-                color: buttonHovered.value
-                    ? ColorConstants.black
-                    : ColorConstants.white,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: ColorConstants.glassBlue.withOpacity(0.4),
-                  spreadRadius: 1,
-                  blurRadius: 5,
-                  offset: const Offset(0, 0),
+        onHover: (isHovered) =>
+            context.read<ProjectsCubit>().setProjectKnowMoreHovered(projectIndex, isHovered),
+        child: BlocBuilder<ProjectsCubit, ProjectsState>(
+          builder: (context, state) {
+            final isHovered = _getButtonHovered(state);
+            return AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+              decoration: BoxDecoration(
+                color: isHovered
+                    ? ColorConstants.white.withOpacity(0.8)
+                    : ColorConstants.black.withOpacity(0.9),
+                borderRadius: BorderRadius.circular(32),
+                border: Border.all(
+                  width: 1,
+                  color: isHovered
+                      ? ColorConstants.black
+                      : ColorConstants.white,
                 ),
-              ],
-            ),
-            child: isMobile ? Container(
-              constraints: const BoxConstraints(maxWidth: 220),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    projectData.actionText,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: buttonHovered.value
-                          ? ColorConstants.black
-                          : ColorConstants.white.withAlpha(236),
-                    ),
+                boxShadow: [
+                  BoxShadow(
+                    color: ColorConstants.glassBlue.withOpacity(0.4),
+                    spreadRadius: 1,
+                    blurRadius: 5,
+                    offset: const Offset(0, 0),
                   ),
                 ],
               ),
-            ) : Text(
-              projectData.actionText,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: buttonHovered.value
-                    ? ColorConstants.black
-                    : ColorConstants.white.withAlpha(236),
+              child: isMobile ? Container(
+                constraints: const BoxConstraints(maxWidth: 220),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      projectData.actionText,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: isHovered
+                            ? ColorConstants.black
+                            : ColorConstants.white.withAlpha(236),
+                      ),
+                    ),
+                  ],
+                ),
+              ) : Text(
+                projectData.actionText,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: isHovered
+                      ? ColorConstants.black
+                      : ColorConstants.white.withAlpha(236),
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
     );

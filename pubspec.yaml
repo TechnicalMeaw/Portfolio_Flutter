@@ -35,11 +35,12 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
-  get: ^5.0.0-release-candidate-9.3.2
   intl: ^0.17.0
   carousel_slider: ^5.0.0
   flutter_html: ^3.0.0
   visibility_detector:
+  flutter_bloc: ^9.1.1
+  web: ^1.1.1
 
 dev_dependencies:
   flutter_test:
@@ -64,11 +65,31 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
+  # Assets are enumerated explicitly (rather than as directory globs) because
+  # directory-form asset declarations trigger the Flutter wildcard-asset path
+  # (flutter/flutter issue #56466) that aborts the `flutter build web --wasm`
+  # web_release_bundle step before it copies the static web/ files into
+  # build/web, producing an incomplete bundle and a blank/black screen.
   assets:
-    - assets/images/
-    - assets/icons/
-    - assets/pdf/
+    - assets/images/background_1.jpg
+    - assets/images/background_5.png
+    - assets/images/gog_thumb.png
+    - assets/images/img_profile.jpeg
+    - assets/images/manipal_doctors_thumb.png
+    - assets/images/plantonic_thumb_re.png
+    - assets/images/sbig_thumb_1.png
+    - assets/images/tekx_thumb.png
+    - assets/icons/ic_education.png
+    - assets/icons/ic_email.png
+    - assets/icons/ic_email.svg
+    - assets/icons/ic_experience.png
+    - assets/icons/ic_github.png
+    - assets/icons/ic_linkedin.png
+    - assets/icons/ic_overview.png
+    - assets/icons/ic_phone.png
+    - assets/icons/ic_projects.png
+    - assets/pdf/Santanu_Mukherjee_Resume.pdf
+    - assets/pdf/Santanu_s_Resume.pdf
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

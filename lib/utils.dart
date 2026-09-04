@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:portfolio/resources/asset_constants.dart';
-import 'dart:html' as html;
+import 'package:web/web.dart' as web;
 import 'dart:ui_web' as ui;
 
 import 'package:portfolio/resources/color_constants.dart';
@@ -46,7 +46,7 @@ class Utils {
       ui.platformViewRegistry.registerViewFactory(
         viewType,
             (int id) {
-          final iframe = html.IFrameElement()
+          final iframe = web.HTMLIFrameElement()
             ..src = AssetConstants.pdfProdResume
             ..style.border = 'none'
             ..style.width = '100%'
@@ -130,9 +130,10 @@ class Utils {
                                             color: Colors.white,
                                             tooltip: "Download",
                                             onPressed: () {
-                                              final anchor = html.AnchorElement(href: AssetConstants.pdfProdResume)
-                                                ..download = "Santanu_Mukherjee_Resume.pdf"
-                                                ..click();
+                                              final anchor = web.HTMLAnchorElement()
+                                                ..href = AssetConstants.pdfProdResume
+                                                ..download = "Santanu_Mukherjee_Resume.pdf";
+                                              anchor.click();
                                             },
                                           ),
                                           IconButton(

@@ -52,7 +52,7 @@
   </script>
 
   <script>const serviceWorkerVersion = null;</script>
-  <script src="flutter.js" defer></script>
+  <script src="flutter_bootstrap.js" defer></script>
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -514,45 +514,39 @@
   }
 
   function startFlutterApp() {
-    if (typeof _flutter !== 'undefined') {
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: { serviceWorkerVersion },
-        onEntrypointLoaded: function (engineInitializer) {
-          engineInitializer.initializeEngine().then(function (appRunner) {
-            appRunner.runApp().then(function () {
-              // Hide container first - faster transition
-              setTimeout(() => {
-                loaderContainer.style.opacity = '0';
-                loaderContainer.style.transform = 'translateY(-20px) scale(0.98)';
-              }, 60); // Reduced from 200
+    // Modern Flutter web bootstrap (supports WebAssembly + JS fallback).
+    // The engine is loaded by flutter_bootstrap.js; we simply hide the
+    // splash once the first frame has been rendered.
+    hideBootLoaderSoon();
+  }
 
-              // Then fade background - faster
-              setTimeout(() => {
-                document.getElementById('boot-loader').classList.add('fade-out');
-              }, 600); // Reduced from 800
-
-              setTimeout(() => {
-                document.getElementById('boot-loader').remove();
-              }, 1800); // Reduced from 2300
-            });
-          });
+  function hideBootLoaderSoon() {
+    let faded = false;
+    const fade = () => {
+      if (faded) return;
+      faded = true;
+      loaderContainer.style.opacity = '0';
+      loaderContainer.style.transform = 'translateY(-20px) scale(0.98)';
+      setTimeout(() => {
+        const el = document.getElementById('boot-loader');
+        if (el) {
+          el.classList.add('fade-out');
         }
-      });
-    } else {
-      // Fallback - faster
-      setTimeout(() => {
-        loaderContainer.style.opacity = '0';
-        loaderContainer.style.transform = 'translateY(-20px) scale(0.98)';
-      }, 100);
+      }, 600);
 
       setTimeout(() => {
-        document.getElementById('boot-loader').classList.add('fade-out');
-      }, 400);
-
-      setTimeout(() => {
-        document.getElementById('boot-loader').remove();
+        const el = document.getElementById('boot-loader');
+        if (el && el.parentNode) {
+          el.parentNode.removeChild(el);
+        }
       }, 1800);
-    }
+    };
+
+    // Fade as soon as the first Flutter frame is rendered.
+    window.addEventListener('flutter-first-frame', fade, { once: true });
+
+    // Fallback: never leave the splash in place indefinitely.
+    setTimeout(fade, 20000);
   }
 
   // Start loading sequence
